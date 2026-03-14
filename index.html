@@ -62,13 +62,12 @@ header {
   height:100vh;
   background: rgba(0,0,0,0.95);
   backdrop-filter: blur(15px);
-  padding-top:100px;
-  text-align:center;
   z-index:1001;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  display:flex;
+  opacity:0;
+  transition: opacity 0.5s;
 }
 
 #menuDropdown a {
@@ -78,8 +77,13 @@ header {
   font-size:2em;
   text-decoration:none;
   text-shadow: 0 0 10px #00f0ff;
-  transition:0.2s;
+  opacity:0;
+  transform: translateY(-20px);
+  transition: all 0.5s;
 }
+
+#menuDropdown a:nth-child(2){ transition-delay:0.1s;}
+#menuDropdown a:nth-child(3){ transition-delay:0.2s;}
 
 #menuDropdown a:hover {
   color:#00f0ff;
@@ -98,24 +102,36 @@ main {
 main h1 {
   font-size:2.5em;
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:30px;
   text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;
 }
 
-/* Badges */
-.badges {
+/* Badge boxes */
+.badges-container {
   display:flex;
-  gap:10px;
-  margin-bottom:30px;
   flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  margin-bottom:30px;
+}
+
+.badge-box {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,0.2);
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:160px;
+  text-align:center;
 }
 
 .badge {
-  background: rgba(255,255,255,0.1);
-  padding:6px 12px;
-  border-radius:12px;
-  font-size:0.9em;
-  border:1px solid rgba(255,255,255,0.3);
+  margin-bottom:10px;
+  font-size:1em;
   text-shadow: 0 0 5px #00f0ff;
 }
 
@@ -136,6 +152,11 @@ button.glow-btn {
 button.glow-btn:hover {
   box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;
   transform: translateY(-3px);
+}
+
+button.join-btn {
+  padding:8px 20px;
+  font-size:0.9em;
 }
 
 /* Dropdown filter */
@@ -166,8 +187,8 @@ section {
 /* Responsive layout */
 @media(max-width:600px){
   main h1 { font-size:2em; }
+  .badge-box { width:120px; }
   button.glow-btn { width:100%; padding:15px; }
-  .badges { justify-content:center; }
   #menuDropdown a { font-size:1.5em; padding:10px 0; }
 }
 </style>
@@ -189,10 +210,19 @@ section {
 <main>
   <h1>Submit and Share Your Best Links Effortlessly!</h1>
 
-  <div class="badges">
-    <div class="badge">No Login Required</div>
-    <div class="badge">Instant Approval</div>
-    <div class="badge">100% Free</div>
+  <div class="badges-container">
+    <div class="badge-box">
+      <div class="badge">No Login Required</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
+    <div class="badge-box">
+      <div class="badge">Instant Approval</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
+    <div class="badge-box">
+      <div class="badge">100% Free</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
   </div>
 
   <button class="glow-btn">+ Submit Link</button>
@@ -214,25 +244,45 @@ const menuBtn = document.getElementById('menuBtn');
 const menuDropdown = document.getElementById('menuDropdown');
 const menuLinks = document.querySelectorAll('.menuLink');
 
-// Toggle menu
+// Open menu with fade + slide animation
+function openMenu() {
+  menuDropdown.style.display = 'flex';
+  setTimeout(() => { menuDropdown.style.opacity = '1'; }, 10);
+  menuLinks.forEach((link, i) => {
+    setTimeout(() => {
+      link.style.opacity = '1';
+      link.style.transform = 'translateY(0)';
+    }, i * 100);
+  });
+}
+
+function closeMenu() {
+  menuDropdown.style.opacity = '0';
+  menuLinks.forEach(link => {
+    link.style.opacity = '0';
+    link.style.transform = 'translateY(-20px)';
+  });
+  setTimeout(() => { menuDropdown.style.display = 'none'; }, 500);
+}
+
 menuBtn.addEventListener('click', () => {
-  menuDropdown.style.display = menuDropdown.style.display === 'flex' ? 'none' : 'flex';
+  menuDropdown.style.display === 'flex' ? closeMenu() : openMenu();
 });
 
-// Smooth scroll + close menu
+// Smooth scroll to sections + close menu
 menuLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
+  link.addEventListener('click', e => {
     e.preventDefault();
     const target = document.querySelector(link.getAttribute('href'));
-    target.scrollIntoView({behavior: 'smooth'});
-    menuDropdown.style.display = 'none';
+    target.scrollIntoView({behavior:'smooth'});
+    closeMenu();
   });
 });
 
 // Submit button redirects
-const submitBtn = document.querySelector('.glow-btn');
+const submitBtn = document.querySelector('button.glow-btn:not(.join-btn)');
 submitBtn.addEventListener('click', () => {
-  window.location.href = 'submit.html'; // Change to your submit page
+  window.location.href = 'submit.html'; // change to your submit page
 });
 </script>
 
