@@ -11,6 +11,7 @@ body{
   background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
   color:#fff;
 }
+
 /* Header */
 header{
   display:flex;
@@ -39,19 +40,21 @@ header{
   text-shadow:0 0 10px #00f0ff;
 }
 
-/* Sidebar */
+/* Sidebar - slide in only */
 #sidebar{
   position:fixed;
-  left:-260px;
+  left:-260px; /* hidden initially */
   top:0;
   width:260px;
   height:100%;
   background:#111;
   padding:25px;
-  transition:0.3s;
-  z-index:1500; /* higher than header */
+  transition: left 0.3s ease;
+  z-index:1500; /* above header */
 }
-#sidebar.show{left:0;}
+#sidebar.show{
+  left:0; /* slide in */
+}
 #sidebar a{
   display:block;
   color:#fff;
@@ -60,18 +63,20 @@ header{
   font-size:1.1em;
   text-decoration:none;
 }
-#sidebar a:hover{color:#00f0ff; text-shadow:0 0 5px #00f0ff;}
+#sidebar a:hover{
+  color:#00f0ff;
+  text-shadow:0 0 5px #00f0ff;
+}
 
 /* Main content */
 main{
-  padding:80px 20px 40px; /* enough top padding for header */
+  padding:80px 20px 40px;
   display:flex;
   flex-direction:column;
   align-items:center;
   text-align:center;
-  min-height:calc(100vh - 70px);
-  z-index:1;
   position:relative;
+  z-index:1; /* below sidebar */
 }
 main h1{
   font-size:2.5em;
@@ -85,7 +90,9 @@ main p.tagline{
 }
 
 /* Badges */
-.badges{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:30px;}
+.badges{
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:30px;
+}
 .badge{
   background: rgba(255,255,255,0.1);
   padding:8px 14px;
@@ -135,7 +142,6 @@ select{
   width:100%;
   max-width:1100px;
   margin-top:40px;
-  z-index:1;
   position:relative;
 }
 .card{
@@ -241,7 +247,7 @@ footer a{color:#00f0ff;}
 </footer>
 
 <script>
-// Sidebar toggle
+// Sidebar slide-in only
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 menuBtn.addEventListener('click', ()=>sidebar.classList.toggle('show'));
@@ -254,7 +260,7 @@ document.addEventListener('click', e=>{
 });
 
 // Submit button
-document.getElementById('submitBtn').addEventListener('click', ()=> window.location.href='submit.html');
+document.getElementById('submitBtn').addEventListener('click', ()=>window.location.href='submit.html');
 </script>
 
 </body>
