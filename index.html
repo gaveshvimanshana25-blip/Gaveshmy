@@ -1,290 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKwave</title>
-<style>
-/* Dark gradient background */
-body {
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-  color:#fff;
-  scroll-behavior: smooth;
-}
-
-/* Glassmorphism card style */
+<!DOCTYPE html>    <html lang="en">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>LINKwave</title>    
+<style>    
+/* Dark gradient background */    
+body {    
+  margin:0;    
+  font-family: 'Segoe UI', sans-serif;    
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);    
+  color:#fff;    
+}    /* Glassmorphism card style */
 .card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.2);
-  padding:20px;
-  margin:15px;
-  text-align:center;
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border-radius: 15px;
+border: 1px solid rgba(255,255,255,0.2);
+padding:20px;
+margin:15px;
+text-align:center;
 }
 
 /* Header */
 header {
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  padding:15px 20px;
-  position: sticky;
-  top:0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  z-index:1000;
+display:flex;
+align-items:center;
+justify-content: space-between;
+padding:15px 20px;
+position: sticky;
+top:0;
+background: rgba(0,0,0,0.4);
+backdrop-filter: blur(10px);
+z-index:1000;
 }
 
 #menuBtn {
-  font-size:1.8em;
-  cursor:pointer;
-  color:#00f0ff;
+font-size:1.8em;
+cursor:pointer;
+color:#00f0ff;
 }
 
 #logo {
-  font-size:1.8em;
-  font-weight:bold;
-  color:#fff;
-  text-shadow: 0 0 10px #00f0ff;
-}
-
-/* Full screen dropdown menu */
-#menuDropdown {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100vh;
-  background: rgba(0,0,0,0.95);
-  backdrop-filter: blur(15px);
-  z-index:1001;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  transition: opacity 0.5s;
-}
-
-#menuDropdown a {
-  display:block;
-  padding:15px 0;
-  color:#fff;
-  font-size:2em;
-  text-decoration:none;
-  text-shadow: 0 0 10px #00f0ff;
-  opacity:0;
-  transform: translateY(-20px);
-  transition: all 0.5s;
-}
-
-#menuDropdown a:nth-child(2){ transition-delay:0.1s;}
-#menuDropdown a:nth-child(3){ transition-delay:0.2s;}
-
-#menuDropdown a:hover {
-  color:#00f0ff;
-  transform: scale(1.1);
+font-size:1.8em;
+font-weight:bold;
+color:#fff;
+text-shadow: 0 0 10px #00f0ff;
 }
 
 /* Main section */
 main {
-  padding:50px 20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+padding:50px 20px;
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
 /* Main heading */
 main h1 {
-  font-size:2.5em;
-  text-align:center;
-  margin-bottom:30px;
-  text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;
+font-size:2.5em;
+text-align:center;
+margin-bottom:20px;
+text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;
 }
 
-/* Badge boxes */
-.badges-container {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:center;
-  gap:15px;
-  margin-bottom:30px;
-}
-
-.badge-box {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border-radius:15px;
-  border:1px solid rgba(255,255,255,0.2);
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  width:160px;
-  text-align:center;
+/* Badges */
+.badges {
+display:flex;
+gap:10px;
+margin-bottom:30px;
+flex-wrap:wrap;
 }
 
 .badge {
-  margin-bottom:10px;
-  font-size:1em;
-  text-shadow: 0 0 5px #00f0ff;
+background: rgba(255,255,255,0.1);
+padding:6px 12px;
+border-radius:12px;
+font-size:0.9em;
+border:1px solid rgba(255,255,255,0.3);
+text-shadow: 0 0 5px #00f0ff;
 }
 
 /* Neon glowing button */
 button.glow-btn {
-  padding:15px 35px;
-  font-size:1.2em;
-  font-weight:bold;
-  border:none;
-  border-radius:25px;
-  background: linear-gradient(90deg, #00f0ff, #a020ff);
-  color:#fff;
-  cursor:pointer;
-  box-shadow: 0 0 10px #00f0ff, 0 0 20px #a020ff;
-  transition: all 0.3s ease;
+padding:15px 35px;
+font-size:1.2em;
+font-weight:bold;
+border:none;
+border-radius:25px;
+background: linear-gradient(90deg, #00f0ff, #a020ff);
+color:#fff;
+cursor:pointer;
+box-shadow: 0 0 10px #00f0ff, 0 0 20px #a020ff;
+transition: all 0.3s ease;
 }
 
 button.glow-btn:hover {
-  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;
-  transform: translateY(-3px);
-}
-
-button.join-btn {
-  padding:8px 20px;
-  font-size:0.9em;
+box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;
+transform: translateY(-3px);
 }
 
 /* Dropdown filter */
 select {
-  margin-top:20px;
-  padding:10px 15px;
-  border-radius:12px;
-  border:none;
-  background: rgba(255,255,255,0.05);
-  color:#fff;
-  font-size:1em;
-  box-shadow: 0 0 5px #00f0ff;
-  appearance:none;
-  cursor:pointer;
-}
-
-/* Sections */
-section {
-  width:100%;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:2em;
-  text-shadow: 0 0 10px #00f0ff;
+margin-top:20px;
+padding:10px 15px;
+border-radius:12px;
+border:none;
+background: rgba(255,255,255,0.05);
+color:#fff;
+font-size:1em;
+box-shadow: 0 0 5px #00f0ff;
+appearance:none;
+cursor:pointer;
 }
 
 /* Responsive layout */
 @media(max-width:600px){
-  main h1 { font-size:2em; }
-  .badge-box { width:120px; }
-  button.glow-btn { width:100%; padding:15px; }
-  #menuDropdown a { font-size:1.5em; padding:10px 0; }
+main h1 { font-size:2em; }
+button.glow-btn { width:100%; padding:15px; }
+.badges { justify-content:center; }
 }
 </style>
-</head>
-<body>
 
-<header>
-  <div id="menuBtn">&#9776;</div>
-  <div id="logo">LINKwave</div>
-</header>
+</head>    
+<body>    <header>    
+  <div id="menuBtn">&#9776;</div>    
+  <div id="logo">LINKwave</div>    
+  <div style="width:30px;"></div> <!-- empty space for symmetry -->    
+</header>    <main>    
+  <h1>Submit and Share Your Best Links Effortlessly!</h1>      <div class="badges">    
+    <div class="badge">No Login Required</div>    
+    <div class="badge">Instant Approval</div>    
+    <div class="badge">100% Free</div>    
+  </div>    <button class="glow-btn">+ Submit Link</button>
 
-<!-- Full screen dropdown menu -->
-<div id="menuDropdown">
-  <a href="#contact" class="menuLink">Contact</a>
-  <a href="#privacy" class="menuLink">Privacy Policy</a>
-  <a href="#about" class="menuLink">About</a>
-</div>
-
-<main>
-  <h1>Submit and Share Your Best Links Effortlessly!</h1>
-
-  <div class="badges-container">
-    <div class="badge-box">
-      <div class="badge">No Login Required</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-    <div class="badge-box">
-      <div class="badge">Instant Approval</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-    <div class="badge-box">
-      <div class="badge">100% Free</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-  </div>
-
-  <button class="glow-btn">+ Submit Link</button>
-
-  <select>
-    <option>Newest First</option>
-    <option>Oldest First</option>
-    <option>Most Popular</option>
-  </select>
-</main>
-
-<!-- Page sections for smooth scroll -->
-<section id="contact">Contact Section</section>
-<section id="privacy">Privacy Policy Section</section>
-<section id="about">About Section</section>
-
-<script>
-const menuBtn = document.getElementById('menuBtn');
-const menuDropdown = document.getElementById('menuDropdown');
-const menuLinks = document.querySelectorAll('.menuLink');
-
-// Open menu with fade + slide animation
-function openMenu() {
-  menuDropdown.style.display = 'flex';
-  setTimeout(() => { menuDropdown.style.opacity = '1'; }, 10);
-  menuLinks.forEach((link, i) => {
-    setTimeout(() => {
-      link.style.opacity = '1';
-      link.style.transform = 'translateY(0)';
-    }, i * 100);
-  });
-}
-
-function closeMenu() {
-  menuDropdown.style.opacity = '0';
-  menuLinks.forEach(link => {
-    link.style.opacity = '0';
-    link.style.transform = 'translateY(-20px)';
-  });
-  setTimeout(() => { menuDropdown.style.display = 'none'; }, 500);
-}
-
-menuBtn.addEventListener('click', () => {
-  menuDropdown.style.display === 'flex' ? closeMenu() : openMenu();
-});
-
-// Smooth scroll to sections + close menu
-menuLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    target.scrollIntoView({behavior:'smooth'});
-    closeMenu();
-  });
-});
-
-// Submit button redirects
-const submitBtn = document.querySelector('button.glow-btn:not(.join-btn)');
-submitBtn.addEventListener('click', () => {
-  window.location.href = 'submit.html'; // change to your submit page
-});
-</script>
-
-</body>
+  <select>    
+    <option>Newest First</option>    
+    <option>Oldest First</option>    
+    <option>Most Popular</option>    
+  </select>    
+</main>    </body>    
 </html>
