@@ -1,1 +1,272 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKwave</title>
+<style>
+/* === Body === */
+body {
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  color:#fff;
+}
+
+/* === Header === */
+header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding:15px 20px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top:0;
+  z-index:1000;
+}
+#menuBtn {
+  font-size: 1.8em;
+  cursor: pointer;
+  color: #00f0ff;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+#menuBtn:focus { outline:none; }
+#logo {
+  font-size:1.8em;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:0 0 10px #00f0ff;
+}
+
+/* === Sidebar Menu === */
+#sidebar {
+  position:fixed;
+  left:-240px;
+  top:0;
+  width:240px;
+  height:100%;
+  background:#111;
+  padding:25px;
+  box-shadow:2px 0 12px rgba(0,0,0,0.5);
+  transition:0.3s;
+  z-index:999;
+}
+#sidebar.show { left:0; }
+#sidebar a {
+  display:block;
+  color:#fff;
+  margin:20px 0;
+  font-weight:bold;
+  font-size:1.1em;
+}
+#sidebar a:hover {
+  color:#00f0ff;
+  text-shadow:0 0 5px #00f0ff;
+}
+
+/* === Main Section === */
+main {
+  padding:80px 20px 40px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height: calc(100vh - 70px);
+  text-align:center;
+}
+main h1 {
+  font-size:2.5em;
+  margin-bottom:10px;
+  text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff;
+  color:#fff;
+}
+main p.tagline {
+  font-size:1.1em;
+  margin-bottom:25px;
+  color:#ccc;
+}
+
+/* === Badges === */
+.badges {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:30px;
+}
+.badge {
+  background: rgba(255,255,255,0.1);
+  padding:8px 14px;
+  border-radius:14px;
+  font-size:0.9em;
+  border:1px solid rgba(255,255,255,0.3);
+  text-shadow:0 0 5px #00f0ff;
+}
+
+/* === CTA Button === */
+button.glow-btn {
+  padding:15px 35px;
+  font-size:1.2em;
+  font-weight:bold;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(90deg,#00f0ff,#a020ff);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff;
+  transition:all 0.3s ease;
+}
+button.glow-btn:hover {
+  box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff;
+  transform:translateY(-3px);
+}
+
+/* === Dropdown === */
+select {
+  margin-top:20px;
+  padding:10px 15px;
+  border-radius:12px;
+  border:none;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:1em;
+  box-shadow:0 0 5px #00f0ff;
+  cursor:pointer;
+  appearance:none;
+}
+
+/* === Cards Section === */
+#cards-container {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+  width:100%;
+  max-width:1100px;
+  margin-top:40px;
+}
+.card {
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 10px #00f0ff;
+  transition:0.3s;
+}
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff;
+}
+.card img {
+  width:50px;
+  height:50px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+.card h3 { color:#fff; margin:5px 0; }
+.card p { color:#ccc; font-size:0.95em; margin:5px 0; }
+.card button {
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#00f0ff,#a020ff);
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+}
+.card button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 0 15px #00f0ff,0 0 30px #a020ff;
+}
+
+/* === Footer === */
+footer {
+  padding:20px;
+  text-align:center;
+  color:#ccc;
+  margin-top:50px;
+  font-size:0.9em;
+}
+footer a { color:#00f0ff; }
+
+/* === Responsive === */
+@media(max-width:600px){
+  main h1 { font-size:2em; }
+  button.glow-btn { width:100%; }
+  .badges {justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button id="menuBtn">&#9776;</button>
+  <div id="logo">LINKwave</div>
+  <div style="width:30px;"></div>
+</header>
+
+<div id="sidebar">
+  <a href="contact.html" target="_blank">Contact</a>
+  <a href="developer.html" target="_blank">Developer</a>
+  <a href="terms.html" target="_blank">Terms & Service</a>
+</div>
+
+<main>
+  <h1>Submit & Share Your Best Links!</h1>
+  <p class="tagline">Fast, Easy, & 100% Free link submission platform</p>
+
+  <div class="badges">
+    <div class="badge">No Login Required</div>
+    <div class="badge">Instant Approval</div>
+    <div class="badge">100% Free</div>
+  </div>
+
+  <button class="glow-btn" id="submitBtn">+ Submit Link</button>
+  <select>
+    <option>Newest First</option>
+    <option>Oldest First</option>
+    <option>Most Popular</option>
+  </select>
+
+  <div id="cards-container">
+    <!-- Example Cards -->
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo">
+      <h3>Movie Chat</h3>
+      <p>Join this WhatsApp group to share movies!</p>
+      <p>Category: Movie</p>
+      <button onclick="window.open('https://example.com','_blank')">Join</button>
+    </div>
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram logo">
+      <h3>Fun Chat</h3>
+      <p>Telegram group for funny videos & memes</p>
+      <p>Category: Funny</p>
+      <button onclick="window.open('https://example.com','_blank')">Join</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 LINKwave. <a href="terms.html">Terms & Service</a> | <a href="developer.html">Developer</a>
+</footer>
+
+<script>
+// Sidebar toggle
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+menuBtn.addEventListener('click', ()=> sidebar.classList.toggle('show'));
+
+// Submit button click
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  window.location.href = 'submit.html';
+});
+</script>
+
+</body>
+  </html>
