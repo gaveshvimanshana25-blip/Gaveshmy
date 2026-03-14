@@ -20,13 +20,28 @@ h1{margin-top:30px;font-size:32px;}
 <form id="submitForm">
   <input type="text" placeholder="Group Name" required id="groupName">
   <input type="url" placeholder="Group Link" required id="groupURL">
+
+  <!-- Platform -->
   <select required id="groupPlatform">
     <option value="">Select Platform</option>
     <option value="WhatsApp">WhatsApp</option>
     <option value="Telegram">Telegram</option>
     <option value="Discord">Discord</option>
   </select>
+
+  <!-- Category -->
+  <select required id="groupCategory">
+    <option value="">Select Category</option>
+    <option value="Movie">Movie</option>
+    <option value="Funny">Funny</option>
+    <option value="18+ Adult">18+ Adult</option>
+    <option value="Music">Music</option>
+    <option value="Education">Education</option>
+    <option value="Gaming">Gaming</option>
+  </select>
+
   <textarea placeholder="Short Description" rows="4" required id="groupDesc"></textarea>
+  <input type="text" placeholder="Submitted by (Your Name)" required id="groupOwner">
   <input type="file" id="groupLogo" accept="image/*" required>
   <button type="submit">Submit Link</button>
 </form>
@@ -37,7 +52,9 @@ document.getElementById('submitForm').addEventListener('submit', function(e){
   const name = document.getElementById('groupName').value;
   const url = document.getElementById('groupURL').value;
   const platform = document.getElementById('groupPlatform').value;
+  const category = document.getElementById('groupCategory').value;
   const desc = document.getElementById('groupDesc').value;
+  const owner = document.getElementById('groupOwner').value;
   const logoInput = document.getElementById('groupLogo');
 
   if(logoInput.files.length===0){ alert("Please select a logo image."); return; }
@@ -45,7 +62,7 @@ document.getElementById('submitForm').addEventListener('submit', function(e){
   const reader = new FileReader();
   reader.onload=function(){
     const logoBase64 = reader.result;
-    const link = {name,url,platform,description:desc,logo:logoBase64};
+    const link = {name,url,platform,category,description:desc,logo:logoBase64,owner};
     let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
     links.push(link);
     localStorage.setItem('linkwaveLinks', JSON.stringify(links));
