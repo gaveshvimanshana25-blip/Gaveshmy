@@ -58,16 +58,8 @@ header{
 }
 
 /* -------------------- TITLE -------------------- */
-h1{
-  font-size:40px;
-  margin-top:20px;
-}
-
-p{
-  color:#aaa;
-  max-width:600px;
-  margin:auto;
-}
+h1{font-size:40px;margin-top:20px;}
+p{color:#aaa;max-width:600px;margin:auto;}
 
 /* -------------------- BUTTON -------------------- */
 .main-btn{
@@ -83,22 +75,9 @@ p{
 }
 
 /* -------------------- SEARCH -------------------- */
-.search{
-  margin-top:40px;
-}
-
-.search input{
-  padding:12px;
-  width:220px;
-  border-radius:10px;
-  border:none;
-}
-
-.search select{
-  padding:12px;
-  border-radius:10px;
-  border:none;
-}
+.search{margin-top:40px;}
+.search input{padding:12px;width:220px;border-radius:10px;border:none;}
+.search select{padding:12px;border-radius:10px;border:none;}
 
 /* -------------------- CARDS -------------------- */
 .cards{
@@ -136,7 +115,7 @@ p{
 <header>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
   <div>LinkWave</div>
-  <div></div> <!-- empty space for balance -->
+  <div></div> <!-- empty for balance -->
 
   <!-- Dropdown menu -->
   <div class="dropdown" id="dropdownMenu">
@@ -147,64 +126,66 @@ p{
 </header>
 
 <h1>Discover and Join the Best Communities</h1>
-
-<p>
-Find WhatsApp, Telegram and social groups shared by the community.
-</p>
+<p>Find WhatsApp, Telegram and social groups shared by the community.</p>
 
 <a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
 
 <div class="search">
-  <input type="text" placeholder="Search groups...">
-  <select>
-    <option>Newest First</option>
-    <option>Popular</option>
-    <option>WhatsApp</option>
-    <option>Telegram</option>
+  <input type="text" id="searchInput" placeholder="Search groups...">
+  <select id="filterSelect">
+    <option value="Newest">Newest First</option>
+    <option value="Popular">Popular</option>
+    <option value="WhatsApp">WhatsApp</option>
+    <option value="Telegram">Telegram</option>
   </select>
 </div>
 
-<div class="cards">
-
-  <div class="card">
-    <h3>Movie Fans</h3>
-    <p>Telegram movie discussion group</p>
-    <a class="join" href="#">Join</a>
-  </div>
-
-  <div class="card">
-    <h3>Tech Updates</h3>
-    <p>Latest tech news community</p>
-    <a class="join" href="#">Join</a>
-  </div>
-
-  <div class="card">
-    <h3>Gaming Hub</h3>
-    <p>Gamers chat and share tips</p>
-    <a class="join" href="#">Join</a>
-  </div>
-
+<div class="cards" id="cardsContainer">
+  <!-- Dynamic cards from submitted links will appear here -->
 </div>
 
 <script>
+// Toggle menu
 function toggleMenu(){
   const menu = document.getElementById('dropdownMenu');
-  if(menu.style.display === "block"){
-    menu.style.display = "none";
-  } else {
-    menu.style.display = "block";
-  }
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
-
-// Close dropdown if clicked outside
 window.onclick = function(e){
   const menu = document.getElementById('dropdownMenu');
   if(!e.target.matches('.menu-icon')){
-    if(menu.style.display === "block"){
-      menu.style.display = "none";
-    }
+    if(menu.style.display === "block"){ menu.style.display = "none"; }
   }
 }
+
+// Load submitted links from localStorage
+function loadLinks(){
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = "";
+  let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+  
+  // Reverse for newest first
+  links.reverse().forEach(link => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<h3>${link.name}</h3>
+                      <p>${link.description}</p>
+                      <a class="join" href="${link.url}" target="_blank">Join</a>`;
+    container.appendChild(card);
+  });
+}
+
+// Call loadLinks on page load
+window.onload = loadLinks;
+
+// Optional: live search/filter
+document.getElementById('searchInput').addEventListener('input', function(){
+  const term = this.value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const text = card.querySelector('h3').textContent.toLowerCase();
+    card.style.display = text.includes(term) ? 'block' : 'none';
+  });
+});
 </script>
 
 </body>
