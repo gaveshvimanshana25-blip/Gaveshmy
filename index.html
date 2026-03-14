@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
-/* Body & Background */
 body{
   margin:0;
   font-family:Arial,sans-serif;
@@ -15,8 +14,6 @@ body{
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
-
-/* Header */
 header{
   display:flex;
   justify-content:space-between;
@@ -54,25 +51,8 @@ header{
 .dropdown a:hover{
   background:rgba(58,127,253,0.2);
 }
-
-/* Hero Section */
-h1{
-  font-size:40px;
-  margin-top:20px;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.3s;
-}
-p{
-  color:#aaa;
-  max-width:600px;
-  margin:auto;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.6s;
-}
+h1{font-size:40px;margin-top:20px;}
+p{color:#aaa;max-width:600px;margin:auto;}
 .main-btn{
   display:inline-block;
   margin-top:25px;
@@ -83,15 +63,7 @@ p{
   text-decoration:none;
   font-weight:bold;
   box-shadow:0 0 20px rgba(120,80,255,0.7);
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.9s;
 }
-@keyframes fadeInUp{
-  to{opacity:1; transform: translateY(0);}
-}
-
 /* Search + Categories */
 .search-category{
   max-width:900px;
@@ -125,7 +97,6 @@ p{
   transform: scale(1.1);
   box-shadow:0 5px 15px rgba(58,127,253,0.5);
 }
-
 /* Cards */
 .cards{
   display:flex;
@@ -162,8 +133,6 @@ p{
   color:white;
   font-size:14px;
 }
-
-/* Footer */
 footer{
   margin-top:50px;
   padding:20px 0;
@@ -179,8 +148,6 @@ footer a{
 footer a:hover{
   text-decoration:underline;
 }
-
-/* Background gradient animation */
 @keyframes gradientBG{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
@@ -203,13 +170,11 @@ footer a:hover{
 </header>
 
 <h1>Discover and Join the Best Communities</h1>
-<p>Find WhatsApp, Telegram, and social groups shared by the community.</p>
+<p>Find social groups shared by the community.</p>
 <a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
 
-<!-- Search + Categories -->
 <div class="search-category">
   <input type="text" id="searchInput" placeholder="Search groups...">
-  
   <div class="categories">
     <button data-platform="All">All</button>
     <button data-platform="WhatsApp">WhatsApp</button>
@@ -230,7 +195,6 @@ footer a:hover{
 </footer>
 
 <script>
-// Hamburger menu toggle
 function toggleMenu(){
   const menu = document.getElementById('dropdownMenu');
   menu.style.display = (menu.style.display==="block")?"none":"block";
@@ -242,7 +206,6 @@ window.onclick = function(e){
   }
 }
 
-// Load links from localStorage
 function loadLinks(){
   const container = document.getElementById('cardsContainer');
   container.innerHTML = "";
@@ -261,13 +224,10 @@ function loadLinks(){
   });
 }
 
-// On load
 window.onload = function(){
-  // Increment total visitors
   let totalVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
   totalVisitors += 1;
   localStorage.setItem('totalVisitors', totalVisitors);
-
   loadLinks();
 };
 
