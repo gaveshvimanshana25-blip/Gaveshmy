@@ -22,15 +22,16 @@ header {
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
   box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  position: sticky;
+  top:0;
+  z-index:1000;
 }
-
 .logo {
   font-size:24px;
   font-weight:bold;
   color:#00ffff;
   text-shadow:0 0 10px #00ffff;
 }
-
 .menu-icon {
   font-size:28px;
   cursor:pointer;
@@ -43,20 +44,20 @@ header {
   top:0;
   width:250px;
   height:100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   backdrop-filter: blur(10px);
   padding-top:60px;
   transition:0.3s;
+  z-index:1500;
 }
-
 #sideMenu a {
   display:block;
   padding:15px 20px;
   color:white;
   text-decoration:none;
   border-bottom:1px solid #333;
+  font-weight:bold;
 }
-
 #sideMenu a:hover {
   background:#00ffff;
   color:#000;
@@ -68,35 +69,12 @@ header {
   text-align:center;
   padding:60px 20px;
 }
-
-.hero h1 {
-  font-size:32px;
-  margin-bottom:20px;
-}
-
-.hero p {
-  font-size:18px;
-  max-width:600px;
-  margin:0 auto 20px auto;
-  line-height:1.5;
-}
+.hero h1 { font-size:32px; margin-bottom:20px;}
+.hero p { font-size:18px; max-width:600px; margin:0 auto 20px auto; line-height:1.5;}
 
 /* ===== Badges ===== */
-.badges {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:30px;
-}
-
-.badge {
-  padding:8px 12px;
-  border-radius:20px;
-  background: rgba(255,255,255,0.1);
-  text-shadow:0 0 5px #00ffff;
-  font-size:14px;
-  font-weight:bold;
-}
+.badges { display:flex; justify-content:center; gap:10px; margin-bottom:30px;}
+.badge { padding:8px 12px; border-radius:20px; background: rgba(255,255,255,0.1); text-shadow:0 0 5px #00ffff; font-size:14px; font-weight:bold;}
 
 /* ===== Submit Button ===== */
 .main-btn {
@@ -111,89 +89,56 @@ header {
   box-shadow: 0 0 20px #00f, 0 0 40px #a0f;
   transition:0.3s;
 }
-
 .main-btn:hover {
   box-shadow: 0 0 30px #0ff, 0 0 60px #f0f;
   transform: scale(1.05);
 }
 
 /* ===== Search Section ===== */
-.search-section {
-  margin:40px auto;
-  max-width:400px;
-  text-align:center;
-}
-
+.search-section { margin:40px auto; max-width:400px; text-align:center;}
 .search-section input, .search-section select {
-  width:80%;
-  padding:10px;
-  margin:5px;
-  border-radius:20px;
-  border:none;
-  outline:none;
-  background: rgba(255,255,255,0.1);
-  color:white;
-  backdrop-filter: blur(5px);
+  width:80%; padding:10px; margin:5px; border-radius:20px; border:none; outline:none;
+  background: rgba(255,255,255,0.1); color:white; backdrop-filter: blur(5px);
 }
+.search-section input::placeholder { color:#aaa; }
 
-.search-section input::placeholder {
-  color:#aaa;
-}
-
-/* ===== Link Cards ===== */
+/* ===== Cards ===== */
 .card {
   background: rgba(0,0,0,0.5);
   backdrop-filter: blur(10px);
-  margin:20px auto;
-  padding:15px;
-  max-width:400px;
-  border-radius:15px;
+  margin:20px auto; padding:15px; max-width:400px; border-radius:15px;
   box-shadow:0 0 15px #00ffff;
+  text-align:center;
+}
+.card a { color:#0ff; text-decoration:none; font-weight:bold;}
+.card a:hover { text-shadow:0 0 10px #fff;}
+.card button {
+  margin-top:10px; padding:10px 20px; border:none; border-radius:20px;
+  font-weight:bold; background: linear-gradient(90deg,#00f,#a0f); color:#fff;
+  cursor:pointer; transition:0.3s;
+}
+.card button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 0 15px #0ff,0 0 30px #a0f;
 }
 
-.card a {
-  color:#0ff;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-.card a:hover {
-  text-shadow:0 0 10px #fff;
-}
-
-/* ===== Submit Form Overlay ===== */
+/* ===== Overlay / Loader ===== */
 #overlay{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0; left:0; width:100%; height:100%;
   background:rgba(0,0,0,0.95);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  font-size:24px;
-  color:#0ff;
-  text-shadow:0 0 15px #0ff;
-  display:none;
-  z-index:999;
+  display:flex; justify-content:center; align-items:center; flex-direction:column;
+  font-size:24px; color:#0ff; text-shadow:0 0 15px #0ff; z-index:999; display:none;
 }
-
 .loader{
   border:6px solid #222;
   border-top:6px solid #0ff;
   border-radius:50%;
-  width:60px;
-  height:60px;
+  width:60px; height:60px;
   animation:spin 1s linear infinite;
   margin-bottom:20px;
 }
-
-@keyframes spin{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
+@keyframes spin{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
 
 /* ===== Responsive ===== */
 @media(max-width:500px){
@@ -213,11 +158,10 @@ header {
 
 <!-- Side Menu -->
 <div id="sideMenu">
-<a href="#">Home</a>
-<a href="#">Contact</a>
-<a href="#">Terms & Policy</a>
-<a href="#">Link Submit</a>
-<a href="#">Extra</a>
+<a href="index.html">Home</a>
+<a href="contact.html">Contact</a>
+<a href="terms.html">Terms & Policy</a>
+<a href="developer.html">Developer</a>
 </div>
 
 <!-- Hero Section -->
@@ -226,13 +170,12 @@ header {
 <p>Discover thousands of active WhatsApp, Telegram, and social communities.</p>
 
 <div class="badges">
-<div class="badge">No Login Required</div>
-<div class="badge">Instant Approval</div>
-<div class="badge">100% Free</div>
+  <div class="badge">No Login Required</div>
+  <div class="badge">Instant Approval</div>
+  <div class="badge">100% Free</div>
 </div>
 
-<!-- Submit Button triggers overlay -->
-<button class="main-btn" onclick="showOverlay()">+ Submit Link</button>
+<button class="main-btn" onclick="submitLink()">+ Submit Link</button>
 </section>
 
 <!-- Search Section -->
@@ -244,41 +187,46 @@ header {
 </select>
 </div>
 
-<!-- Example Link Cards -->
+<!-- Example Cards -->
 <div class="card">
-<a href="#">WhatsApp Group 1</a><br>
-Description of the group
+<a href="#">WhatsApp Group 1</a>
+<p>Movie sharing group</p>
+<button onclick="joinGroup('https://chat.whatsapp.com/example')">Join</button>
 </div>
 
 <div class="card">
-<a href="#">Telegram Channel 2</a><br>
-Description of the channel
+<a href="#">Telegram Channel 2</a>
+<p>Fun & funny content</p>
+<button onclick="joinGroup('https://t.me/example')">Join</button>
 </div>
 
-<!-- Submit Animation Overlay -->
+<!-- Overlay -->
 <div id="overlay">
 <div class="loader"></div>
-Link Submitted!
+Submitting...
 </div>
 
 <script>
-// ===== Menu Toggle =====
+// Hamburger Menu Toggle
 function toggleMenu(){
-let menu = document.getElementById("sideMenu");
-menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
+  const menu = document.getElementById('sideMenu');
+  menu.style.left = menu.style.left==='0px'?'-250px':'0px';
 }
 
-// ===== Submit Animation Overlay =====
-function showOverlay(){
-  let overlay = document.getElementById("overlay");
-  overlay.style.display = "flex";
-
+// Submit Button Overlay + New Page
+function submitLink(){
+  const overlay = document.getElementById('overlay');
+  overlay.style.display = 'flex';
   setTimeout(()=>{
-    overlay.style.display = "none";
-    window.open("https://example.com/thankyou","_blank"); // new page or confirmation
-  },2000); // 2 seconds animation
+    overlay.style.display='none';
+    window.open('submit.html','_blank'); // open new page
+  },2000);
+}
+
+// Join button opens link in new tab
+function joinGroup(url){
+  window.open(url,'_blank');
 }
 </script>
-
 </body>
 </html>
