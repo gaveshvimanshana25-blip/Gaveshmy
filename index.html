@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LINKwave</title>
 <style>
+/* Body */
 body {
   margin:0;
   font-family:'Segoe UI',sans-serif;
@@ -12,15 +13,15 @@ body {
   color:#fff;
 }
 
-/* === Header === */
+/* Header */
 header {
   display:flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items:center;
   padding:15px 20px;
   background: rgba(0,0,0,0.4);
   backdrop-filter: blur(10px);
-  position: sticky;
+  position:sticky;
   top:0;
   z-index:1000;
 }
@@ -30,7 +31,6 @@ header {
   color:#00f0ff;
   background:none;
   border:none;
-  box-shadow:none;
   padding:0;
 }
 #menuBtn:focus {outline:none;}
@@ -41,18 +41,17 @@ header {
   text-shadow:0 0 10px #00f0ff;
 }
 
-/* === Sidebar Menu === */
+/* Sidebar */
 #sidebar {
   position:fixed;
-  left:-240px;
+  left:-260px;
   top:0;
-  width:240px;
+  width:260px;
   height:100%;
   background:#111;
   padding:25px;
-  box-shadow:2px 0 12px rgba(0,0,0,0.5);
   transition:0.3s;
-  z-index:999;
+  box-shadow:2px 0 15px rgba(0,0,0,0.5);
 }
 #sidebar.show {left:0;}
 #sidebar a {
@@ -61,26 +60,26 @@ header {
   margin:20px 0;
   font-weight:bold;
   font-size:1.1em;
+  text-decoration:none;
 }
 #sidebar a:hover {
   color:#00f0ff;
   text-shadow:0 0 5px #00f0ff;
 }
 
-/* === Main Section === */
+/* Main */
 main {
-  padding:80px 20px 40px 20px;
+  padding:80px 20px 40px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  min-height:calc(100vh - 70px);
   text-align:center;
+  min-height:calc(100vh - 70px);
 }
 main h1 {
   font-size:2.5em;
   margin-bottom:10px;
   text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff;
-  color:#fff;
 }
 main p.tagline {
   font-size:1.1em;
@@ -88,7 +87,7 @@ main p.tagline {
   color:#ccc;
 }
 
-/* === Badges === */
+/* Badges */
 .badges {
   display:flex;
   flex-wrap:wrap;
@@ -105,25 +104,25 @@ main p.tagline {
   text-shadow:0 0 5px #00f0ff;
 }
 
-/* === CTA Button === */
+/* CTA button */
 button.glow-btn {
   padding:15px 35px;
   font-size:1.2em;
-  font-weight:bold;
-  border:none;
   border-radius:25px;
+  border:none;
   background:linear-gradient(90deg,#00f0ff,#a020ff);
   color:#fff;
   cursor:pointer;
+  font-weight:bold;
   box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff;
-  transition:all 0.3s ease;
+  transition:0.3s;
 }
 button.glow-btn:hover {
   box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff;
   transform:translateY(-3px);
 }
 
-/* === Dropdown === */
+/* Dropdown */
 select {
   margin-top:20px;
   padding:10px 15px;
@@ -132,12 +131,12 @@ select {
   background:rgba(255,255,255,0.05);
   color:#fff;
   font-size:1em;
-  box-shadow:0 0 5px #00f0ff;
   cursor:pointer;
+  box-shadow:0 0 5px #00f0ff;
   appearance:none;
 }
 
-/* === Cards Section === */
+/* Cards */
 #cards-container {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -162,12 +161,11 @@ select {
 .card img {
   width:50px;
   height:50px;
-  object-fit:cover;
   border-radius:50%;
   margin-bottom:10px;
 }
-.card h3 {color:#fff; margin:5px 0;}
-.card p {color:#ccc; font-size:0.95em; margin:5px 0;}
+.card h3 {margin:5px 0;}
+.card p {color:#ccc;font-size:0.95em;margin:5px 0;}
 .card button {
   padding:10px 20px;
   border:none;
@@ -183,7 +181,7 @@ select {
   box-shadow:0 0 15px #00f0ff,0 0 30px #a020ff;
 }
 
-/* === Footer === */
+/* Footer */
 footer {
   padding:20px;
   text-align:center;
@@ -193,11 +191,11 @@ footer {
 }
 footer a {color:#00f0ff;}
 
-/* === Responsive === */
+/* Responsive */
 @media(max-width:600px){
-  main h1 { font-size:2em; }
-  button.glow-btn { width:100%; }
-  .badges { justify-content:center; }
+  main h1 {font-size:2em;}
+  button.glow-btn {width:100%;}
+  .badges {justify-content:center;}
 }
 </style>
 </head>
@@ -258,20 +256,17 @@ footer a {color:#00f0ff;}
 // Sidebar toggle
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
-
-menuBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('show');
-});
+menuBtn.addEventListener('click', () => sidebar.classList.toggle('show'));
 
 // Click outside sidebar closes it
-document.addEventListener('click', function(e){
+document.addEventListener('click', e => {
   if(!sidebar.contains(e.target) && !menuBtn.contains(e.target)){
     sidebar.classList.remove('show');
   }
 });
 
-// Submit button click
-document.getElementById('submitBtn').addEventListener('click', ()=>{
+// Submit button
+document.getElementById('submitBtn').addEventListener('click', () => {
   window.location.href='submit.html';
 });
 </script>
