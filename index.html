@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
+/* Body & Background */
 body{
   margin:0;
   font-family:Arial,sans-serif;
@@ -14,6 +15,8 @@ body{
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
+
+/* Header */
 header{
   display:flex;
   justify-content:space-between;
@@ -51,8 +54,25 @@ header{
 .dropdown a:hover{
   background:rgba(58,127,253,0.2);
 }
-h1{font-size:40px;margin-top:20px;}
-p{color:#aaa;max-width:600px;margin:auto;}
+
+/* Hero Section */
+h1{
+  font-size:40px;
+  margin-top:20px;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.3s;
+}
+p{
+  color:#aaa;
+  max-width:600px;
+  margin:auto;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.6s;
+}
 .main-btn{
   display:inline-block;
   margin-top:25px;
@@ -63,40 +83,43 @@ p{color:#aaa;max-width:600px;margin:auto;}
   text-decoration:none;
   font-weight:bold;
   box-shadow:0 0 20px rgba(120,80,255,0.7);
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.9s;
 }
-/* Search + Categories */
-.search-category{
-  max-width:900px;
-  margin:20px auto;
-  text-align:left;
+@keyframes fadeInUp{
+  to{opacity:1; transform: translateY(0);}
 }
-.search-category input{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  margin-bottom:12px;
-}
-.categories{
+
+/* Search */
+.search{margin-top:40px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+.search input{padding:12px;width:220px;border-radius:10px;border:none;}
+.search select{padding:12px;border-radius:10px;border:none;}
+
+/* Category Scroll */
+#categoryScroll{
+  margin-top:20px;
   display:flex;
   overflow-x:auto;
-  gap:10px;
-  padding-bottom:5px;
+  gap:15px;
+  padding:10px 20px;
 }
-.categories button{
+#categoryScroll div{
   flex:0 0 auto;
-  padding:10px 18px;
-  border:none;
+  padding:8px 18px;
+  background:rgba(58,127,253,0.2);
   border-radius:20px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: all 0.3s ease;
+}
+#categoryScroll div:hover{
   background:linear-gradient(45deg,#3a7bfd,#a855f7);
   color:white;
-  cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-}
-.categories button:hover{
   transform: scale(1.1);
-  box-shadow:0 5px 15px rgba(58,127,253,0.5);
 }
+
 /* Cards */
 .cards{
   display:flex;
@@ -133,6 +156,8 @@ p{color:#aaa;max-width:600px;margin:auto;}
   color:white;
   font-size:14px;
 }
+
+/* Footer */
 footer{
   margin-top:50px;
   padding:20px 0;
@@ -148,6 +173,62 @@ footer a{
 footer a:hover{
   text-decoration:underline;
 }
+
+/* Floating Battery/Activity Bar */
+#activityBattery {
+  position: fixed;
+  top:10px;
+  left:50%;
+  transform: translateX(-50%);
+  width:200px;
+  max-width:90%;
+  height:25px;
+  border:2px solid #3a7bfd;
+  border-radius:5px;
+  background:#111;
+  overflow:hidden;
+  z-index:1000;
+}
+#batteryFill {
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#3a7bfd,#a855f7);
+  transition:width 0.5s ease;
+}
+#batteryLabel {
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  color:#fff;
+  font-size:14px;
+  font-weight:bold;
+  line-height:25px;
+  pointer-events:none;
+  text-shadow:0 0 5px #3a7bfd;
+}
+#batteryFill.full{
+  box-shadow:0 0 15px #3a7bfd,0 0 25px #a855f7;
+  animation: glow 1s infinite alternate;
+}
+@keyframes glow{
+  0% {box-shadow:0 0 10px #3a7bfd,0 0 20px #a855f7;}
+  50%{box-shadow:0 0 15px #3a7bfd,0 0 30px #a855f7;}
+  100%{box-shadow:0 0 10px #3a7bfd,0 0 20px #a855f7;}
+}
+
+/* Scroll Progress Bar */
+#scrollProgress {
+  position: fixed;
+  top:0;
+  left:0;
+  width:0%;
+  height:4px;
+  background:linear-gradient(90deg,#3a7bfd,#a855f7);
+  z-index:1001;
+}
+
+/* Background gradient animation */
 @keyframes gradientBG{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
@@ -169,21 +250,52 @@ footer a:hover{
   </div>
 </header>
 
+<!-- Battery / Activity Bar -->
+<div id="activityBattery">
+  <div id="batteryFill"></div>
+  <div id="batteryLabel">0%</div>
+</div>
+
+<!-- Scroll Progress -->
+<div id="scrollProgress"></div>
+
 <h1>Discover and Join the Best Communities</h1>
-<p>Find social groups shared by the community.</p>
+<p>Find WhatsApp, Telegram, Facebook, TikTok groups shared by the community.</p>
 <a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
 
-<div class="search-category">
+<!-- Search + Category -->
+<div class="search">
   <input type="text" id="searchInput" placeholder="Search groups...">
-  <div class="categories">
-    <button data-platform="All">All</button>
-    <button data-platform="WhatsApp">WhatsApp</button>
-    <button data-platform="Telegram">Telegram</button>
-    <button data-platform="Facebook">Facebook</button>
-    <button data-platform="TikTok">TikTok</button>
-    <button data-platform="W&T">W&T</button>
-    <button data-platform="Other">Other</button>
-  </div>
+  <select id="filterSelect">
+    <option value="Newest">Newest First</option>
+    <option value="Popular">Popular</option>
+    <option value="WhatsApp">WhatsApp</option>
+    <option value="Telegram">Telegram</option>
+    <option value="Facebook">Facebook</option>
+    <option value="TikTok">TikTok</option>
+  </select>
+</div>
+
+<div id="categoryScroll">
+  <div>WhatsApp</div>
+  <div>Telegram</div>
+  <div>Facebook</div>
+  <div>TikTok</div>
+  <div>Twitter</div>
+  <div>Fun</div>
+  <div>Movies</div>
+  <div>Music</div>
+  <div>Gaming</div>
+  <div>News</div>
+  <div>Education</div>
+  <div>Tech</div>
+  <div>Sports</div>
+  <div>Business</div>
+  <div>Fashion</div>
+  <div>Travel</div>
+  <div>Health</div>
+  <div>Memes</div>
+  <div>Food</div>
 </div>
 
 <div class="cards" id="cardsContainer"></div>
@@ -195,6 +307,7 @@ footer a:hover{
 </footer>
 
 <script>
+// Hamburger menu toggle
 function toggleMenu(){
   const menu = document.getElementById('dropdownMenu');
   menu.style.display = (menu.style.display==="block")?"none":"block";
@@ -206,6 +319,7 @@ window.onclick = function(e){
   }
 }
 
+// Load links from localStorage
 function loadLinks(){
   const container = document.getElementById('cardsContainer');
   container.innerHTML = "";
@@ -213,60 +327,62 @@ function loadLinks(){
   links.reverse().forEach(link=>{
     const card = document.createElement('div');
     card.className = 'card';
-    card.dataset.platform = link.platform || "Other";
     card.innerHTML = `
       ${link.logo? `<img src="${link.logo}" alt="Group Logo">` : ''}
       <h3>${link.name}</h3>
-      <p>${link.platform || "Other"}</p>
+      <p>${link.description}</p>
       <a class="join" href="${link.url}" target="_blank">Join</a>
     `;
     container.appendChild(card);
   });
 }
 
-window.onload = function(){
-  let totalVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
-  totalVisitors += 1;
-  localStorage.setItem('totalVisitors', totalVisitors);
-  loadLinks();
-};
-
-// Live search
-document.getElementById('searchInput').addEventListener('input', function(){
-  const term = this.value.toLowerCase();
-  document.querySelectorAll('.card').forEach(card=>{
-    const text = card.querySelector('h3').textContent.toLowerCase();
-    card.style.display = text.includes(term)?'block':'none';
-  });
-});
-
-// Category filter
-document.querySelectorAll('.categories button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const platform = btn.getAttribute('data-platform');
-    document.querySelectorAll('.card').forEach(card=>{
-      if(platform==="All" || card.dataset.platform===platform){
-        card.style.display='block';
-      }else{
-        card.style.display='none';
-      }
-    });
-  });
-});
+// Battery / activity indicator
+let totalClicks = 0;
+const maxClicks = 20; 
+function updateBattery() {
+  totalClicks = Math.min(totalClicks, maxClicks);
+  const percentage = Math.floor((totalClicks / maxClicks) * 100);
+  const fill = document.getElementById('batteryFill');
+  const label = document.getElementById('batteryLabel');
+  fill.style.width = percentage + '%';
+  label.innerText = percentage + '%';
+  if(percentage===100) fill.classList.add('full');
+  else fill.classList.remove('full');
+}
 
 // Track clicks/joins
 document.addEventListener('click', function(e){
   if(e.target && e.target.classList.contains('join')){
+    totalClicks++;
+    updateBattery();
     const name = e.target.closest('.card').querySelector('h3').textContent;
     const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
     const link = links.find(l=>l.name===name);
     if(link){
-      link.clicks = (link.clicks||0) + 1;
-      link.joins = (link.joins||0) + 1;
+      link.clicks = (link.clicks||0)+1;
+      link.joins = (link.joins||0)+1;
       localStorage.setItem('linkwaveLinks', JSON.stringify(links));
     }
   }
 });
+
+// Scroll progress bar
+window.onscroll = function(){
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height)*100;
+  document.getElementById('scrollProgress').style.width = scrolled + "%";
+};
+
+// Initial load
+window.onload = function(){
+  let totalVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
+  totalVisitors++;
+  localStorage.setItem('totalVisitors', totalVisitors);
+  loadLinks();
+  updateBattery();
+};
 </script>
 
 </body>
