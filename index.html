@@ -5,72 +5,153 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LINKwave</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
-  body { background: linear-gradient(135deg, #0f0f0f, #1a1a1a); color:#fff; min-height:100vh; }
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  color:#fff;
+  scroll-behavior: smooth;
+}
 
-  /* Header */
-  header {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:15px 20px; background: rgba(0,0,0,0.5); backdrop-filter:blur(10px);
-    position: relative;
-  }
-  .logo { font-size:1.5rem; font-weight:bold; color:#ff4d4d; }
-  .menu-toggle { font-size:1.5rem; cursor:pointer; display:block; }
+header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding:15px 20px;
+  position: sticky;
+  top:0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index:1000;
+}
 
-  /* Navigation Menu */
-  nav {
-    position:absolute; top:60px; right:20px; background: rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:10px 20px;
-    display:none; flex-direction:column; gap:10px; min-width:150px;
-  }
-  nav a { color:#fff; text-decoration:none; transition:0.2s; }
-  nav a:hover { color:#ff4d4d; }
-  nav.active { display:flex; }
+#menuBtn { font-size:1.8em; cursor:pointer; color:#00f0ff; }
+#logo { font-size:1.8em; font-weight:bold; text-shadow:0 0 10px #00f0ff; }
 
-  /* Main Content */
-  main { text-align:center; padding:50px 20px; }
-  h1 { font-size:2rem; margin-bottom:15px; }
+#menuDropdown {
+  display:none;
+  position:absolute;
+  top:60px;
+  left:20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.2);
+  padding:10px;
+}
 
-  .features { display:flex; justify-content:center; gap:20px; margin-top:30px; flex-wrap:wrap; }
-  .feature { background: rgba(255,255,255,0.05); padding:10px 20px; border-radius:10px; backdrop-filter:blur(10px); }
+#menuDropdown a {
+  display:block;
+  padding:8px 15px;
+  color:#fff;
+  text-decoration:none;
+}
 
-  /* Footer */
-  footer { text-align:center; margin-top:50px; font-size:0.9rem; color:#aaa; }
+#menuDropdown a:hover {
+  background: rgba(0,255,255,0.2);
+  border-radius:8px;
+}
+
+main { padding:50px 20px; display:flex; flex-direction:column; align-items:center; }
+
+main h1 { font-size:2.5em; text-align:center; margin-bottom:30px; text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff; }
+
+.badges-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-bottom:30px; }
+
+.badge-box { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius:15px; border:1px solid rgba(255,255,255,0.2); padding:15px; display:flex; flex-direction:column; align-items:center; width:160px; text-align:center; }
+
+.badge { margin-bottom:10px; font-size:1em; text-shadow:0 0 5px #00f0ff; }
+
+button.glow-btn { padding:15px 35px; font-size:1.2em; font-weight:bold; border:none; border-radius:25px; background: linear-gradient(90deg,#00f0ff,#a020ff); color:#fff; cursor:pointer; box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff; transition: all 0.3s ease; }
+
+button.glow-btn:hover { box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff; transform: translateY(-3px); }
+
+button.join-btn { padding:8px 20px; font-size:0.9em; margin-top:5px; }
+
+select { margin-top:20px; padding:10px 15px; border-radius:12px; border:none; background: rgba(255,255,255,0.05); color:#fff; font-size:1em; cursor:pointer; }
+
+section { width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center; font-size:2em; text-shadow:0 0 10px #00f0ff; }
+
+@media(max-width:600px){
+  main h1 { font-size:2em; }
+  .badge-box { width:120px; }
+  button.glow-btn { width:100%; padding:15px; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">LINKwave</div>
-  <div class="menu-toggle" id="menuToggle">☰</div>
-  <nav id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="submit.html">Submit Link</a>
-    <a href="popular.html">Popular</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <div id="menuBtn">&#9776;</div>
+  <div id="logo">LINKwave</div>
+  <div id="menuDropdown">
+    <a href="#contact">Contact</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#about">About</a>
+  </div>
 </header>
 
 <main>
   <h1>Submit and Share Your Best Links Effortlessly!</h1>
-  <div class="features">
-    <div class="feature">No Login Required</div>
-    <div class="feature">Instant Approval</div>
-    <div class="feature">100% Free</div>
+
+  <div class="badges-container">
+    <div class="badge-box">
+      <div class="badge">No Login Required</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
+    <div class="badge-box">
+      <div class="badge">Instant Approval</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
+    <div class="badge-box">
+      <div class="badge">100% Free</div>
+      <button class="glow-btn join-btn">Join Now</button>
+    </div>
   </div>
+
+  <button class="glow-btn">+ Submit Link</button>
+
+  <select>
+    <option>Newest First</option>
+    <option>Oldest First</option>
+    <option>Most Popular</option>
+  </select>
 </main>
 
-<footer>
-  &copy; 2026 LINKwave. All rights reserved.
-</footer>
+<section id="contact">Contact Section</section>
+<section id="privacy">Privacy Policy Section</section>
+<section id="about">About Section</section>
 
 <script>
-  const menuToggle = document.getElementById('menuToggle');
-  const navMenu = document.getElementById('navMenu');
+const menuBtn = document.getElementById('menuBtn');
+const menuDropdown = document.getElementById('menuDropdown');
+const menuLinks = document.querySelectorAll('#menuDropdown a');
 
-  menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
+menuBtn.addEventListener('click', () => {
+  menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+});
+
+window.addEventListener('click', (e) => {
+  if(!menuDropdown.contains(e.target) && e.target !== menuBtn){
+    menuDropdown.style.display = 'none';
+  }
+});
+
+// Smooth scroll
+menuLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({behavior:'smooth'});
+    menuDropdown.style.display='none';
   });
+});
+
+// Submit button redirect
+const submitBtn = document.querySelector('button.glow-btn:not(.join-btn)');
+submitBtn.addEventListener('click', () => {
+  window.location.href='submit.html'; // change to your submit page
+});
 </script>
 
 </body>
