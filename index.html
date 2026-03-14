@@ -94,7 +94,6 @@ button.submit-btn:hover{box-shadow:0 0 30px #0ff,0 0 60px #f0f; transform:scale(
       <option value="WhatsApp">WhatsApp</option>
       <option value="Telegram">Telegram</option>
     </select>
-    <input type="url" id="logo" placeholder="Logo URL (optional)">
     <button class="submit-btn" onclick="submitData()">Submit</button>
   </div>
 </div>
@@ -109,15 +108,23 @@ button.submit-btn:hover{box-shadow:0 0 30px #0ff,0 0 60px #f0f; transform:scale(
 function showForm(){ document.getElementById("submitForm").style.display="flex"; }
 function closeForm(){ document.getElementById("submitForm").style.display="none"; }
 
+// Platform logos
+const platformLogos = {
+  "WhatsApp": "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+  "Telegram": "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+};
+
 // Submit data
 function submitData(){
   let title = document.getElementById("title").value;
   let desc = document.getElementById("description").value;
   let link = document.getElementById("link").value;
   let platform = document.getElementById("platform").value;
-  let logo = document.getElementById("logo").value || "https://via.placeholder.com/40"; // placeholder
 
   if(!title || !link){ alert("Title and Link are required!"); return; }
+
+  // Auto assign logo
+  let logo = platformLogos[platform] || "https://via.placeholder.com/40";
 
   // Add card dynamically
   let cardHTML = `
@@ -134,7 +141,6 @@ function submitData(){
   document.getElementById("title").value="";
   document.getElementById("description").value="";
   document.getElementById("link").value="";
-  document.getElementById("logo").value="";
   document.getElementById("platform").value="WhatsApp";
 
   closeForm();
