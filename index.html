@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkWave</title>
+<style>
+/* ===== Body & Background ===== */
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0a0a0a,#1a1a1a);
+  color:white;
+}
+
+/* ===== Header ===== */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+.logo {
+  font-size:24px;
+  font-weight:bold;
+  color:#00ffff;
+  text-shadow:0 0 10px #00ffff;
+}
+
+.menu-icon {
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* ===== Side Menu ===== */
+#sideMenu {
+  position:fixed;
+  left:-250px;
+  top:0;
+  width:250px;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(10px);
+  padding-top:60px;
+  transition:0.3s;
+}
+
+#sideMenu a {
+  display:block;
+  padding:15px 20px;
+  color:white;
+  text-decoration:none;
+  border-bottom:1px solid #333;
+}
+
+#sideMenu a:hover {
+  background:#00ffff;
+  color:#000;
+  text-shadow:0 0 5px #fff;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hero h1 {
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+.hero p {
+  font-size:18px;
+  max-width:600px;
+  margin:0 auto 20px auto;
+  line-height:1.5;
+}
+
+/* ===== Badges ===== */
+.badges {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:30px;
+}
+
+.badge {
+  padding:8px 12px;
+  border-radius:20px;
+  background: rgba(255,255,255,0.1);
+  text-shadow:0 0 5px #00ffff;
+  font-size:14px;
+  font-weight:bold;
+}
+
+/* ===== Submit Button ===== */
+.main-btn {
+  padding:15px 35px;
+  font-size:18px;
+  font-weight:bold;
+  color:white;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background: linear-gradient(90deg, #00f, #a0f);
+  box-shadow: 0 0 20px #00f, 0 0 40px #a0f;
+  transition:0.3s;
+}
+
+.main-btn:hover {
+  box-shadow: 0 0 30px #0ff, 0 0 60px #f0f;
+  transform: scale(1.05);
+}
+
+/* ===== Search Section ===== */
+.search-section {
+  margin:40px auto;
+  max-width:400px;
+  text-align:center;
+}
+
+.search-section input, .search-section select {
+  width:80%;
+  padding:10px;
+  margin:5px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  background: rgba(255,255,255,0.1);
+  color:white;
+  backdrop-filter: blur(5px);
+}
+
+.search-section input::placeholder {
+  color:#aaa;
+}
+
+/* ===== Link Cards ===== */
+.card {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  margin:20px auto;
+  padding:15px;
+  max-width:400px;
+  border-radius:15px;
+  box-shadow:0 0 15px #00ffff;
+}
+
+.card a {
+  color:#0ff;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.card a:hover {
+  text-shadow:0 0 10px #fff;
+}
+
+/* ===== Submit Form Overlay ===== */
+#overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.95);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-size:24px;
+  color:#0ff;
+  text-shadow:0 0 15px #0ff;
+  display:none;
+  z-index:999;
+}
+
+.loader{
+  border:6px solid #222;
+  border-top:6px solid #0ff;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 1s linear infinite;
+  margin-bottom:20px;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* ===== Responsive ===== */
+@media(max-width:500px){
+  .hero h1{font-size:24px;}
+  .hero p{font-size:16px;}
+  .main-btn{font-size:16px; padding:12px 25px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+<div class="logo">LinkWave</div>
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+</header>
+
+<!-- Side Menu -->
+<div id="sideMenu">
+<a href="#">Home</a>
+<a href="#">Contact</a>
+<a href="#">Terms & Policy</a>
+<a href="#">Link Submit</a>
+<a href="#">Extra</a>
+</div>
+
+<!-- Hero Section -->
+<section class="hero">
+<h1>The ultimate open directory for social groups</h1>
+<p>Discover thousands of active WhatsApp, Telegram, and social communities.</p>
+
+<div class="badges">
+<div class="badge">No Login Required</div>
+<div class="badge">Instant Approval</div>
+<div class="badge">100% Free</div>
+</div>
+
+<!-- Submit Button triggers overlay -->
+<button class="main-btn" onclick="showOverlay()">+ Submit Link</button>
+</section>
+
+<!-- Search Section -->
+<div class="search-section">
+<input type="text" placeholder="Search links...">
+<select>
+<option>Newest First</option>
+<option>Oldest First</option>
+</select>
+</div>
+
+<!-- Example Link Cards -->
+<div class="card">
+<a href="#">WhatsApp Group 1</a><br>
+Description of the group
+</div>
+
+<div class="card">
+<a href="#">Telegram Channel 2</a><br>
+Description of the channel
+</div>
+
+<!-- Submit Animation Overlay -->
+<div id="overlay">
+<div class="loader"></div>
+Link Submitted!
+</div>
+
+<script>
+// ===== Menu Toggle =====
+function toggleMenu(){
+let menu = document.getElementById("sideMenu");
+menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
+}
+
+// ===== Submit Animation Overlay =====
+function showOverlay(){
+  let overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+
+  setTimeout(()=>{
+    overlay.style.display = "none";
+    window.open("https://example.com/thankyou","_blank"); // new page or confirmation
+  },2000); // 2 seconds animation
+}
+</script>
+
+</body>
+</html>
