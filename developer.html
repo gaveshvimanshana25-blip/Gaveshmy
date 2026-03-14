@@ -5,79 +5,194 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Developer - LinkWave</title>
 <style>
+/* BODY & HEADER */
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:#0a0a0a; /* dark black */
+  font-family:Arial,sans-serif;
+  background:#0a0a0f;
   color:white;
   text-align:center;
+}
+header{
   padding:20px;
-  line-height:1.6;
+  font-size:28px;
+  font-weight:bold;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-h1,h2,h3{color:#ff4c4c;} /* red headers */
-a{color:#ff6b6b;text-decoration:none;}
-a:hover{text-decoration:underline;}
-section{margin-bottom:30px;}
+.menu-icon{
+  font-size:28px;
+  cursor:pointer;
+}
+.dropdown{
+  display:none;
+  position:absolute;
+  top:70px;
+  right:20px;
+  background:#111;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:100;
+}
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+.dropdown a:hover{
+  background:#222;
+}
 
-/* Animated Icon */
-.icon {
+/* DEVELOPER CARD */
+.dev-card{
+  max-width:400px;
+  margin:60px auto;
+  padding:25px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity:0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+}
+.dev-card:hover{
+  transform: scale(1.05);
+  box-shadow:0 15px 25px rgba(58,127,253,0.4);
+}
+.dev-avatar{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin-bottom:15px;
+  border:2px solid #3a7bfd;
+  object-fit:cover;
+}
+.dev-name{
+  font-size:28px;
+  font-weight:bold;
+  margin:10px 0;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: glowText 2s infinite alternate;
+}
+.dev-title{
+  font-size:18px;
+  color:#aaa;
+  margin:5px 0;
+}
+.dev-bio{
+  margin:15px 0;
+  color:#ccc;
+  line-height:1.5;
+}
+
+/* DEVELOPER LINKS WITH BOXES */
+.dev-links{
+  margin-top:15px;
+}
+.dev-links a{
   display:inline-block;
-  margin-right:10px;
-  animation: spin 2s linear infinite;
-  font-size:32px;
+  margin:0 10px;
+  width:50px;
+  height:50px;
+  background:#111;
+  border-radius:12px;
+  border:2px solid #3a7bfd;
+  color:white;
+  font-size:24px;
+  text-align:center;
+  line-height:50px;
+  transition: all 0.3s ease;
+  text-decoration:none;
+}
+.dev-links a.facebook{
+  border-color:#3a7bfd;
+}
+.dev-links a.youtube{
+  border-color:#ff0000;
+}
+.dev-links a:hover{
+  transform: scale(1.2);
+  box-shadow:0 0 15px #3a7bfd;
+}
+.dev-links a.youtube:hover{
+  box-shadow:0 0 15px #ff0000;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
-}
-
+/* FOOTER */
 footer{
   margin-top:50px;
-  font-size:14px;
+  padding:20px 0;
+  background:#111;
   color:#aaa;
-  text-align:center;
-}
-button{
-  padding:12px 24px;
-  border:none;
-  border-radius:15px;
-  background:#ff4c4c;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin:5px;
-  transition: transform 0.2s;
-}
-button:hover{
-  transform: scale(1.1);
+  font-size:14px;
 }
 
+/* ANIMATIONS */
+@keyframes fadeInUp{
+  to{opacity:1; transform: translateY(0);}
+}
+@keyframes glowText{
+  0%{text-shadow: 0 0 5px #3a7bfd, 0 0 10px #a855f7;}
+  50%{text-shadow: 0 0 10px #3a7bfd, 0 0 20px #a855f7;}
+  100%{text-shadow: 0 0 5px #3a7bfd, 0 0 10px #a855f7;}
+}
 </style>
 </head>
 <body>
 
-<h1><span class="icon">🛠️</span>Gawesh Vimanshana</h1>
-<h2>Owner & Lead Developer</h2>
-<p>The creator of <strong>LinkWave</strong>. Passionate about building web applications and connecting people through technology.</p>
+<header>
+  <div>LinkWave</div>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="dropdown" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms & Policy</a>
+    <a href="analytics.html">Live Analytics</a>
+  </div>
+</header>
 
-<section>
-<h3>Social & YouTube</h3>
-<p>
-<button onclick="window.open('https://www.youtube.com/@gaveshvimanshana', '_blank')">YouTube Channel</button>
-<button onclick="window.open('https://www.facebook.com/gaveshvimanshana', '_blank')">Facebook</button>
-</p>
-</section>
-
-<section>
-<h3>Email Support</h3>
-<p>gaveshvimanshana@gmail.com</p>
-<button onclick="window.location.href='mailto:gaveshvimanshana@gmail.com'">Send Email</button>
-</section>
+<div class="dev-card">
+  <img class="dev-avatar" src="https://i.pravatar.cc/150?img=12" alt="Gavesh Avatar">
+  <div class="dev-name">Gavesh Vimanshana</div>
+  <div class="dev-title">Owner & Lead Developer</div>
+  <div class="dev-bio">
+    Passionate about building web applications, connecting communities, and creating seamless digital experiences.
+  </div>
+  <div class="dev-links">
+    <a href="https://www.facebook.com/" target="_blank" class="facebook" title="Facebook">F</a>
+    <a href="https://www.youtube.com/" target="_blank" class="youtube" title="YouTube">Y</a>
+  </div>
+</div>
 
 <footer>
-<p>Made within Sri Lanka 🇱🇰<br>© 2025 LinkWave. All rights reserved.</p>
+  Made within Sri Lanka 🇱🇰 <br>
+  © 2026 LinkWave. All rights reserved.
 </footer>
+
+<script>
+// Hamburger menu toggle
+function toggleMenu(){
+  const menu = document.getElementById('dropdownMenu');
+  menu.style.display = (menu.style.display==="block")?"none":"block";
+}
+window.onclick = function(e){
+  const menu = document.getElementById('dropdownMenu');
+  if(!e.target.matches('.menu-icon')){
+    if(menu.style.display==="block"){menu.style.display="none";}
+  }
+}
+</script>
 
 </body>
 </html>
