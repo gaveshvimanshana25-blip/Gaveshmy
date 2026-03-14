@@ -18,11 +18,43 @@ body{
 /* -------------------- HEADER -------------------- */
 header{
   display:flex;
-  justify-content:center;
+  justify-content:space-between;
   align-items:center;
-  padding:20px;
+  padding:20px 40px;
   font-size:28px;
   font-weight:bold;
+  position:relative;
+}
+
+.menu-icon{
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* Dropdown menu */
+.dropdown{
+  display:none;
+  position:absolute;
+  top:70px;
+  left:20px;
+  background:rgba(0,0,0,0.9);
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:100;
+}
+
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+
+.dropdown a:hover{
+  background:rgba(58,127,253,0.2);
 }
 
 /* -------------------- TITLE -------------------- */
@@ -102,7 +134,16 @@ p{
 <body>
 
 <header>
-LinkWave
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div>LinkWave</div>
+  <div></div> <!-- empty space for balance -->
+  
+  <!-- Dropdown menu -->
+  <div class="dropdown" id="dropdownMenu">
+    <a href="contact.html" target="_blank">Contact</a>
+    <a href="terms.html" target="_blank">Terms & Policy</a>
+    <a href="developer.html" target="_blank">Developer</a>
+  </div>
 </header>
 
 <h1>Discover and Join the Best Communities</h1>
@@ -144,6 +185,27 @@ Find WhatsApp, Telegram and social groups shared by the community.
   </div>
 
 </div>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById('dropdownMenu');
+  if(menu.style.display === "block"){
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "block";
+  }
+}
+
+// Close dropdown if clicked outside
+window.onclick = function(e){
+  const menu = document.getElementById('dropdownMenu');
+  if(!e.target.matches('.menu-icon')){
+    if(menu.style.display === "block"){
+      menu.style.display = "none";
+    }
+  }
+}
+</script>
 
 </body>
 </html>
