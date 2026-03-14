@@ -5,249 +5,145 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
-body{
-  margin:0;
+body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0a0a0a,#1a1a1a);
-  color:white;
+  background: #111;
+  color: #fff;
 }
+
 /* Header */
 header {
-  display:flex;
-  justify-content:center; /* center logo */
-  align-items:center;
-  padding:15px 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #0ff, #f0f, #ff0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Categories on left */
+.categories {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.categories button {
+  padding: 12px;
+  border: 1px solid #0ff;
+  border-radius: 10px;
   background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
-  position: sticky;
-  top:0;
-  z-index:1000;
+  color: #0ff;
+  cursor: pointer;
+  transition: 0.3s;
 }
-.logo {
-  font-size:28px;
-  font-weight:bold;
-  color:red;
-  text-shadow:0 0 10px red;
-  text-align:center;
-  flex:1;
-}
-.menu-icon {
-  font-size:28px;
-  cursor:pointer;
-  position:absolute;
-  left:20px;
-  top:15px;
+.categories button:hover {
+  background: #0ff;
+  color: #111;
 }
 
-/* Side Menu */
-#sideMenu {
-  position:fixed;
-  left:-250px;
-  top:0;
-  width:250px;
-  height:100%;
-  background: rgba(0,0,0,0.95);
-  backdrop-filter: blur(10px);
-  padding-top:60px;
-  transition:0.3s;
-  z-index:1500;
+/* Links section */
+.links {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 500px; /* scrollable */
+  overflow-y: auto;
+  padding-right: 10px;
 }
-#sideMenu a {
-  display:block;
-  padding:15px 20px;
-  color:white;
-  text-decoration:none;
-  border-bottom:1px solid #333;
-  font-weight:bold;
+.link-btn {
+  padding: 15px;
+  border: 1px solid #0ff;
+  border-radius: 10px;
+  color: #0ff;
+  text-decoration: none;
+  background: rgba(255,255,255,0.05);
+  transition: 0.3s;
 }
-#sideMenu a:hover {
-  background:#00ffff;
-  color:#000;
-  text-shadow:0 0 5px #fff;
+.link-btn:hover {
+  background: #0ff;
+  color: #111;
 }
 
-/* Hero Section */
-.hero {
-  text-align:center;
-  padding:60px 20px;
+/* Scrollbar style */
+.links::-webkit-scrollbar {
+  width: 6px;
 }
-.hero h1 { font-size:32px; margin-bottom:20px;}
-.hero p { font-size:18px; max-width:600px; margin:0 auto 20px auto; line-height:1.5;}
-
-/* Badges */
-.badges { display:flex; justify-content:center; gap:10px; margin-bottom:30px;}
-.badge { padding:8px 12px; border-radius:20px; background: rgba(255,255,255,0.1); text-shadow:0 0 5px #00ffff; font-size:14px; font-weight:bold;}
-
-/* Submit Button */
-.main-btn {
-  padding:15px 35px;
-  font-size:18px;
-  font-weight:bold;
-  color:white;
-  border:none;
-  border-radius:25px;
-  cursor:pointer;
-  background: linear-gradient(90deg, #00f, #a0f);
-  box-shadow: 0 0 20px #00f, 0 0 40px #a0f;
-  transition:0.3s;
-  margin-bottom:20px;
-}
-.main-btn:hover {
-  box-shadow: 0 0 30px #0ff, 0 0 60px #f0f;
-  transform: scale(1.05);
+.links::-webkit-scrollbar-thumb {
+  background: #0ff;
+  border-radius: 3px;
 }
 
-/* Category Dropdown */
-select {
-  padding:10px 15px;
-  border-radius:20px;
-  border:none;
-  background: rgba(255,255,255,0.1);
-  color:#fff;
-  font-size:16px;
-  outline:none;
-  margin-bottom:30px;
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .categories {
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100%;
+  }
+  .categories button {
+    flex: 0 0 auto;
+  }
 }
-
-/* Cards */
-.card {
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
-  margin:20px auto;
-  padding:15px;
-  max-width:400px;
-  border-radius:15px;
-  box-shadow:0 0 15px #00ffff;
-  text-align:center;
-}
-.card a { color:#0ff; text-decoration:none; font-weight:bold;}
-.card a:hover { text-shadow:0 0 10px #fff;}
-.card button {
-  margin-top:10px; padding:10px 20px; border:none; border-radius:20px;
-  font-weight:bold; background: linear-gradient(90deg,#00f,#a0f); color:#fff;
-  cursor:pointer; transition:0.3s;
-}
-.card button:hover {
-  transform:translateY(-3px);
-  box-shadow:0 0 15px #0ff,0 0 30px #a0f;
-}
-
-/* Overlay / typing animation */
-#overlay{
-  position:fixed;
-  top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.95);
-  display:flex; justify-content:center; align-items:center; flex-direction:column;
-  font-size:24px; color:#0ff; text-shadow:0 0 15px #0ff; z-index:999; display:none;
-}
-#overlay span {
-  border-right:2px solid #0ff;
-  white-space:pre;
-  font-family:monospace;
-  font-size:24px;
-}
-
-/* Spinner for effect */
-.loader{
-  border:6px solid #222;
-  border-top:6px solid #0ff;
-  border-radius:50%;
-  width:60px; height:60px;
-  animation:spin 1s linear infinite;
-  margin-top:20px;
-}
-@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
-<div class="logo">LinkWave</div>
-</header>
+<header>LinkWave</header>
 
-<!-- Side Menu -->
-<div id="sideMenu">
-<a href="index.html">Home</a>
-<a href="contact.html">Contact</a>
-<a href="terms.html">Terms & Policy</a>
-<a href="developer.html">Developer</a>
+<div class="container">
+  <div class="categories">
+    <button onclick="showLinks('whatsapp')">WhatsApp</button>
+    <button onclick="showLinks('telegram')">Telegram</button>
+    <button onclick="showLinks('other')">Other</button>
+  </div>
+
+  <div class="links" id="linksContainer">
+    <!-- Links will appear here -->
+    <a class="link-btn" href="https://example.com" target="_blank">Example Link 1</a>
+    <a class="link-btn" href="https://example2.com" target="_blank">Example Link 2</a>
+    <a class="link-btn" href="https://example3.com" target="_blank">Example Link 3</a>
+  </div>
 </div>
-
-<!-- Hero -->
-<section class="hero">
-<h1>Share your favorite groups!</h1>
-<p>Join thousands of active WhatsApp and Telegram communities.</p>
-
-<div class="badges">
-  <div class="badge">No Login Required</div>
-  <div class="badge">Instant Approval</div>
-  <div class="badge">100% Free</div>
-</div>
-
-<!-- Category Dropdown -->
-<select id="category">
-<option value="movie">Movie</option>
-<option value="funny">Funny</option>
-<option value="chat">Chat</option>
-</select>
-
-<!-- Submit Button -->
-<button class="main-btn" onclick="submitLink()">+ Submit Link</button>
-</section>
-
-<!-- Example Cards -->
-<div class="card">
-<a href="#">WhatsApp Group 1</a>
-<p>Movie sharing group</p>
-<p>Category: Movie</p>
-<button onclick="joinGroup('https://chat.whatsapp.com/example')">Join</button>
-</div>
-
-<div class="card">
-<a href="#">Telegram Channel 2</a>
-<p>Funny content</p>
-<p>Category: Funny</p>
-<button onclick="joinGroup('https://t.me/example')">Join</button>
-</div>
-
-<!-- Overlay -->
-<div id="overlay"><span id="overlayText"></span><div class="loader"></div></div>
 
 <script>
-// Hamburger Menu
-function toggleMenu(){
-  const menu = document.getElementById('sideMenu');
-  menu.style.left = menu.style.left==='0px'?'-250px':'0px';
-}
+// Example dynamic filter by category
+const allLinks = [
+  {title: "WhatsApp Group 1", url: "https://wa.me/123", category: "whatsapp"},
+  {title: "Telegram Channel 1", url: "https://t.me/example", category: "telegram"},
+  {title: "Other Link", url: "https://example.com", category: "other"},
+  {title: "WhatsApp Group 2", url: "https://wa.me/456", category: "whatsapp"},
+  {title: "Telegram Channel 2", url: "https://t.me/example2", category: "telegram"},
+];
 
-// Submit Button with typing animation
-function submitLink(){
-  const overlay = document.getElementById('overlay');
-  const overlayText = document.getElementById('overlayText');
-  overlay.style.display='flex';
-  const message = "Submitting your link...";
-  overlayText.textContent = "";
-  let i=0;
-  const typeInterval = setInterval(()=>{
-    overlayText.textContent += message[i];
-    i++;
-    if(i>=message.length){
-      clearInterval(typeInterval);
-      setTimeout(()=>{
-        overlay.style.display='none';
-        window.open('submit.html','_blank');
-      },500);
-    }
-  },80);
-}
-
-// Join buttons open new tab
-function joinGroup(url){
-  window.open(url,'_blank');
+function showLinks(cat) {
+  const container = document.getElementById('linksContainer');
+  container.innerHTML = '';
+  allLinks
+    .filter(link => link.category === cat)
+    .forEach(link => {
+      const a = document.createElement('a');
+      a.className = 'link-btn';
+      a.href = link.url;
+      a.target = '_blank';
+      a.textContent = link.title;
+      container.appendChild(a);
+    });
 }
 </script>
+
 </body>
 </html>
