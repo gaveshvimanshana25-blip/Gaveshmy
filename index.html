@@ -1,211 +1,240 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>LINKwave</title>  
-<style>  
-/* Dark gradient background */  
-body {  
-  margin:0;  
-  font-family: 'Segoe UI', sans-serif;  
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);  
-  color:#fff;  
-}  
-  
-/* Glassmorphism card style */  
-.card {  
-  background: rgba(255, 255, 255, 0.05);  
-  backdrop-filter: blur(12px);  
-  -webkit-backdrop-filter: blur(12px);  
-  border-radius: 15px;  
-  border: 1px solid rgba(255,255,255,0.2);  
-  padding:20px;  
-  margin:15px;  
-  text-align:center;  
-}  
-  
-/* Header */  
-header {  
-  display:flex;  
-  align-items:center;  
-  justify-content: space-between;  
-  padding:15px 20px;  
-  position: sticky;  
-  top:0;  
-  background: rgba(0,0,0,0.4);  
-  backdrop-filter: blur(10px);  
-  z-index:1000;  
-}  
-  
-#menuBtn {  
-  font-size:1.8em;  
-  cursor:pointer;  
-  color:#00f0ff;  
-}  
-  
-#logo {  
-  font-size:1.8em;  
-  font-weight:bold;  
-  color:#fff;  
-  text-shadow: 0 0 10px #00f0ff;  
-}  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINKwave</title>
+<style>
+/* Dark gradient background */
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color:#fff;
+  scroll-behavior: smooth;
+}
 
-/* Dropdown menu */  
-#menuDropdown {  
-  display:none;  
-  position:absolute;  
-  top:60px;  
-  left:20px;  
-  background: rgba(255,255,255,0.05);  
-  backdrop-filter: blur(10px);  
-  border-radius:10px;  
-  border:1px solid rgba(255,255,255,0.2);  
-  padding:10px;  
-  z-index:1001;  
-}  
+/* Glassmorphism card style */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding:20px;
+  margin:15px;
+  text-align:center;
+}
 
-#menuDropdown a {  
-  display:block;  
-  padding:8px 15px;  
-  color:#fff;  
-  text-decoration:none;  
-  transition:0.2s;  
-}  
+/* Header */
+header {
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding:15px 20px;
+  position: sticky;
+  top:0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index:1000;
+}
 
-#menuDropdown a:hover {  
-  background: rgba(0,255,255,0.2);  
-  border-radius:8px;  
-}  
+#menuBtn {
+  font-size:1.8em;
+  cursor:pointer;
+  color:#00f0ff;
+}
 
-/* Main section */  
-main {  
-  padding:50px 20px;  
-  display:flex;  
-  flex-direction:column;  
-  align-items:center;  
-}  
-  
-/* Main heading */  
-main h1 {  
-  font-size:2.5em;  
-  text-align:center;  
-  margin-bottom:20px;  
-  text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;  
-}  
-  
-/* Badges */  
-.badges {  
-  display:flex;  
-  gap:10px;  
-  margin-bottom:30px;  
-  flex-wrap:wrap;  
-}  
-  
-.badge {  
-  background: rgba(255,255,255,0.1);  
-  padding:6px 12px;  
-  border-radius:12px;  
-  font-size:0.9em;  
-  border:1px solid rgba(255,255,255,0.3);  
-  text-shadow: 0 0 5px #00f0ff;  
-}  
-  
-/* Neon glowing button */  
-button.glow-btn {  
-  padding:15px 35px;  
-  font-size:1.2em;  
-  font-weight:bold;  
-  border:none;  
-  border-radius:25px;  
-  background: linear-gradient(90deg, #00f0ff, #a020ff);  
-  color:#fff;  
-  cursor:pointer;  
-  box-shadow: 0 0 10px #00f0ff, 0 0 20px #a020ff;  
-  transition: all 0.3s ease;  
-}  
-  
-button.glow-btn:hover {  
-  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;  
-  transform: translateY(-3px);  
-}  
-  
-/* Dropdown filter */  
-select {  
-  margin-top:20px;  
-  padding:10px 15px;  
-  border-radius:12px;  
-  border:none;  
-  background: rgba(255,255,255,0.05);  
-  color:#fff;  
-  font-size:1em;  
-  box-shadow: 0 0 5px #00f0ff;  
-  appearance:none;  
-  cursor:pointer;  
-}  
-  
-/* Responsive layout */  
-@media(max-width:600px){  
-  main h1 { font-size:2em; }  
-  button.glow-btn { width:100%; padding:15px; }  
-  .badges { justify-content:center; }  
-  #menuDropdown { left:10px; top:55px; }  
-}  
-</style>  
-</head>  
-<body>  
-  
-<header>  
-  <div id="menuBtn">&#9776;</div>  
-  <div id="logo">LINKwave</div>  
-  <div style="width:30px;"></div> <!-- empty space for symmetry -->  
+#logo {
+  font-size:1.8em;
+  font-weight:bold;
+  color:#fff;
+  text-shadow: 0 0 10px #00f0ff;
+}
 
-  <!-- Dropdown menu -->
-  <div id="menuDropdown">
-    <a href="#contact">Contact</a>
-    <a href="#privacy">Privacy Policy</a>
-    <a href="#about">About</a>
+/* Full screen dropdown menu */
+#menuDropdown {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(15px);
+  padding-top:100px;
+  text-align:center;
+  z-index:1001;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  display:flex;
+}
+
+#menuDropdown a {
+  display:block;
+  padding:15px 0;
+  color:#fff;
+  font-size:2em;
+  text-decoration:none;
+  text-shadow: 0 0 10px #00f0ff;
+  transition:0.2s;
+}
+
+#menuDropdown a:hover {
+  color:#00f0ff;
+  transform: scale(1.1);
+}
+
+/* Main section */
+main {
+  padding:50px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* Main heading */
+main h1 {
+  font-size:2.5em;
+  text-align:center;
+  margin-bottom:20px;
+  text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;
+}
+
+/* Badges */
+.badges {
+  display:flex;
+  gap:10px;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+}
+
+.badge {
+  background: rgba(255,255,255,0.1);
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:0.9em;
+  border:1px solid rgba(255,255,255,0.3);
+  text-shadow: 0 0 5px #00f0ff;
+}
+
+/* Neon glowing button */
+button.glow-btn {
+  padding:15px 35px;
+  font-size:1.2em;
+  font-weight:bold;
+  border:none;
+  border-radius:25px;
+  background: linear-gradient(90deg, #00f0ff, #a020ff);
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #a020ff;
+  transition: all 0.3s ease;
+}
+
+button.glow-btn:hover {
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;
+  transform: translateY(-3px);
+}
+
+/* Dropdown filter */
+select {
+  margin-top:20px;
+  padding:10px 15px;
+  border-radius:12px;
+  border:none;
+  background: rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:1em;
+  box-shadow: 0 0 5px #00f0ff;
+  appearance:none;
+  cursor:pointer;
+}
+
+/* Sections */
+section {
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:2em;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+/* Responsive layout */
+@media(max-width:600px){
+  main h1 { font-size:2em; }
+  button.glow-btn { width:100%; padding:15px; }
+  .badges { justify-content:center; }
+  #menuDropdown a { font-size:1.5em; padding:10px 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div id="menuBtn">&#9776;</div>
+  <div id="logo">LINKwave</div>
+</header>
+
+<!-- Full screen dropdown menu -->
+<div id="menuDropdown">
+  <a href="#contact" class="menuLink">Contact</a>
+  <a href="#privacy" class="menuLink">Privacy Policy</a>
+  <a href="#about" class="menuLink">About</a>
+</div>
+
+<main>
+  <h1>Submit and Share Your Best Links Effortlessly!</h1>
+
+  <div class="badges">
+    <div class="badge">No Login Required</div>
+    <div class="badge">Instant Approval</div>
+    <div class="badge">100% Free</div>
   </div>
-</header>  
-  
-<main>  
-  <h1>Submit and Share Your Best Links Effortlessly!</h1>  
-    
-  <div class="badges">  
-    <div class="badge">No Login Required</div>  
-    <div class="badge">Instant Approval</div>  
-    <div class="badge">100% Free</div>  
-  </div>  
-  
-  <button class="glow-btn">+ Submit Link</button>  
-  
-  <select>  
-    <option>Newest First</option>  
-    <option>Oldest First</option>  
-    <option>Most Popular</option>  
-  </select>  
-</main>  
+
+  <button class="glow-btn">+ Submit Link</button>
+
+  <select>
+    <option>Newest First</option>
+    <option>Oldest First</option>
+    <option>Most Popular</option>
+  </select>
+</main>
+
+<!-- Page sections for smooth scroll -->
+<section id="contact">Contact Section</section>
+<section id="privacy">Privacy Policy Section</section>
+<section id="about">About Section</section>
 
 <script>
-  const menuBtn = document.getElementById('menuBtn');
-  const menuDropdown = document.getElementById('menuDropdown');
+const menuBtn = document.getElementById('menuBtn');
+const menuDropdown = document.getElementById('menuDropdown');
+const menuLinks = document.querySelectorAll('.menuLink');
 
-  menuBtn.addEventListener('click', () => {
-    menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
-  });
+// Toggle menu
+menuBtn.addEventListener('click', () => {
+  menuDropdown.style.display = menuDropdown.style.display === 'flex' ? 'none' : 'flex';
+});
 
-  window.addEventListener('click', (e) => {
-    if(!menuDropdown.contains(e.target) && e.target !== menuBtn){
-      menuDropdown.style.display = 'none';
-    }
+// Smooth scroll + close menu
+menuLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({behavior: 'smooth'});
+    menuDropdown.style.display = 'none';
   });
+});
 
-  // Submit button redirect
-  const submitBtn = document.querySelector('.glow-btn');
-  submitBtn.addEventListener('click', () => {
-    window.location.href = 'submit.html'; // change to your actual submit page
-  });
+// Submit button redirects
+const submitBtn = document.querySelector('.glow-btn');
+submitBtn.addEventListener('click', () => {
+  window.location.href = 'submit.html'; // Change to your submit page
+});
 </script>
-  
-</body>  
+
+</body>
 </html>
