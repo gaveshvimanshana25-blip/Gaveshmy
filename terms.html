@@ -13,23 +13,31 @@ body{
   padding:20px;
   line-height:1.6;
 }
-h1,h2,h3{color:#3a7bfd;}
-a{color:#a855f7;text-decoration:none;}
+h1,h2,h3{color:#ff4d4d;} /* Changed header color to red */
+a{color:#ff6666;text-decoration:none;} /* Links red shade */
 a:hover{text-decoration:underline;}
 section{margin-bottom:30px;}
 footer{margin-top:50px;font-size:14px;color:#aaa;text-align:center;}
 
-/* Animated Icon for Headers */
+/* Animated Icon for Headers with neon red glow */
 .icon {
   display:inline-block;
   margin-right:10px;
-  animation: bounce 1.5s infinite alternate;
+  color:#ff4d4d;
+  text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333;
+  animation: bounce 1.5s infinite alternate, glow 2s infinite alternate;
 }
 
 @keyframes bounce {
   0% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
   100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
+  50% { text-shadow: 0 0 10px #ff9999, 0 0 20px #ff3333, 0 0 25px #ff0000; }
+  100% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
 }
 </style>
 </head>
@@ -99,8 +107,8 @@ footer{margin-top:50px;font-size:14px;color:#aaa;text-align:center;}
 </section>
 
 <footer>
-<p>Made within Sri Lanka 🇱🇰<br>© 2026 LINKWAVE. All rights reserved.<br>Designed & Developed by <a href="https://vima.com/" target="_blank">Gawesh</a></p>
+<p>Made within Sri Lanka 🇱🇰<br>© 2025 LinkWave. All rights reserved.<br>Designed & Developed by <a href="https://vmima.com/" target="_blank">Gawesh</a></p>
 </footer>
 
 </body>
-                                                  </html>
+</html>
