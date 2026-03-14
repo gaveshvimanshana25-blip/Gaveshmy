@@ -5,25 +5,158 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;text-align:center;}
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;font-size:28px;font-weight:bold;position:relative;}
-.menu-icon{font-size:28px;cursor:pointer;}
-.dropdown{display:none;position:absolute;top:70px;left:20px;background:rgba(0,0,0,0.9);border:1px solid #333;border-radius:10px;padding:10px 0;min-width:180px;text-align:left;z-index:100;}
-.dropdown a{display:block;color:white;padding:10px 20px;text-decoration:none;}
-.dropdown a:hover{background:rgba(58,127,253,0.2);}
-h1{font-size:40px;margin-top:20px;}
-p{color:#aaa;max-width:600px;margin:auto;}
-.main-btn{display:inline-block;margin-top:25px;padding:14px 28px;border-radius:30px;background:linear-gradient(45deg,#3a7bfd,#a855f7);color:white;text-decoration:none;font-weight:bold;box-shadow:0 0 20px rgba(120,80,255,0.7);}
+/* Body & Background */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:white;
+  text-align:center;
+  background: linear-gradient(180deg,#0a0a0f,#000);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+/* Header */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  font-size:28px;
+  font-weight:bold;
+  position:relative;
+  z-index:10;
+}
+.menu-icon{
+  font-size:28px;
+  cursor:pointer;
+}
+.dropdown{
+  display:none;
+  position:absolute;
+  top:70px;
+  left:20px;
+  background:rgba(0,0,0,0.95);
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:100;
+  transition: all 0.3s ease;
+}
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+.dropdown a:hover{
+  background:rgba(58,127,253,0.2);
+}
+
+/* Hero Section */
+h1{
+  font-size:40px;
+  margin-top:20px;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.3s;
+}
+p{
+  color:#aaa;
+  max-width:600px;
+  margin:auto;
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.6s;
+}
+.main-btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:14px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 0 20px rgba(120,80,255,0.7);
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  animation-delay:0.9s;
+}
+@keyframes fadeInUp{
+  to{opacity:1; transform: translateY(0);}
+}
+
+/* Search */
 .search{margin-top:40px;}
 .search input{padding:12px;width:220px;border-radius:10px;border:none;}
 .search select{padding:12px;border-radius:10px;border:none;}
-.cards{display:flex;flex-wrap:wrap;justify-content:center;margin-top:40px;gap:20px;}
-.card{width:220px;padding:20px;border-radius:15px;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);}
-.card img{width:100%;border-radius:10px;margin-bottom:10px;}
-.join{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:20px;background:linear-gradient(45deg,#3a7bfd,#a855f7);text-decoration:none;color:white;font-size:14px;}
-footer{margin-top:50px;padding:20px 0;background:rgba(0,0,0,0.9);color:#aaa;text-align:center;font-size:14px;}
-footer a{color:#3a7bfd;text-decoration:none;}
-footer a:hover{text-decoration:underline;}
+
+/* Cards */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:40px;
+  gap:20px;
+}
+.card{
+  width:220px;
+  padding:20px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover{
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(58,127,253,0.4);
+}
+.card img{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+.join{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 16px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+}
+
+/* Footer */
+footer{
+  margin-top:50px;
+  padding:20px 0;
+  background:rgba(0,0,0,0.9);
+  color:#aaa;
+  text-align:center;
+  font-size:14px;
+}
+footer a{
+  color:#3a7bfd;
+  text-decoration:none;
+}
+footer a:hover{
+  text-decoration:underline;
+}
+
+/* Background gradient animation */
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 </style>
 </head>
 <body>
@@ -42,7 +175,6 @@ footer a:hover{text-decoration:underline;}
 
 <h1>Discover and Join the Best Communities</h1>
 <p>Find WhatsApp, Telegram, and social groups shared by the community.</p>
-
 <a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
 
 <div class="search">
@@ -64,7 +196,7 @@ footer a:hover{text-decoration:underline;}
 </footer>
 
 <script>
-// Hamburger menu
+// Hamburger menu toggle
 function toggleMenu(){
   const menu = document.getElementById('dropdownMenu');
   menu.style.display = (menu.style.display==="block")?"none":"block";
@@ -93,6 +225,8 @@ function loadLinks(){
     container.appendChild(card);
   });
 }
+
+// On load
 window.onload = function(){
   // Increment total visitors
   let totalVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
