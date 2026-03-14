@@ -6,16 +6,14 @@
 <title>LinkWave</title>
 
 <style>
-/* -------------------- GENERAL -------------------- */
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:linear-gradient(180deg,#000000,#0a0a0f);
+  background:linear-gradient(180deg,#000,#0a0a0f);
   color:white;
   text-align:center;
 }
 
-/* -------------------- HEADER -------------------- */
 header{
   display:flex;
   justify-content:space-between;
@@ -31,7 +29,6 @@ header{
   cursor:pointer;
 }
 
-/* Dropdown menu */
 .dropdown{
   display:none;
   position:absolute;
@@ -57,11 +54,8 @@ header{
   background:rgba(58,127,253,0.2);
 }
 
-/* -------------------- TITLE -------------------- */
 h1{font-size:40px;margin-top:20px;}
 p{color:#aaa;max-width:600px;margin:auto;}
-
-/* -------------------- BUTTON -------------------- */
 .main-btn{
   display:inline-block;
   margin-top:25px;
@@ -73,13 +67,10 @@ p{color:#aaa;max-width:600px;margin:auto;}
   font-weight:bold;
   box-shadow:0 0 20px rgba(120,80,255,0.7);
 }
-
-/* -------------------- SEARCH -------------------- */
 .search{margin-top:40px;}
 .search input{padding:12px;width:220px;border-radius:10px;border:none;}
 .search select{padding:12px;border-radius:10px;border:none;}
 
-/* -------------------- CARDS -------------------- */
 .cards{
   display:flex;
   flex-wrap:wrap;
@@ -97,6 +88,12 @@ p{color:#aaa;max-width:600px;margin:auto;}
   border:1px solid rgba(255,255,255,0.1);
 }
 
+.card img{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
 .join{
   display:inline-block;
   margin-top:10px;
@@ -109,15 +106,12 @@ p{color:#aaa;max-width:600px;margin:auto;}
 }
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
   <div>LinkWave</div>
-  <div></div> <!-- empty for balance -->
-
-  <!-- Dropdown menu -->
+  <div></div>
   <div class="dropdown" id="dropdownMenu">
     <a href="contact.html" target="_blank">Contact</a>
     <a href="terms.html" target="_blank">Terms & Policy</a>
@@ -141,49 +135,47 @@ p{color:#aaa;max-width:600px;margin:auto;}
 </div>
 
 <div class="cards" id="cardsContainer">
-  <!-- Dynamic cards from submitted links will appear here -->
+  <!-- Dynamic cards will appear here -->
 </div>
 
 <script>
-// Toggle menu
+// Hamburger menu toggle
 function toggleMenu(){
   const menu = document.getElementById('dropdownMenu');
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  menu.style.display = (menu.style.display==="block")?"none":"block";
 }
 window.onclick = function(e){
   const menu = document.getElementById('dropdownMenu');
   if(!e.target.matches('.menu-icon')){
-    if(menu.style.display === "block"){ menu.style.display = "none"; }
+    if(menu.style.display==="block"){menu.style.display="none";}
   }
 }
 
-// Load submitted links from localStorage
+// Load submitted links with logos
 function loadLinks(){
   const container = document.getElementById('cardsContainer');
   container.innerHTML = "";
-  let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-  
-  // Reverse for newest first
-  links.reverse().forEach(link => {
+  const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+  links.reverse().forEach(link=>{
     const card = document.createElement('div');
     card.className = 'card';
-    card.innerHTML = `<h3>${link.name}</h3>
-                      <p>${link.description}</p>
-                      <a class="join" href="${link.url}" target="_blank">Join</a>`;
+    card.innerHTML = `
+      ${link.logo? `<img src="${link.logo}" alt="Group Logo">` : ''}
+      <h3>${link.name}</h3>
+      <p>${link.description}</p>
+      <a class="join" href="${link.url}" target="_blank">Join</a>
+    `;
     container.appendChild(card);
   });
 }
-
-// Call loadLinks on page load
 window.onload = loadLinks;
 
-// Optional: live search/filter
+// Live search
 document.getElementById('searchInput').addEventListener('input', function(){
   const term = this.value.toLowerCase();
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
+  document.querySelectorAll('.card').forEach(card=>{
     const text = card.querySelector('h3').textContent.toLowerCase();
-    card.style.display = text.includes(term) ? 'block' : 'none';
+    card.style.display = text.includes(term)?'block':'none';
   });
 });
 </script>
