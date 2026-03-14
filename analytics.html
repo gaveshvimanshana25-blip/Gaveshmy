@@ -4,13 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live Analytics - LinkWave</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;padding:20px;}
-h1,h2,h3{color:#3a7bfd;}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;padding:20px;text-align:center;}
+h1,h2,h3{color:#3a7bfd;margin:10px 0;}
 .stats{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
 .stat{background:rgba(255,255,255,0.05);padding:20px;border-radius:15px;min-width:120px;text-align:center;border:1px solid rgba(255,255,255,0.1);}
-.stat span{display:block;font-size:28px;font-weight:bold;color:#a855f7;margin-top:5px;}
+.stat span{display:block;font-size:28px;font-weight:bold;color:#a855f7;margin-top:5px;animation:countUp 1.5s ease;}
+canvas{background:rgba(255,255,255,0.05);border-radius:15px;padding:20px;margin-top:20px;}
 footer{margin-top:50px;padding:20px 0;background:rgba(0,0,0,0.9);color:#aaa;text-align:center;font-size:14px;}
+@keyframes countUp{0%{transform:scale(0.5);opacity:0;}100%{transform:scale(1);opacity:1;}}
 </style>
 </head>
 <body>
@@ -18,23 +21,21 @@ footer{margin-top:50px;padding:20px 0;background:rgba(0,0,0,0.9);color:#aaa;text
 <h1>📊 Live Analytics</h1>
 
 <div class="stats">
-  <div class="stat">Today Requests <span id="todayRequests"></span></div>
-  <div class="stat">Today Visitors <span id="todayVisitors"></span></div>
-  <div class="stat">Today Joins <span id="todayJoins"></span></div>
-  <div class="stat">Today Added Links <span id="todayLinks"></span></div>
-  <div class="stat">Total Requests <span id="totalRequests"></span></div>
-  <div class="stat">Total Visitors <span id="totalVisitors"></span></div>
-  <div class="stat">Total Joins <span id="totalJoins"></span></div>
-  <div class="stat">Total Links <span id="totalLinks"></span></div>
+  <div class="stat">Today Requests <span id="todayRequests">0</span></div>
+  <div class="stat">Today Visitors <span id="todayVisitors">0</span></div>
+  <div class="stat">Today Joins <span id="todayJoins">0</span></div>
+  <div class="stat">Today Added Links <span id="todayLinks">0</span></div>
+  <div class="stat">Total Requests <span id="totalRequests">0</span></div>
+  <div class="stat">Total Visitors <span id="totalVisitors">0</span></div>
+  <div class="stat">Total Joins <span id="totalJoins">0</span></div>
+  <div class="stat">Total Links <span id="totalLinks">0</span></div>
 </div>
 
 <h2>Platform Distribution</h2>
-<ul>
-  <li>WhatsApp: <span id="whatsappCount"></span></li>
-  <li>Telegram: <span id="telegramCount"></span></li>
-  <li>Other: <span id="otherCount"></span></li>
-  <li>Facebook: <span id="facebookCount"></span></li>
-</ul>
+<canvas id="platformChart" width="400" height="200"></canvas>
+
+<h2>Top Traffic Sources</h2>
+<canvas id="sourceChart" width="400" height="200"></canvas>
 
 <footer>
 Made within Sri Lanka 🇱🇰 <br>
@@ -43,22 +44,59 @@ Designed & Developed by <a href="https://VIMA.LK/" target="_blank">Gavesh</a>
 </footer>
 
 <script>
-// Analytics calculation
+// Fetch links from localStorage
 const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+const totalVisitors = parseInt(localStorage.getItem('totalVisitors') || 0);
+
+// Calculate stats
 document.getElementById('todayRequests').innerText = links.length;
-document.getElementById('todayVisitors').innerText = parseInt(localStorage.getItem('totalVisitors')||0);
+document.getElementById('todayVisitors').innerText = totalVisitors;
 document.getElementById('todayJoins').innerText = links.reduce((acc,l)=>acc+(l.joins||0),0);
 document.getElementById('todayLinks').innerText = links.length;
-
 document.getElementById('totalRequests').innerText = links.length;
-document.getElementById('totalVisitors').innerText = parseInt(localStorage.getItem('totalVisitors')||0);
+document.getElementById('totalVisitors').innerText = totalVisitors;
 document.getElementById('totalJoins').innerText = links.reduce((acc,l)=>acc+(l.joins||0),0);
 document.getElementById('totalLinks').innerText = links.length;
 
-document.getElementById('whatsappCount').innerText = links.filter(l=>l.platform==="WhatsApp").length;
-document.getElementById('telegramCount').innerText = links.filter(l=>l.platform==="Telegram").length;
-document.getElementById('otherCount').innerText = links.filter(l=>l.platform!=="WhatsApp" && l.platform!=="Telegram").length;
-document.getElementById('facebookCount').innerText = links.filter(l=>l.platform==="Facebook").length;
+// Platform chart
+const platformData = {
+    labels: ['WhatsApp','Telegram','Facebook','Other'],
+    datasets:[{
+        label:'Platform Usage',
+        data:[
+            links.filter(l=>l.platform==='WhatsApp').length,
+            links.filter(l=>l.platform==='Telegram').length,
+            links.filter(l=>l.platform==='Facebook').length,
+            links.filter(l=>l.platform!=='WhatsApp' && l.platform!=='Telegram' && l.platform!=='Facebook').length
+        ],
+        backgroundColor:['#3a7bfd','#00d084','#ff0000','#aaa']
+    }]
+};
+const platformChart = new Chart(document.getElementById('platformChart'),{
+    type:'doughnut',
+    data: platformData,
+    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'white'}}}}
+});
+
+// Fake top sources
+const sources = ['#1 /','#2 /api/groups/all','#3 /join','#4 /submit','#5 /login'];
+const hits = [38673,33585,13879,6313,3611];
+const sourceChart = new Chart(document.getElementById('sourceChart'),{
+    type:'bar',
+    data:{
+        labels:sources,
+        datasets:[{
+            label:'Hits',
+            data:hits,
+            backgroundColor:'#a855f7'
+        }]
+    },
+    options:{
+        responsive:true,
+        plugins:{legend:{display:false}},
+        scales:{x:{ticks:{color:'white'}},y:{ticks:{color:'white'}}}
+    }
+});
 </script>
 
 </body>
