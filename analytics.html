@@ -1,34 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Analytics - LinkWave</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;padding:20px;}
+h1,h2,h3{color:#3a7bfd;}
+.stats{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
+.stat{background:rgba(255,255,255,0.05);padding:20px;border-radius:15px;min-width:120px;text-align:center;border:1px solid rgba(255,255,255,0.1);}
+.stat span{display:block;font-size:28px;font-weight:bold;color:#a855f7;margin-top:5px;}
+footer{margin-top:50px;padding:20px 0;background:rgba(0,0,0,0.9);color:#aaa;text-align:center;font-size:14px;}
+</style>
+</head>
+<body>
+
+<h1>📊 Live Analytics</h1>
+
+<div class="stats">
+  <div class="stat">Today Requests <span id="todayRequests"></span></div>
+  <div class="stat">Today Visitors <span id="todayVisitors"></span></div>
+  <div class="stat">Today Joins <span id="todayJoins"></span></div>
+  <div class="stat">Today Added Links <span id="todayLinks"></span></div>
+  <div class="stat">Total Requests <span id="totalRequests"></span></div>
+  <div class="stat">Total Visitors <span id="totalVisitors"></span></div>
+  <div class="stat">Total Joins <span id="totalJoins"></span></div>
+  <div class="stat">Total Links <span id="totalLinks"></span></div>
+</div>
+
+<h2>Platform Distribution</h2>
+<ul>
+  <li>WhatsApp: <span id="whatsappCount"></span></li>
+  <li>Telegram: <span id="telegramCount"></span></li>
+  <li>Other: <span id="otherCount"></span></li>
+  <li>Facebook: <span id="facebookCount"></span></li>
+</ul>
+
+<footer>
+Made within Sri Lanka 🇱🇰 <br>
+© 2026 LinkWave. All rights reserved. <br>
+Designed & Developed by <a href="https://VIMA.LK/" target="_blank">Gavesh</a>
+</footer>
+
 <script>
-// Load analytics from LocalStorage
+// Analytics calculation
 const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+document.getElementById('todayRequests').innerText = links.length;
+document.getElementById('todayVisitors').innerText = parseInt(localStorage.getItem('totalVisitors')||0);
+document.getElementById('todayJoins').innerText = links.reduce((acc,l)=>acc+(l.joins||0),0);
+document.getElementById('todayLinks').innerText = links.length;
 
-let todayRequests = links.length; // All submissions today
-let todayVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
-let todayJoins = links.reduce((acc,l)=>acc+(l.joins||0),0);
-let todayLinks = links.length;
+document.getElementById('totalRequests').innerText = links.length;
+document.getElementById('totalVisitors').innerText = parseInt(localStorage.getItem('totalVisitors')||0);
+document.getElementById('totalJoins').innerText = links.reduce((acc,l)=>acc+(l.joins||0),0);
+document.getElementById('totalLinks').innerText = links.length;
 
-let totalRequests = todayRequests; // Can expand with historical if needed
-let totalVisitors = todayVisitors;
-let totalJoins = todayJoins;
-let totalLinks = links.length;
-
-let whatsappCount = links.filter(l=>l.platform==="WhatsApp").length;
-let telegramCount = links.filter(l=>l.platform==="Telegram").length;
-let otherCount = links.filter(l=>l.platform!=="WhatsApp" && l.platform!=="Telegram").length;
-let facebookCount = links.filter(l=>l.platform==="Facebook").length;
-
-document.getElementById('todayRequests').innerText = todayRequests;
-document.getElementById('todayVisitors').innerText = todayVisitors;
-document.getElementById('todayJoins').innerText = todayJoins;
-document.getElementById('todayLinks').innerText = todayLinks;
-
-document.getElementById('totalRequests').innerText = totalRequests;
-document.getElementById('totalVisitors').innerText = totalVisitors;
-document.getElementById('totalJoins').innerText = totalJoins;
-document.getElementById('totalLinks').innerText = totalLinks;
-
-document.getElementById('whatsappCount').innerText = whatsappCount;
-document.getElementById('telegramCount').innerText = telegramCount;
-document.getElementById('otherCount').innerText = otherCount;
-document.getElementById('facebookCount').innerText = facebookCount;
+document.getElementById('whatsappCount').innerText = links.filter(l=>l.platform==="WhatsApp").length;
+document.getElementById('telegramCount').innerText = links.filter(l=>l.platform==="Telegram").length;
+document.getElementById('otherCount').innerText = links.filter(l=>l.platform!=="WhatsApp" && l.platform!=="Telegram").length;
+document.getElementById('facebookCount').innerText = links.filter(l=>l.platform==="Facebook").length;
 </script>
+
+</body>
+</html>
