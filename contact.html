@@ -3,17 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - LinkWave</title>
+<title>Contact Developer - LinkWave</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#000;color:white;text-align:center;padding:50px;}
-h1{color:#3a7bfd;}
-a{color:#a855f7;text-decoration:none;}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#000,#0a0a0f);
+  color:white;
+  padding:20px;
+}
+h1,h2{color:#ff4d4d;}
+a{color:#ff6666;text-decoration:none;}
+a:hover{text-decoration:underline;}
+section{margin-bottom:30px;}
+footer{margin-top:50px;font-size:14px;color:#aaa;text-align:center;}
+
+/* Animated Icon */
+.icon {
+  display:inline-block;
+  margin-right:15px;
+  font-size:2rem;
+  color:#ff4d4d;
+  text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333;
+  animation: bounce 1.5s infinite alternate, glow 2s infinite alternate;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
+  50% { text-shadow: 0 0 10px #ff9999, 0 0 20px #ff3333, 0 0 25px #ff0000; }
+  100% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
+}
+
+form{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:15px;
+  width:90%;
+  max-width:500px;
+  margin:20px auto;
+  border:1px solid rgba(255,255,255,0.1);
+}
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:white;
+}
+input::placeholder, textarea::placeholder{color:#ccc;}
+button{
+  padding:14px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(120,80,255,0.7);
+}
 </style>
 </head>
 <body>
-<h1>Contact Us</h1>
-<p>Email: contact@linkwave.com</p>
-<p>Telegram: @LinkWaveOfficial</p>
-<a href="index.html">← Back to Home</a>
+
+<h1><span class="icon">📞</span>Contact Developer</h1>
+
+<section>
+<p>Feel free to reach out to the developer for support, feedback, or inquiries.</p>
+<form id="contactForm">
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Your Email" required>
+  <textarea placeholder="Your Message" rows="5" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+</section>
+
+<footer>
+<p>Made within Sri Lanka 🇱🇰<br>© 2025 LinkWave. All rights reserved.<br>Designed & Developed by <a href="https://vmima.com/" target="_blank">Gawesh</a></p>
+</footer>
+
 </body>
 </html>
