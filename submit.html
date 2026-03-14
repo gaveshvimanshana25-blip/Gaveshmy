@@ -34,27 +34,21 @@ h1{margin-top:30px;font-size:32px;}
 <script>
 document.getElementById('submitForm').addEventListener('submit', function(e){
   e.preventDefault();
-  
   const name = document.getElementById('groupName').value;
   const url = document.getElementById('groupURL').value;
   const platform = document.getElementById('groupPlatform').value;
   const desc = document.getElementById('groupDesc').value;
   const logoInput = document.getElementById('groupLogo');
 
-  if(logoInput.files.length === 0){
-    alert("Please select a logo image.");
-    return;
-  }
+  if(logoInput.files.length===0){ alert("Please select a logo image."); return; }
 
   const reader = new FileReader();
-  reader.onload = function(){
+  reader.onload=function(){
     const logoBase64 = reader.result;
-    const link = {name,name,url,url,platform,platform,description:desc,logo:logoBase64};
-
+    const link = {name,url,platform,description:desc,logo:logoBase64};
     let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
     links.push(link);
     localStorage.setItem('linkwaveLinks', JSON.stringify(links));
-
     alert("Thank you! Your link has been submitted.");
     document.getElementById('submitForm').reset();
   }
