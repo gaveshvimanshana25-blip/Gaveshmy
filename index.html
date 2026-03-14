@@ -3,71 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Group Link Hub</title>
+<title>LINKwave</title>
 <style>
-  body { font-family: Arial; margin:0; padding:0; background:#f4f4f4; }
-  header { text-align:center; padding:25px; font-size:2em; color:#fff; background:#007BFF; animation: slideFade 1s; }
-  @keyframes slideFade { 0% { transform: translateY(-50px); opacity:0; } 100% { transform: translateY(0); opacity:1; } }
-  main { padding:20px; }
-  .form-box { background:#fff; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); margin-bottom:20px; }
-  input, textarea, select, button { width:100%; padding:12px; margin:8px 0; border-radius:6px; border:1px solid #ccc; font-size:1em; }
-  button { background:#007BFF; color:#fff; cursor:pointer; font-weight:bold; }
-  button:hover { background:#0056b3; }
-  #loading { display:none; text-align:center; font-weight:bold; margin:12px 0; }
+/* Dark gradient background */
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color:#fff;
+}
+
+/* Glassmorphism card style */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding:20px;
+  margin:15px;
+  text-align:center;
+}
+
+/* Header */
+header {
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding:15px 20px;
+  position: sticky;
+  top:0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index:1000;
+}
+
+#menuBtn {
+  font-size:1.8em;
+  cursor:pointer;
+  color:#00f0ff;
+}
+
+#logo {
+  font-size:1.8em;
+  font-weight:bold;
+  color:#fff;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+/* Main section */
+main {
+  padding:50px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* Main heading */
+main h1 {
+  font-size:2.5em;
+  text-align:center;
+  margin-bottom:20px;
+  text-shadow: 0 0 15px #00f0ff, 0 0 25px #a020ff;
+}
+
+/* Badges */
+.badges {
+  display:flex;
+  gap:10px;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+}
+
+.badge {
+  background: rgba(255,255,255,0.1);
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:0.9em;
+  border:1px solid rgba(255,255,255,0.3);
+  text-shadow: 0 0 5px #00f0ff;
+}
+
+/* Neon glowing button */
+button.glow-btn {
+  padding:15px 35px;
+  font-size:1.2em;
+  font-weight:bold;
+  border:none;
+  border-radius:25px;
+  background: linear-gradient(90deg, #00f0ff, #a020ff);
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #a020ff;
+  transition: all 0.3s ease;
+}
+
+button.glow-btn:hover {
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #a020ff, 0 0 60px #00f0ff;
+  transform: translateY(-3px);
+}
+
+/* Dropdown filter */
+select {
+  margin-top:20px;
+  padding:10px 15px;
+  border-radius:12px;
+  border:none;
+  background: rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:1em;
+  box-shadow: 0 0 5px #00f0ff;
+  appearance:none;
+  cursor:pointer;
+}
+
+/* Responsive layout */
+@media(max-width:600px){
+  main h1 { font-size:2em; }
+  button.glow-btn { width:100%; padding:15px; }
+  .badges { justify-content:center; }
+}
 </style>
 </head>
 <body>
 
-<header>Group Link Hub</header>
+<header>
+  <div id="menuBtn">&#9776;</div>
+  <div id="logo">LINKwave</div>
+  <div style="width:30px;"></div> <!-- empty space for symmetry -->
+</header>
 
 <main>
-  <div class="form-box">
-    <h3>Submit Group</h3>
-    <input type="text" id="title" placeholder="Title">
-    <textarea id="description" placeholder="Description"></textarea>
-    <input type="text" id="link" placeholder="Group Link">
-    <select id="category">
-      <option value="">Select Category</option>
-      <option value="Movie">Movie</option>
-      <option value="Funny">Funny</option>
-      <option value="Chat">Chat</option>
-    </select>
-    <select id="platform">
-      <option value="">Select Platform</option>
-      <option value="WhatsApp">WhatsApp</option>
-      <option value="Telegram">Telegram</option>
-    </select>
-    <button onclick="submitGroup()">Submit</button>
-    <div id="loading">Loading...</div>
+  <h1>Submit and Share Your Best Links Effortlessly!</h1>
+  
+  <div class="badges">
+    <div class="badge">No Login Required</div>
+    <div class="badge">Instant Approval</div>
+    <div class="badge">100% Free</div>
   </div>
+
+  <button class="glow-btn">+ Submit Link</button>
+
+  <select>
+    <option>Newest First</option>
+    <option>Oldest First</option>
+    <option>Most Popular</option>
+  </select>
 </main>
-
-<script>
-function getPlatformLogo(platform){
-  if(platform==='WhatsApp') return 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg';
-  if(platform==='Telegram') return 'https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg';
-  return '';
-}
-
-function submitGroup(){
-  const title = document.getElementById('title').value.trim();
-  const description = document.getElementById('description').value.trim();
-  const link = document.getElementById('link').value.trim();
-  const category = document.getElementById('category').value;
-  const platform = document.getElementById('platform').value;
-
-  if(!title || !link || !category || !platform){ alert("Fill all fields!"); return; }
-
-  document.getElementById('loading').style.display='block';
-
-  setTimeout(()=>{
-    // save details in sessionStorage to pass to next page
-    const groupData = { title, description, link, category, platform, image: getPlatformLogo(platform) };
-    sessionStorage.setItem('groupData', JSON.stringify(groupData));
-    window.location.href = 'details.html';
-  }, 800);
-}
-</script>
 
 </body>
 </html>
