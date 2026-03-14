@@ -92,10 +92,39 @@ p{
   to{opacity:1; transform: translateY(0);}
 }
 
-/* Search */
-.search{margin-top:40px;}
-.search input{padding:12px;width:220px;border-radius:10px;border:none;}
-.search select{padding:12px;border-radius:10px;border:none;}
+/* Search + Categories */
+.search-category{
+  max-width:900px;
+  margin:20px auto;
+  text-align:left;
+}
+.search-category input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-bottom:12px;
+}
+.categories{
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  padding-bottom:5px;
+}
+.categories button{
+  flex:0 0 auto;
+  padding:10px 18px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.categories button:hover{
+  transform: scale(1.1);
+  box-shadow:0 5px 15px rgba(58,127,253,0.5);
+}
 
 /* Cards */
 .cards{
@@ -177,14 +206,19 @@ footer a:hover{
 <p>Find WhatsApp, Telegram, and social groups shared by the community.</p>
 <a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
 
-<div class="search">
+<!-- Search + Categories -->
+<div class="search-category">
   <input type="text" id="searchInput" placeholder="Search groups...">
-  <select id="filterSelect">
-    <option value="Newest">Newest First</option>
-    <option value="Popular">Popular</option>
-    <option value="WhatsApp">WhatsApp</option>
-    <option value="Telegram">Telegram</option>
-  </select>
+  
+  <div class="categories">
+    <button data-platform="All">All</button>
+    <button data-platform="WhatsApp">WhatsApp</button>
+    <button data-platform="Telegram">Telegram</button>
+    <button data-platform="Facebook">Facebook</button>
+    <button data-platform="TikTok">TikTok</button>
+    <button data-platform="W&T">W&T</button>
+    <button data-platform="Other">Other</button>
+  </div>
 </div>
 
 <div class="cards" id="cardsContainer"></div>
@@ -216,10 +250,11 @@ function loadLinks(){
   links.reverse().forEach(link=>{
     const card = document.createElement('div');
     card.className = 'card';
+    card.dataset.platform = link.platform || "Other";
     card.innerHTML = `
       ${link.logo? `<img src="${link.logo}" alt="Group Logo">` : ''}
       <h3>${link.name}</h3>
-      <p>${link.description}</p>
+      <p>${link.platform || "Other"}</p>
       <a class="join" href="${link.url}" target="_blank">Join</a>
     `;
     container.appendChild(card);
@@ -242,6 +277,20 @@ document.getElementById('searchInput').addEventListener('input', function(){
   document.querySelectorAll('.card').forEach(card=>{
     const text = card.querySelector('h3').textContent.toLowerCase();
     card.style.display = text.includes(term)?'block':'none';
+  });
+});
+
+// Category filter
+document.querySelectorAll('.categories button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const platform = btn.getAttribute('data-platform');
+    document.querySelectorAll('.card').forEach(card=>{
+      if(platform==="All" || card.dataset.platform===platform){
+        card.style.display='block';
+      }else{
+        card.style.display='none';
+      }
+    });
   });
 });
 
