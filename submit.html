@@ -3,81 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit Link - LinkWave</title>
+<title>Developer - LinkWave</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;text-align:center;}
-form{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:30px;border-radius:15px;width:90%;max-width:400px;margin:50px auto;border:1px solid rgba(255,255,255,0.1);}
-input, select, textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:none;background:rgba(255,255,255,0.1);color:white;}
-input::placeholder, textarea::placeholder{color:#ccc;}
-button{padding:14px 28px;border-radius:30px;background:linear-gradient(45deg,#3a7bfd,#a855f7);color:white;border:none;font-weight:bold;cursor:pointer;box-shadow:0 0 20px rgba(120,80,255,0.7);}
-h1{margin-top:30px;font-size:32px;}
-#thankModal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:1000;}
-#thankModal .modal-content {background:linear-gradient(45deg,#3a7bfd,#a855f7);padding:30px;border-radius:20px;color:white;font-size:18px;text-align:center;box-shadow:0 0 20px rgba(120,80,255,0.7);animation: popupAnim 0.5s ease forwards;}
-@keyframes popupAnim {0% {opacity:0; transform:scale(0.5);}50% {opacity:1; transform:scale(1.05);}100% {opacity:1; transform:scale(1);}}
-#thankModal .close-btn{margin-top:20px;padding:10px 20px;border:none;border-radius:15px;background:#000;color:white;cursor:pointer;}
+/* BODY & HEADER */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0a0a0f;
+  color:white;
+  text-align:center;
+}
+header{
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.menu-icon{
+  font-size:28px;
+  cursor:pointer;
+}
+.dropdown{
+  display:none;
+  position:absolute;
+  top:70px;
+  right:20px;
+  background:#111;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:100;
+}
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+.dropdown a:hover{
+  background:#222;
+}
+
+/* DEVELOPER CARD */
+.dev-card{
+  max-width:400px;
+  margin:60px auto;
+  padding:25px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity:0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+}
+.dev-card:hover{
+  transform: scale(1.05);
+  box-shadow:0 15px 25px rgba(58,127,253,0.4);
+}
+.dev-avatar{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin-bottom:15px;
+  border:2px solid #3a7bfd;
+  object-fit:cover;
+}
+.dev-name{
+  font-size:28px;
+  font-weight:bold;
+  margin:10px 0;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: glowText 2s infinite alternate;
+}
+.dev-title{
+  font-size:18px;
+  color:#aaa;
+  margin:5px 0;
+}
+.dev-bio{
+  margin:15px 0;
+  color:#ccc;
+  line-height:1.5;
+}
+.dev-links{
+  margin-top:15px;
+}
+.dev-links a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin:8px 10px;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background:#111;
+  border:1px solid #3a7bfd;
+  color:white;
+  font-size:20px;
+  transition: all 0.3s ease;
+  text-decoration:none;
+}
+.dev-links a:hover{
+  transform: scale(1.2);
+  background:#3a7bfd;
+  color:white;
+}
+
+/* FOOTER */
+footer{
+  margin-top:50px;
+  padding:20px 0;
+  background:#111;
+  color:#aaa;
+  font-size:14px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{
+  to{opacity:1; transform: translateY(0);}
+}
+@keyframes glowText{
+  0%{text-shadow: 0 0 5px #3a7bfd, 0 0 10px #a855f7;}
+  50%{text-shadow: 0 0 10px #3a7bfd, 0 0 20px #a855f7;}
+  100%{text-shadow: 0 0 5px #3a7bfd, 0 0 10px #a855f7;}
+}
 </style>
 </head>
 <body>
 
-<h1>Submit Your Group Link</h1>
+<header>
+  <div>LinkWave</div>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="dropdown" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms & Policy</a>
+    <a href="analytics.html">Live Analytics</a>
+  </div>
+</header>
 
-<form id="submitForm">
-  <input type="text" placeholder="Group Name" required id="groupName">
-  <input type="url" placeholder="Group Link" required id="groupURL">
-  <select required id="groupPlatform">
-    <option value="">Select Platform</option>
-    <option value="WhatsApp">WhatsApp</option>
-    <option value="Telegram">Telegram</option>
-    <option value="Discord">Discord</option>
-  </select>
-  <select required id="groupCategory">
-    <option value="">Select Category</option>
-    <option value="Movie">Movie</option>
-    <option value="Funny">Funny</option>
-    <option value="18+ Adult">18+ Adult</option>
-    <option value="Music">Music</option>
-    <option value="Education">Education</option>
-    <option value="Gaming">Gaming</option>
-  </select>
-  <textarea placeholder="Short Description" rows="4" required id="groupDesc"></textarea>
-  <input type="text" placeholder="Submitted by (Your Name)" required id="groupOwner">
-  <input type="file" id="groupLogo" accept="image/*" required>
-  <button type="submit">Submit Link</button>
-</form>
-
-<div id="thankModal">
-  <div class="modal-content">
-    Thank you! Your link has been submitted ✅
-    <br>
-    <button class="close-btn" onclick="closeModal()">Close</button>
+<div class="dev-card">
+  <img class="dev-avatar" src="https://i.pravatar.cc/150?img=12" alt="Gavesh Avatar">
+  <div class="dev-name">Gavesh Vimanshana</div>
+  <div class="dev-title">Owner & Lead Developer</div>
+  <div class="dev-bio">
+    Passionate about building web applications, connecting communities, and creating seamless digital experiences.
+  </div>
+  <div class="dev-links">
+    <a href="https://www.facebook.com/" target="_blank" title="Facebook">F</a>
+    <a href="https://www.youtube.com/" target="_blank" title="YouTube">Y</a>
   </div>
 </div>
 
+<footer>
+  Made within Sri Lanka 🇱🇰 <br>
+  © 2026 LinkWave. All rights reserved.
+</footer>
+
 <script>
-const modal = document.getElementById('thankModal');
-document.getElementById('submitForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('groupName').value;
-  const url = document.getElementById('groupURL').value;
-  const platform = document.getElementById('groupPlatform').value;
-  const category = document.getElementById('groupCategory').value;
-  const desc = document.getElementById('groupDesc').value;
-  const owner = document.getElementById('groupOwner').value;
-  const logoInput = document.getElementById('groupLogo');
-  if(logoInput.files.length===0){ alert("Please select a logo image."); return; }
-  const reader = new FileReader();
-  reader.onload=function(){
-    const logoBase64 = reader.result;
-    const link = {name,url,platform,category,description:desc,logo:logoBase64,owner,clicks:0,joins:0};
-    let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-    links.push(link);
-    localStorage.setItem('linkwaveLinks', JSON.stringify(links));
-    modal.style.display = 'flex';
-    document.getElementById('submitForm').reset();
+// Hamburger menu toggle
+function toggleMenu(){
+  const menu = document.getElementById('dropdownMenu');
+  menu.style.display = (menu.style.display==="block")?"none":"block";
+}
+window.onclick = function(e){
+  const menu = document.getElementById('dropdownMenu');
+  if(!e.target.matches('.menu-icon')){
+    if(menu.style.display==="block"){menu.style.display="none";}
   }
-  reader.readAsDataURL(logoInput.files[0]);
-});
-function closeModal(){ modal.style.display = 'none'; }
+}
 </script>
 
 </body>
