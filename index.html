@@ -3,156 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKwave</title>
+<title>LinkWave</title>
+
 <style>
-body {
+/* -------------------- GENERAL -------------------- */
+body{
   margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
-  color:#fff;
-  scroll-behavior: smooth;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(180deg,#000000,#0a0a0f);
+  color:white;
+  text-align:center;
 }
 
-header {
+/* -------------------- HEADER -------------------- */
+header{
   display:flex;
-  justify-content: space-between;
+  justify-content:center;
   align-items:center;
-  padding:15px 20px;
-  position: sticky;
-  top:0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  z-index:1000;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
 }
 
-#menuBtn { font-size:1.8em; cursor:pointer; color:#00f0ff; }
-#logo { font-size:1.8em; font-weight:bold; text-shadow:0 0 10px #00f0ff; }
-
-#menuDropdown {
-  display:none;
-  position:absolute;
-  top:60px;
-  left:20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.2);
-  padding:10px;
+/* -------------------- TITLE -------------------- */
+h1{
+  font-size:40px;
+  margin-top:20px;
 }
 
-#menuDropdown a {
-  display:block;
-  padding:8px 15px;
-  color:#fff;
+p{
+  color:#aaa;
+  max-width:600px;
+  margin:auto;
+}
+
+/* -------------------- BUTTON -------------------- */
+.main-btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:14px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
   text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 0 20px rgba(120,80,255,0.7);
 }
 
-#menuDropdown a:hover {
-  background: rgba(0,255,255,0.2);
-  border-radius:8px;
+/* -------------------- SEARCH -------------------- */
+.search{
+  margin-top:40px;
 }
 
-main { padding:50px 20px; display:flex; flex-direction:column; align-items:center; }
+.search input{
+  padding:12px;
+  width:220px;
+  border-radius:10px;
+  border:none;
+}
 
-main h1 { font-size:2.5em; text-align:center; margin-bottom:30px; text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff; }
+.search select{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+}
 
-.badges-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-bottom:30px; }
+/* -------------------- CARDS -------------------- */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:40px;
+  gap:20px;
+}
 
-.badge-box { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius:15px; border:1px solid rgba(255,255,255,0.2); padding:15px; display:flex; flex-direction:column; align-items:center; width:160px; text-align:center; }
+.card{
+  width:220px;
+  padding:20px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+}
 
-.badge { margin-bottom:10px; font-size:1em; text-shadow:0 0 5px #00f0ff; }
-
-button.glow-btn { padding:15px 35px; font-size:1.2em; font-weight:bold; border:none; border-radius:25px; background: linear-gradient(90deg,#00f0ff,#a020ff); color:#fff; cursor:pointer; box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff; transition: all 0.3s ease; }
-
-button.glow-btn:hover { box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff; transform: translateY(-3px); }
-
-button.join-btn { padding:8px 20px; font-size:0.9em; margin-top:5px; }
-
-select { margin-top:20px; padding:10px 15px; border-radius:12px; border:none; background: rgba(255,255,255,0.05); color:#fff; font-size:1em; cursor:pointer; }
-
-section { width:100%; min-height:100vh; display:flex; justify-content:center; align-items:center; font-size:2em; text-shadow:0 0 10px #00f0ff; }
-
-@media(max-width:600px){
-  main h1 { font-size:2em; }
-  .badge-box { width:120px; }
-  button.glow-btn { width:100%; padding:15px; }
+.join{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 16px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  text-decoration:none;
+  color:white;
+  font-size:14px;
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div id="menuBtn">&#9776;</div>
-  <div id="logo">LINKwave</div>
-  <div id="menuDropdown">
-    <a href="#contact">Contact</a>
-    <a href="#privacy">Privacy Policy</a>
-    <a href="#about">About</a>
-  </div>
+LinkWave
 </header>
 
-<main>
-  <h1>Submit and Share Your Best Links Effortlessly!</h1>
+<h1>Discover and Join the Best Communities</h1>
 
-  <div class="badges-container">
-    <div class="badge-box">
-      <div class="badge">No Login Required</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-    <div class="badge-box">
-      <div class="badge">Instant Approval</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-    <div class="badge-box">
-      <div class="badge">100% Free</div>
-      <button class="glow-btn join-btn">Join Now</button>
-    </div>
-  </div>
+<p>
+Find WhatsApp, Telegram and social groups shared by the community.
+</p>
 
-  <button class="glow-btn">+ Submit Link</button>
+<a class="main-btn" href="#">+ Submit Your Link</a>
 
+<div class="search">
+  <input type="text" placeholder="Search groups...">
   <select>
     <option>Newest First</option>
-    <option>Oldest First</option>
-    <option>Most Popular</option>
+    <option>Popular</option>
+    <option>WhatsApp</option>
+    <option>Telegram</option>
   </select>
-</main>
+</div>
 
-<section id="contact">Contact Section</section>
-<section id="privacy">Privacy Policy Section</section>
-<section id="about">About Section</section>
+<div class="cards">
 
-<script>
-const menuBtn = document.getElementById('menuBtn');
-const menuDropdown = document.getElementById('menuDropdown');
-const menuLinks = document.querySelectorAll('#menuDropdown a');
+  <div class="card">
+    <h3>Movie Fans</h3>
+    <p>Telegram movie discussion group</p>
+    <a class="join" href="#">Join</a>
+  </div>
 
-menuBtn.addEventListener('click', () => {
-  menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
-});
+  <div class="card">
+    <h3>Tech Updates</h3>
+    <p>Latest tech news community</p>
+    <a class="join" href="#">Join</a>
+  </div>
 
-window.addEventListener('click', (e) => {
-  if(!menuDropdown.contains(e.target) && e.target !== menuBtn){
-    menuDropdown.style.display = 'none';
-  }
-});
+  <div class="card">
+    <h3>Gaming Hub</h3>
+    <p>Gamers chat and share tips</p>
+    <a class="join" href="#">Join</a>
+  </div>
 
-// Smooth scroll
-menuLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    target.scrollIntoView({behavior:'smooth'});
-    menuDropdown.style.display='none';
-  });
-});
-
-// Submit button redirect
-const submitBtn = document.querySelector('button.glow-btn:not(.join-btn)');
-submitBtn.addEventListener('click', () => {
-  window.location.href='submit.html'; // change to your submit page
-});
-</script>
+</div>
 
 </body>
 </html>
