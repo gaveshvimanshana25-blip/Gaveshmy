@@ -5,18 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
-/* ===== Body & Background ===== */
 body{
   margin:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg,#0a0a0a,#1a1a1a);
   color:white;
 }
-
-/* ===== Header ===== */
+/* Header */
 header {
   display:flex;
-  justify-content:space-between;
+  justify-content:center; /* center logo */
   align-items:center;
   padding:15px 20px;
   background: rgba(255,255,255,0.05);
@@ -27,17 +25,22 @@ header {
   z-index:1000;
 }
 .logo {
-  font-size:24px;
+  font-size:28px;
   font-weight:bold;
-  color:#00ffff;
-  text-shadow:0 0 10px #00ffff;
+  color:red;
+  text-shadow:0 0 10px red;
+  text-align:center;
+  flex:1;
 }
 .menu-icon {
   font-size:28px;
   cursor:pointer;
+  position:absolute;
+  left:20px;
+  top:15px;
 }
 
-/* ===== Side Menu ===== */
+/* Side Menu */
 #sideMenu {
   position:fixed;
   left:-250px;
@@ -64,7 +67,7 @@ header {
   text-shadow:0 0 5px #fff;
 }
 
-/* ===== Hero Section ===== */
+/* Hero Section */
 .hero {
   text-align:center;
   padding:60px 20px;
@@ -72,11 +75,11 @@ header {
 .hero h1 { font-size:32px; margin-bottom:20px;}
 .hero p { font-size:18px; max-width:600px; margin:0 auto 20px auto; line-height:1.5;}
 
-/* ===== Badges ===== */
+/* Badges */
 .badges { display:flex; justify-content:center; gap:10px; margin-bottom:30px;}
 .badge { padding:8px 12px; border-radius:20px; background: rgba(255,255,255,0.1); text-shadow:0 0 5px #00ffff; font-size:14px; font-weight:bold;}
 
-/* ===== Submit Button ===== */
+/* Submit Button */
 .main-btn {
   padding:15px 35px;
   font-size:18px;
@@ -88,25 +91,33 @@ header {
   background: linear-gradient(90deg, #00f, #a0f);
   box-shadow: 0 0 20px #00f, 0 0 40px #a0f;
   transition:0.3s;
+  margin-bottom:20px;
 }
 .main-btn:hover {
   box-shadow: 0 0 30px #0ff, 0 0 60px #f0f;
   transform: scale(1.05);
 }
 
-/* ===== Search Section ===== */
-.search-section { margin:40px auto; max-width:400px; text-align:center;}
-.search-section input, .search-section select {
-  width:80%; padding:10px; margin:5px; border-radius:20px; border:none; outline:none;
-  background: rgba(255,255,255,0.1); color:white; backdrop-filter: blur(5px);
+/* Category Dropdown */
+select {
+  padding:10px 15px;
+  border-radius:20px;
+  border:none;
+  background: rgba(255,255,255,0.1);
+  color:#fff;
+  font-size:16px;
+  outline:none;
+  margin-bottom:30px;
 }
-.search-section input::placeholder { color:#aaa; }
 
-/* ===== Cards ===== */
+/* Cards */
 .card {
   background: rgba(0,0,0,0.5);
   backdrop-filter: blur(10px);
-  margin:20px auto; padding:15px; max-width:400px; border-radius:15px;
+  margin:20px auto;
+  padding:15px;
+  max-width:400px;
+  border-radius:15px;
   box-shadow:0 0 15px #00ffff;
   text-align:center;
 }
@@ -122,7 +133,7 @@ header {
   box-shadow:0 0 15px #0ff,0 0 30px #a0f;
 }
 
-/* ===== Overlay / Loader ===== */
+/* Overlay / typing animation */
 #overlay{
   position:fixed;
   top:0; left:0; width:100%; height:100%;
@@ -130,30 +141,31 @@ header {
   display:flex; justify-content:center; align-items:center; flex-direction:column;
   font-size:24px; color:#0ff; text-shadow:0 0 15px #0ff; z-index:999; display:none;
 }
+#overlay span {
+  border-right:2px solid #0ff;
+  white-space:pre;
+  font-family:monospace;
+  font-size:24px;
+}
+
+/* Spinner for effect */
 .loader{
   border:6px solid #222;
   border-top:6px solid #0ff;
   border-radius:50%;
   width:60px; height:60px;
   animation:spin 1s linear infinite;
-  margin-bottom:20px;
+  margin-top:20px;
 }
-@keyframes spin{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
-
-/* ===== Responsive ===== */
-@media(max-width:500px){
-  .hero h1{font-size:24px;}
-  .hero p{font-size:16px;}
-  .main-btn{font-size:16px; padding:12px 25px;}
-}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
 
 <!-- Header -->
 <header>
-<div class="logo">LinkWave</div>
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
+<div class="logo">LinkWave</div>
 </header>
 
 <!-- Side Menu -->
@@ -164,10 +176,10 @@ header {
 <a href="developer.html">Developer</a>
 </div>
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="hero">
-<h1>The ultimate open directory for social groups</h1>
-<p>Discover thousands of active WhatsApp, Telegram, and social communities.</p>
+<h1>Share your favorite groups!</h1>
+<p>Join thousands of active WhatsApp and Telegram communities.</p>
 
 <div class="badges">
   <div class="badge">No Login Required</div>
@@ -175,55 +187,64 @@ header {
   <div class="badge">100% Free</div>
 </div>
 
+<!-- Category Dropdown -->
+<select id="category">
+<option value="movie">Movie</option>
+<option value="funny">Funny</option>
+<option value="chat">Chat</option>
+</select>
+
+<!-- Submit Button -->
 <button class="main-btn" onclick="submitLink()">+ Submit Link</button>
 </section>
-
-<!-- Search Section -->
-<div class="search-section">
-<input type="text" placeholder="Search links...">
-<select>
-<option>Newest First</option>
-<option>Oldest First</option>
-</select>
-</div>
 
 <!-- Example Cards -->
 <div class="card">
 <a href="#">WhatsApp Group 1</a>
 <p>Movie sharing group</p>
+<p>Category: Movie</p>
 <button onclick="joinGroup('https://chat.whatsapp.com/example')">Join</button>
 </div>
 
 <div class="card">
 <a href="#">Telegram Channel 2</a>
-<p>Fun & funny content</p>
+<p>Funny content</p>
+<p>Category: Funny</p>
 <button onclick="joinGroup('https://t.me/example')">Join</button>
 </div>
 
 <!-- Overlay -->
-<div id="overlay">
-<div class="loader"></div>
-Submitting...
-</div>
+<div id="overlay"><span id="overlayText"></span><div class="loader"></div></div>
 
 <script>
-// Hamburger Menu Toggle
+// Hamburger Menu
 function toggleMenu(){
   const menu = document.getElementById('sideMenu');
   menu.style.left = menu.style.left==='0px'?'-250px':'0px';
 }
 
-// Submit Button Overlay + New Page
+// Submit Button with typing animation
 function submitLink(){
   const overlay = document.getElementById('overlay');
-  overlay.style.display = 'flex';
-  setTimeout(()=>{
-    overlay.style.display='none';
-    window.open('submit.html','_blank'); // open new page
-  },2000);
+  const overlayText = document.getElementById('overlayText');
+  overlay.style.display='flex';
+  const message = "Submitting your link...";
+  overlayText.textContent = "";
+  let i=0;
+  const typeInterval = setInterval(()=>{
+    overlayText.textContent += message[i];
+    i++;
+    if(i>=message.length){
+      clearInterval(typeInterval);
+      setTimeout(()=>{
+        overlay.style.display='none';
+        window.open('submit.html','_blank');
+      },500);
+    }
+  },80);
 }
 
-// Join button opens link in new tab
+// Join buttons open new tab
 function joinGroup(url){
   window.open(url,'_blank');
 }
