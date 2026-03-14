@@ -3,122 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Group Link Hub</title>
+<title>LINKwave</title>
 <style>
-  body { font-family: Arial; margin:0; padding:0; background:#f4f4f4; }
-  header { text-align:center; padding:20px; font-size:2em; animation: slideDown 1s; background:#333; color:#fff; }
-  @keyframes slideDown { 0% { transform: translateY(-50px); opacity:0; } 100% { transform: translateY(0); opacity:1; } }
+/* === General Styles === */
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  color:#fff;
+}
+a { text-decoration:none; }
 
-  #menuBtn { position:fixed; left:10px; top:10px; font-size:2em; cursor:pointer; color:#333; z-index:1000; }
-  nav { position:fixed; left:-200px; top:0; width:200px; height:100%; background:#444; color:#fff; padding:20px; transition:0.3s; z-index:999; }
-  nav.show { left:0; }
-  nav a { display:block; color:#fff; text-decoration:none; margin:15px 0; font-weight:bold; }
+/* === Header === */
+header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding:15px 20px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top:0;
+  z-index:1000;
+}
+#menuBtn { font-size:1.8em; cursor:pointer; color:#00f0ff; }
+#logo { font-size:1.8em; font-weight:bold; color:#fff; text-shadow:0 0 10px #00f0ff; }
 
-  main { padding:20px; margin-left:0; transition:0.3s; }
-  .form-box { background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); margin-bottom:20px; }
-  input, textarea, select, button { width:100%; padding:10px; margin:5px 0; border-radius:5px; border:1px solid #ccc; }
-  button { background:#333; color:#fff; cursor:pointer; }
-  button:hover { background:#555; }
+/* === Sidebar Menu === */
+#sidebar {
+  position:fixed;
+  left:-220px;
+  top:0;
+  width:220px;
+  height:100%;
+  background:#222;
+  padding:25px;
+  box-shadow:2px 0 12px rgba(0,0,0,0.5);
+  transition:0.3s;
+  z-index:999;
+}
+#sidebar.show { left:0; }
+#sidebar a { display:block; color:#fff; margin:20px 0; font-weight:bold; }
+#sidebar a:hover { color:#00f0ff; }
 
-  #loading { display:none; text-align:center; font-weight:bold; margin:10px 0; }
+/* === Main Section === */
+main {
+  padding:50px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height: calc(100vh - 70px);
+}
+main h1 {
+  font-size:2.5em;
+  text-align:center;
+  margin-bottom:20px;
+  text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff;
+}
 
-  #group-container { display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:15px; }
-  .group-box { background:#fff; padding:15px; border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.1); position:relative; text-align:center; }
-  .group-box img { width:50px; height:50px; object-fit:cover; border-radius:50%; margin-bottom:10px; }
-  .group-box button { width:100%; margin-top:10px; }
+/* Badges */
+.badges { display:flex; gap:10px; margin-bottom:30px; flex-wrap:wrap; }
+.badge {
+  background: rgba(255,255,255,0.1);
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:0.9em;
+  border:1px solid rgba(255,255,255,0.3);
+  text-shadow:0 0 5px #00f0ff;
+}
+
+/* Neon glow buttons */
+button.glow-btn {
+  padding:15px 35px;
+  font-size:1.2em;
+  font-weight:bold;
+  border:none;
+  border-radius:25px;
+  background: linear-gradient(90deg,#00f0ff,#a020ff);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff;
+  transition: all 0.3s ease;
+}
+button.glow-btn:hover {
+  box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff;
+  transform: translateY(-3px);
+}
+
+/* Dropdown */
+select {
+  margin-top:20px;
+  padding:10px 15px;
+  border-radius:12px;
+  border:none;
+  background: rgba(255,255,255,0.05);
+  color:#fff;
+  font-size:1em;
+  box-shadow:0 0 5px #00f0ff;
+  appearance:none;
+  cursor:pointer;
+}
+
+/* Loading Animation */
+#loading { display:none; text-align:center; font-weight:bold; margin:12px 0; }
+
+/* Responsive */
+@media(max-width:600px){
+  main h1 { font-size:2em; }
+  button.glow-btn { width:100%; padding:15px; }
+  .badges { justify-content:center; }
+}
 </style>
 </head>
 <body>
 
-<div id="menuBtn">&#9776;</div>
-<nav id="sidebar">
-  <a href="#">Contact</a>
-  <a href="#">Developer</a>
-  <a href="#">Terms & Service</a>
-</nav>
+<header>
+  <div id="menuBtn">&#9776;</div>
+  <div id="logo">LINKwave</div>
+  <div style="width:30px;"></div>
+</header>
 
-<header>Group Link Hub</header>
+<!-- Sidebar Menu -->
+<div id="sidebar">
+  <a href="contact.html" target="_blank">Contact</a>
+  <a href="developer.html" target="_blank">Developer</a>
+  <a href="terms.html" target="_blank">Terms & Service</a>
+</div>
 
 <main>
-  <div class="form-box">
-    <h3>Submit Group</h3>
-    <input type="text" id="title" placeholder="Title">
-    <textarea id="description" placeholder="Description"></textarea>
-    <input type="text" id="link" placeholder="Group Link">
-    <select id="category">
-      <option value="">Select Category</option>
-      <option value="Movie">Movie</option>
-      <option value="Funny">Funny</option>
-      <option value="Chat">Chat</option>
-    </select>
-    <select id="platform">
-      <option value="">Select Platform</option>
-      <option value="WhatsApp">WhatsApp</option>
-      <option value="Telegram">Telegram</option>
-    </select>
-    <button onclick="submitGroup()">Submit</button>
-    <div id="loading">Loading...</div>
+  <h1>Share and Submit Your Best Links!</h1>
+  <div class="badges">
+    <div class="badge">No Login Required</div>
+    <div class="badge">Instant Approval</div>
+    <div class="badge">100% Free</div>
   </div>
 
-  <div id="group-container"></div>
+  <button class="glow-btn" id="submitBtn">+ Submit Link</button>
+  <div id="loading">Loading...</div>
+
+  <select>
+    <option>Newest First</option>
+    <option>Oldest First</option>
+    <option>Most Popular</option>
+  </select>
 </main>
 
 <script>
-let groups = [];
-
+// Sidebar toggle
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
-menuBtn.addEventListener('click', () => sidebar.classList.toggle('show'));
+menuBtn.addEventListener('click', ()=> sidebar.classList.toggle('show'));
 
-function getPlatformLogo(platform){
-  if(platform === 'WhatsApp') return 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg';
-  if(platform === 'Telegram') return 'https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg';
-  return '';
-}
-
-function submitGroup(){
-  const title = document.getElementById('title').value.trim();
-  const description = document.getElementById('description').value.trim();
-  const link = document.getElementById('link').value.trim();
-  const category = document.getElementById('category').value;
-  const platform = document.getElementById('platform').value;
-
-  if(!title || !link || !category || !platform){ 
-    alert("Please fill all fields!"); 
-    return; 
-  }
-
-  document.getElementById('loading').style.display = 'block';
-
-  setTimeout(() => {
-    const group = { title, description, link, category, platform, image: getPlatformLogo(platform) };
-    groups.push(group);
-    displayGroups();
-    document.getElementById('loading').style.display = 'none';
-
-    document.getElementById('title').value='';
-    document.getElementById('description').value='';
-    document.getElementById('link').value='';
-    document.getElementById('category').value='';
-    document.getElementById('platform').value='';
+// Submit button → loading + new page
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  const loading = document.getElementById('loading');
+  loading.style.display = 'block';
+  setTimeout(()=>{
+    window.location.href = 'submit.html';
   }, 800);
-}
-
-function displayGroups(){
-  const container = document.getElementById('group-container');
-  container.innerHTML = '';
-  groups.forEach(g => {
-    container.innerHTML += `
-      <div class="group-box">
-        <img src="${g.image}" alt="${g.platform} logo"/>
-        <h4>${g.title}</h4>
-        <p>${g.description}</p>
-        <p><b>Category:</b> ${g.category}</p>
-        <a href="${g.link}" target="_blank"><button>Join</button></a>
-      </div>
-    `;
-  });
-}
+});
 </script>
 
 </body>
