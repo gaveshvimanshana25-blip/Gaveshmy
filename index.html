@@ -8,7 +8,7 @@
 /* === Body === */
 body {
   margin:0;
-  font-family:'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
   background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
   color:#fff;
 }
@@ -26,10 +26,15 @@ header {
   z-index:1000;
 }
 #menuBtn {
-  font-size:1.8em;
-  cursor:pointer;
-  color:#00f0ff;
+  font-size: 1.8em;
+  cursor: pointer;
+  color: #00f0ff;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
+#menuBtn:focus { outline:none; }
 #logo {
   font-size:1.8em;
   font-weight:bold;
@@ -50,9 +55,7 @@ header {
   transition:0.3s;
   z-index:999;
 }
-#sidebar.show {
-  left:0;
-}
+#sidebar.show { left:0; }
 #sidebar a {
   display:block;
   color:#fff;
@@ -195,14 +198,14 @@ footer a { color:#00f0ff; }
 @media(max-width:600px){
   main h1 { font-size:2em; }
   button.glow-btn { width:100%; }
-  .badges { justify-content:center; }
+  .badges {justify-content:center;}
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div id="menuBtn">&#9776;</div>
+  <button id="menuBtn">&#9776;</button>
   <div id="logo">LINKwave</div>
   <div style="width:30px;"></div>
 </header>
@@ -231,7 +234,7 @@ footer a { color:#00f0ff; }
   </select>
 
   <div id="cards-container">
-    <!-- Example Card -->
+    <!-- Example Cards -->
     <div class="card">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo">
       <h3>Movie Chat</h3>
@@ -259,7 +262,7 @@ const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 menuBtn.addEventListener('click', ()=> sidebar.classList.toggle('show'));
 
-// Submit button click → example page
+// Submit button click
 document.getElementById('submitBtn').addEventListener('click', ()=>{
   window.location.href = 'submit.html';
 });
