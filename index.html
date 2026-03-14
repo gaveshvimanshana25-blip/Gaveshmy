@@ -3,146 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinkWave</title>
+<title>LINKGIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 /* Header */
 header {
-  padding: 20px;
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  background: linear-gradient(90deg, #0ff, #f0f, #ff0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Layout */
-.container {
+  width: 100%;
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
 }
-
-/* Categories on left */
-.categories {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+header .logo {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 0 8px #00f0ff, 0 0 12px #ff00ff;
 }
-.categories button {
-  padding: 12px;
-  border: 1px solid #0ff;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.05);
-  color: #0ff;
+header .hamburger {
+  font-size: 2rem;
   cursor: pointer;
-  transition: 0.3s;
+  color: #fff;
+  position: relative;
 }
-.categories button:hover {
-  background: #0ff;
-  color: #111;
-}
-
-/* Links section */
-.links {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-height: 500px; /* scrollable */
-  overflow-y: auto;
-  padding-right: 10px;
-}
-.link-btn {
-  padding: 15px;
-  border: 1px solid #0ff;
-  border-radius: 10px;
-  color: #0ff;
-  text-decoration: none;
+/* Dropdown Menu */
+.menu {
+  position: absolute;
+  top: 60px;
+  left: 20px;
   background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  display: none;
+  flex-direction: column;
+  width: 150px;
+  padding: 10px 0;
+  z-index: 1000;
+}
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+  transition: 0.2s;
+}
+.menu a:hover {
+  background: rgba(255,255,255,0.1);
+}
+/* Top Badge */
+.top-badge {
+  margin: 20px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+}
+.top-badge .online-dot {
+  width: 10px;
+  height: 10px;
+  background: #00ff00;
+  border-radius: 50%;
+}
+/* Main Section */
+.main-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+.main-section h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.badges {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.badges span {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  font-size: 0.85rem;
+  color: #fff;
+}
+/* Buttons */
+.main-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #00f0ff, #ff00ff);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #ff00ff;
+  margin: 10px;
   transition: 0.3s;
 }
-.link-btn:hover {
-  background: #0ff;
-  color: #111;
+.main-btn:hover {
+  box-shadow: 0 0 20px #00f0ff, 0 0 30px #ff00ff;
+  transform: scale(1.05);
 }
-
-/* Scrollbar style */
-.links::-webkit-scrollbar {
-  width: 6px;
-}
-.links::-webkit-scrollbar-thumb {
-  background: #0ff;
-  border-radius: 3px;
-}
-
 /* Responsive */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-  .categories {
-    flex-direction: row;
-    overflow-x: auto;
-    width: 100%;
-  }
-  .categories button {
-    flex: 0 0 auto;
-  }
+@media (min-width: 768px) {
+  .main-section h1 { font-size: 2.5rem; }
+  .main-btn { font-size: 1.3rem; }
 }
 </style>
 </head>
 <body>
 
-<header>LinkWave</header>
-
-<div class="container">
-  <div class="categories">
-    <button onclick="showLinks('whatsapp')">WhatsApp</button>
-    <button onclick="showLinks('telegram')">Telegram</button>
-    <button onclick="showLinks('other')">Other</button>
+<header>
+  <div class="hamburger">&#9776;
+    <div class="menu">
+      <a href="contact.html" target="_blank">Contact</a>
+      <a href="developer.html" target="_blank">Developer</a>
+      <a href="terms.html" target="_blank">Terms</a>
+      <a href="policy.html" target="_blank">Policy</a>
+    </div>
   </div>
+  <div class="logo">LINKGIC</div>
+  <div></div>
+</header>
 
-  <div class="links" id="linksContainer">
-    <!-- Links will appear here -->
-    <a class="link-btn" href="https://example.com" target="_blank">Example Link 1</a>
-    <a class="link-btn" href="https://example2.com" target="_blank">Example Link 2</a>
-    <a class="link-btn" href="https://example3.com" target="_blank">Example Link 3</a>
+<div class="top-badge">
+  <div class="online-dot"></div>
+  Active Links: 531
+</div>
+
+<div class="main-section">
+  <h1>The ultimate open directory for social groups.<br>Discover thousands of active WhatsApp, Telegram, and social communities.</h1>
+  <div class="badges">
+    <span>No Login Required</span>
+    <span>Instant Approval</span>
+    <span>100% Free</span>
   </div>
+  <a href="submit.html" target="_blank" class="main-btn">+ Submit Link</a>
+  <a href="join.html" target="_blank" class="main-btn">Join Now</a>
 </div>
 
 <script>
-// Example dynamic filter by category
-const allLinks = [
-  {title: "WhatsApp Group 1", url: "https://wa.me/123", category: "whatsapp"},
-  {title: "Telegram Channel 1", url: "https://t.me/example", category: "telegram"},
-  {title: "Other Link", url: "https://example.com", category: "other"},
-  {title: "WhatsApp Group 2", url: "https://wa.me/456", category: "whatsapp"},
-  {title: "Telegram Channel 2", url: "https://t.me/example2", category: "telegram"},
-];
-
-function showLinks(cat) {
-  const container = document.getElementById('linksContainer');
-  container.innerHTML = '';
-  allLinks
-    .filter(link => link.category === cat)
-    .forEach(link => {
-      const a = document.createElement('a');
-      a.className = 'link-btn';
-      a.href = link.url;
-      a.target = '_blank';
-      a.textContent = link.title;
-      container.appendChild(a);
-    });
-}
+// Hamburger menu toggle
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.menu');
+hamburger.addEventListener('click', () => {
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+});
 </script>
 
 </body>
