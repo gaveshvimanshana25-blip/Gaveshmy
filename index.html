@@ -3,264 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINKwave</title>
+<title>LinkWave</title>
 <style>
+/* ===== Body & Background ===== */
 body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
-  color:#fff;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0a0a0a,#1a1a1a);
+  color:white;
 }
 
-/* Header */
-header{
+/* ===== Header ===== */
+header {
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:15px 20px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
-  position: sticky;
-  top:0;
-  z-index:1000;
-}
-#menuBtn{
-  font-size:1.8em;
-  cursor:pointer;
-  color:#00f0ff;
-  background:none;
-  border:none;
-  padding:0;
-}
-#menuBtn:focus{outline:none;}
-#logo{
-  font-size:1.8em;
-  font-weight:bold;
-  color:#fff;
-  text-shadow:0 0 10px #00f0ff;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
 }
 
-/* Sidebar - slide in only */
-#sidebar{
+.logo {
+  font-size:24px;
+  font-weight:bold;
+  color:#00ffff;
+  text-shadow:0 0 10px #00ffff;
+}
+
+.menu-icon {
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* ===== Side Menu ===== */
+#sideMenu {
   position:fixed;
-  left:-260px; /* hidden initially */
+  left:-250px;
   top:0;
-  width:260px;
+  width:250px;
   height:100%;
-  background:#111;
-  padding:25px;
-  transition: left 0.3s ease;
-  z-index:1500; /* above header */
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(10px);
+  padding-top:60px;
+  transition:0.3s;
 }
-#sidebar.show{
-  left:0; /* slide in */
-}
-#sidebar a{
+
+#sideMenu a {
   display:block;
-  color:#fff;
-  margin:20px 0;
-  font-weight:bold;
-  font-size:1.1em;
+  padding:15px 20px;
+  color:white;
   text-decoration:none;
-}
-#sidebar a:hover{
-  color:#00f0ff;
-  text-shadow:0 0 5px #00f0ff;
+  border-bottom:1px solid #333;
 }
 
-/* Main content */
-main{
-  padding:80px 20px 40px;
+#sideMenu a:hover {
+  background:#00ffff;
+  color:#000;
+  text-shadow:0 0 5px #fff;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hero h1 {
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+.hero p {
+  font-size:18px;
+  max-width:600px;
+  margin:0 auto 20px auto;
+  line-height:1.5;
+}
+
+/* ===== Badges ===== */
+.badges {
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  position:relative;
-  z-index:1; /* below sidebar */
-}
-main h1{
-  font-size:2.5em;
-  margin-bottom:10px;
-  text-shadow:0 0 15px #00f0ff,0 0 25px #a020ff;
-}
-main p.tagline{
-  font-size:1.1em;
-  margin-bottom:25px;
-  color:#ccc;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:30px;
 }
 
-/* Badges */
-.badges{
-  display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:30px;
-}
-.badge{
-  background: rgba(255,255,255,0.1);
-  padding:8px 14px;
-  border-radius:14px;
-  font-size:0.9em;
-  border:1px solid rgba(255,255,255,0.3);
-  text-shadow:0 0 5px #00f0ff;
-}
-
-/* CTA */
-button.glow-btn{
-  padding:15px 35px;
-  font-size:1.2em;
-  border-radius:25px;
-  border:none;
-  background:linear-gradient(90deg,#00f0ff,#a020ff);
-  color:#fff;
-  cursor:pointer;
-  font-weight:bold;
-  box-shadow:0 0 10px #00f0ff,0 0 20px #a020ff;
-  transition:0.3s;
-}
-button.glow-btn:hover{
-  box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff,0 0 60px #00f0ff;
-  transform:translateY(-3px);
-}
-
-/* Dropdown */
-select{
-  margin-top:20px;
-  padding:10px 15px;
-  border-radius:12px;
-  border:none;
-  background:rgba(255,255,255,0.05);
-  color:#fff;
-  font-size:1em;
-  cursor:pointer;
-  box-shadow:0 0 5px #00f0ff;
-  appearance:none;
-}
-
-/* Cards */
-#cards-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  width:100%;
-  max-width:1100px;
-  margin-top:40px;
-  position:relative;
-}
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-  box-shadow:0 0 10px #00f0ff;
-  transition:0.3s;
-}
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 20px #00f0ff,0 0 40px #a020ff;
-}
-.card img{width:50px; height:50px; border-radius:50%; margin-bottom:10px;}
-.card h3{margin:5px 0;}
-.card p{color:#ccc;font-size:0.95em;margin:5px 0;}
-.card button{
-  padding:10px 20px;
-  border:none;
+.badge {
+  padding:8px 12px;
   border-radius:20px;
+  background: rgba(255,255,255,0.1);
+  text-shadow:0 0 5px #00ffff;
+  font-size:14px;
   font-weight:bold;
-  background:linear-gradient(90deg,#00f0ff,#a020ff);
-  color:#fff;
+}
+
+/* ===== Submit Button ===== */
+.main-btn {
+  padding:15px 35px;
+  font-size:18px;
+  font-weight:bold;
+  color:white;
+  border:none;
+  border-radius:25px;
   cursor:pointer;
+  background: linear-gradient(90deg, #00f, #a0f);
+  box-shadow: 0 0 20px #00f, 0 0 40px #a0f;
   transition:0.3s;
 }
-.card button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 15px #00f0ff,0 0 30px #a020ff;
+
+.main-btn:hover {
+  box-shadow: 0 0 30px #0ff, 0 0 60px #f0f;
+  transform: scale(1.05);
 }
 
-/* Footer */
-footer{
-  padding:20px;
+/* ===== Search Section ===== */
+.search-section {
+  margin:40px auto;
+  max-width:400px;
   text-align:center;
-  color:#ccc;
-  margin-top:50px;
-  font-size:0.9em;
 }
-footer a{color:#00f0ff;}
 
-/* Responsive */
-@media(max-width:600px){
-  main h1{font-size:2em;}
-  button.glow-btn{width:100%;}
-  .badges{justify-content:center;}
+.search-section input, .search-section select {
+  width:80%;
+  padding:10px;
+  margin:5px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  background: rgba(255,255,255,0.1);
+  color:white;
+  backdrop-filter: blur(5px);
+}
+
+.search-section input::placeholder {
+  color:#aaa;
+}
+
+/* ===== Link Cards ===== */
+.card {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  margin:20px auto;
+  padding:15px;
+  max-width:400px;
+  border-radius:15px;
+  box-shadow:0 0 15px #00ffff;
+}
+
+.card a {
+  color:#0ff;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.card a:hover {
+  text-shadow:0 0 10px #fff;
+}
+
+/* ===== Submit Form Overlay ===== */
+#overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.95);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-size:24px;
+  color:#0ff;
+  text-shadow:0 0 15px #0ff;
+  display:none;
+  z-index:999;
+}
+
+.loader{
+  border:6px solid #222;
+  border-top:6px solid #0ff;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 1s linear infinite;
+  margin-bottom:20px;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* ===== Responsive ===== */
+@media(max-width:500px){
+  .hero h1{font-size:24px;}
+  .hero p{font-size:16px;}
+  .main-btn{font-size:16px; padding:12px 25px;}
 }
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <header>
-  <button id="menuBtn">&#9776;</button>
-  <div id="logo">LINKwave</div>
-  <div style="width:30px;"></div>
+<div class="logo">LinkWave</div>
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
 </header>
 
-<div id="sidebar">
-  <a href="contact.html" target="_blank">Contact</a>
-  <a href="developer.html" target="_blank">Developer</a>
-  <a href="terms.html" target="_blank">Terms & Service</a>
+<!-- Side Menu -->
+<div id="sideMenu">
+<a href="#">Home</a>
+<a href="#">Contact</a>
+<a href="#">Terms & Policy</a>
+<a href="#">Link Submit</a>
+<a href="#">Extra</a>
 </div>
 
-<main>
-  <h1>Submit & Share Your Best Links!</h1>
-  <p class="tagline">Fast, Easy, & 100% Free link submission platform</p>
+<!-- Hero Section -->
+<section class="hero">
+<h1>The ultimate open directory for social groups</h1>
+<p>Discover thousands of active WhatsApp, Telegram, and social communities.</p>
 
-  <div class="badges">
-    <div class="badge">No Login Required</div>
-    <div class="badge">Instant Approval</div>
-    <div class="badge">100% Free</div>
-  </div>
+<div class="badges">
+<div class="badge">No Login Required</div>
+<div class="badge">Instant Approval</div>
+<div class="badge">100% Free</div>
+</div>
 
-  <button class="glow-btn" id="submitBtn">+ Submit Link</button>
-  <select>
-    <option>Newest First</option>
-    <option>Oldest First</option>
-    <option>Most Popular</option>
-  </select>
+<!-- Submit Button triggers overlay -->
+<button class="main-btn" onclick="showOverlay()">+ Submit Link</button>
+</section>
 
-  <div id="cards-container">
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo">
-      <h3>Movie Chat</h3>
-      <p>Join this WhatsApp group to share movies!</p>
-      <p>Category: Movie</p>
-      <button onclick="window.open('https://example.com','_blank')">Join</button>
-    </div>
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram logo">
-      <h3>Fun Chat</h3>
-      <p>Telegram group for funny videos & memes</p>
-      <p>Category: Funny</p>
-      <button onclick="window.open('https://example.com','_blank')">Join</button>
-    </div>
-  </div>
-</main>
+<!-- Search Section -->
+<div class="search-section">
+<input type="text" placeholder="Search links...">
+<select>
+<option>Newest First</option>
+<option>Oldest First</option>
+</select>
+</div>
 
-<footer>
-  &copy; 2026 LINKwave. <a href="terms.html">Terms & Service</a> | <a href="developer.html">Developer</a>
-</footer>
+<!-- Example Link Cards -->
+<div class="card">
+<a href="#">WhatsApp Group 1</a><br>
+Description of the group
+</div>
+
+<div class="card">
+<a href="#">Telegram Channel 2</a><br>
+Description of the channel
+</div>
+
+<!-- Submit Animation Overlay -->
+<div id="overlay">
+<div class="loader"></div>
+Link Submitted!
+</div>
 
 <script>
-// Sidebar slide-in only
-const menuBtn = document.getElementById('menuBtn');
-const sidebar = document.getElementById('sidebar');
-menuBtn.addEventListener('click', ()=>sidebar.classList.toggle('show'));
+// ===== Menu Toggle =====
+function toggleMenu(){
+let menu = document.getElementById("sideMenu");
+menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
+}
 
-// Click outside closes sidebar
-document.addEventListener('click', e=>{
-  if(!sidebar.contains(e.target) && !menuBtn.contains(e.target)){
-    sidebar.classList.remove('show');
-  }
-});
+// ===== Submit Animation Overlay =====
+function showOverlay(){
+  let overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
 
-// Submit button
-document.getElementById('submitBtn').addEventListener('click', ()=>window.location.href='submit.html');
+  setTimeout(()=>{
+    overlay.style.display = "none";
+    window.open("https://example.com/thankyou","_blank"); // new page or confirmation
+  },2000); // 2 seconds animation
+}
 </script>
 
 </body>
