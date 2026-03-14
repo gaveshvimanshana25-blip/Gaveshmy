@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Link - LinkWave</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000000,#0a0a0f);color:white;text-align:center;}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#000,#0a0a0f);color:white;text-align:center;}
 form{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);padding:30px;border-radius:15px;width:90%;max-width:400px;margin:50px auto;border:1px solid rgba(255,255,255,0.1);}
 input, select, textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:none;background:rgba(255,255,255,0.1);color:white;}
 input::placeholder, textarea::placeholder{color:#ccc;}
@@ -19,7 +19,7 @@ h1{margin-top:30px;font-size:32px;}
 
 <form id="submitForm">
   <input type="text" placeholder="Group Name" required id="groupName">
-  <input type="url" placeholder="Group Link (WhatsApp/Telegram)" required id="groupURL">
+  <input type="url" placeholder="Group Link" required id="groupURL">
   <select required id="groupPlatform">
     <option value="">Select Platform</option>
     <option value="WhatsApp">WhatsApp</option>
@@ -27,24 +27,38 @@ h1{margin-top:30px;font-size:32px;}
     <option value="Discord">Discord</option>
   </select>
   <textarea placeholder="Short Description" rows="4" required id="groupDesc"></textarea>
+  <input type="file" id="groupLogo" accept="image/*" required>
   <button type="submit">Submit Link</button>
 </form>
 
 <script>
 document.getElementById('submitForm').addEventListener('submit', function(e){
   e.preventDefault();
+  
   const name = document.getElementById('groupName').value;
   const url = document.getElementById('groupURL').value;
   const platform = document.getElementById('groupPlatform').value;
   const desc = document.getElementById('groupDesc').value;
+  const logoInput = document.getElementById('groupLogo');
 
-  const link = {name:name,url:url,platform:platform,description:desc};
-  let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-  links.push(link);
-  localStorage.setItem('linkwaveLinks', JSON.stringify(links));
+  if(logoInput.files.length === 0){
+    alert("Please select a logo image.");
+    return;
+  }
 
-  alert("Thank you! Your link has been submitted.");
-  this.reset();
+  const reader = new FileReader();
+  reader.onload = function(){
+    const logoBase64 = reader.result;
+    const link = {name,name,url,url,platform,platform,description:desc,logo:logoBase64};
+
+    let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+    links.push(link);
+    localStorage.setItem('linkwaveLinks', JSON.stringify(links));
+
+    alert("Thank you! Your link has been submitted.");
+    document.getElementById('submitForm').reset();
+  }
+  reader.readAsDataURL(logoInput.files[0]);
 });
 </script>
 
