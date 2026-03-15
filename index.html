@@ -4,385 +4,331 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
+
 <style>
-/* Body & Background */
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:white;
-  text-align:center;
-  background: linear-gradient(180deg,#0a0a0f,#000);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+background: linear-gradient(180deg,#0a0a0f,#000);
+background-size:400% 400%;
+animation:gradientBG 15s ease infinite;
 }
 
-/* Header */
+/* header */
+
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 40px;
-  font-size:28px;
-  font-weight:bold;
-  position:relative;
-  z-index:10;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+font-size:28px;
+font-weight:bold;
+position:relative;
 }
+
 .menu-icon{
-  font-size:28px;
-  cursor:pointer;
+font-size:28px;
+cursor:pointer;
 }
+
 .dropdown{
-  display:none;
-  position:absolute;
-  top:70px;
-  left:20px;
-  background:rgba(0,0,0,0.95);
-  border:1px solid #333;
-  border-radius:10px;
-  padding:10px 0;
-  min-width:180px;
-  text-align:left;
-  z-index:100;
-  transition: all 0.3s ease;
+display:none;
+position:absolute;
+top:70px;
+left:20px;
+background:#000;
+border:1px solid #333;
+border-radius:10px;
+min-width:180px;
 }
+
 .dropdown a{
-  display:block;
-  color:white;
-  padding:10px 20px;
-  text-decoration:none;
+display:block;
+padding:10px 20px;
+color:white;
+text-decoration:none;
 }
+
 .dropdown a:hover{
-  background:rgba(58,127,253,0.2);
+background:#222;
 }
 
-/* Hero Section */
+/* hero */
+
 h1{
-  font-size:40px;
-  margin-top:20px;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.3s;
+font-size:40px;
+margin-top:20px;
 }
+
 p{
-  color:#aaa;
-  max-width:600px;
-  margin:auto;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.6s;
+color:#aaa;
+max-width:600px;
+margin:auto;
 }
+
 .main-btn{
-  display:inline-block;
-  margin-top:25px;
-  padding:14px 28px;
-  border-radius:30px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-  box-shadow:0 0 20px rgba(120,80,255,0.7);
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay:0.9s;
-}
-@keyframes fadeInUp{
-  to{opacity:1; transform: translateY(0);}
+display:inline-block;
+margin-top:25px;
+padding:14px 28px;
+border-radius:30px;
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+color:white;
+text-decoration:none;
+font-weight:bold;
 }
 
-/* Search */
-.search{margin-top:40px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
-.search input{padding:12px;width:220px;border-radius:10px;border:none;}
-.search select{padding:12px;border-radius:10px;border:none;}
+/* search */
 
-/* Category Scroll */
+.search{
+margin-top:40px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.search input{
+padding:12px;
+width:220px;
+border-radius:10px;
+border:none;
+}
+
+/* category */
+
 #categoryScroll{
-  margin-top:20px;
-  display:flex;
-  overflow-x:auto;
-  gap:15px;
-  padding:10px 20px;
+margin-top:20px;
+display:flex;
+overflow-x:auto;
+gap:15px;
+padding:10px 20px;
 }
+
 #categoryScroll div{
-  flex:0 0 auto;
-  padding:8px 18px;
-  background:rgba(58,127,253,0.2);
-  border-radius:20px;
-  cursor:pointer;
-  white-space:nowrap;
-  transition: all 0.3s ease;
+flex:0 0 auto;
+padding:8px 18px;
+background:rgba(58,127,253,0.2);
+border-radius:20px;
+cursor:pointer;
+white-space:nowrap;
 }
+
 #categoryScroll div:hover{
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  transform: scale(1.1);
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
 }
 
-/* Cards */
+/* cards */
+
 .cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-top:40px;
-  gap:20px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:40px;
+gap:20px;
 }
+
 .card{
-  width:220px;
-  padding:20px;
-  border-radius:15px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+width:220px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
 }
-.card:hover{
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(58,127,253,0.4);
-}
+
 .card img{
-  width:100%;
-  border-radius:10px;
-  margin-bottom:10px;
+width:100%;
+border-radius:10px;
 }
+
 .join{
-  display:inline-block;
-  margin-top:10px;
-  padding:8px 16px;
-  border-radius:20px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  text-decoration:none;
-  color:white;
-  font-size:14px;
+display:inline-block;
+margin-top:10px;
+padding:8px 16px;
+border-radius:20px;
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+color:white;
+text-decoration:none;
 }
 
-/* Footer */
+/* footer */
+
 footer{
-  margin-top:50px;
-  padding:20px 0;
-  background:rgba(0,0,0,0.9);
-  color:#aaa;
-  text-align:center;
-  font-size:14px;
+margin-top:50px;
+padding:20px;
+background:#000;
+color:#aaa;
 }
+
 footer a{
-  color:#3a7bfd;
-  text-decoration:none;
-}
-footer a:hover{
-  text-decoration:underline;
+color:#3a7bfd;
+text-decoration:none;
 }
 
-/* Floating Battery/Activity Bar */
-#activityBattery {
-  position: fixed;
-  top:10px;
-  left:50%;
-  transform: translateX(-50%);
-  width:200px;
-  max-width:90%;
-  height:25px;
-  border:2px solid #3a7bfd;
-  border-radius:5px;
-  background:#111;
-  overflow:hidden;
-  z-index:1000;
-}
-#batteryFill {
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#3a7bfd,#a855f7);
-  transition:width 0.5s ease;
-}
-#batteryLabel {
-  position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  color:#fff;
-  font-size:14px;
-  font-weight:bold;
-  line-height:25px;
-  pointer-events:none;
-  text-shadow:0 0 5px #3a7bfd;
-}
-#batteryFill.full{
-  box-shadow:0 0 15px #3a7bfd,0 0 25px #a855f7;
-  animation: glow 1s infinite alternate;
-}
-@keyframes glow{
-  0% {box-shadow:0 0 10px #3a7bfd,0 0 20px #a855f7;}
-  50%{box-shadow:0 0 15px #3a7bfd,0 0 30px #a855f7;}
-  100%{box-shadow:0 0 10px #3a7bfd,0 0 20px #a855f7;}
+/* scroll progress */
+
+#scrollProgress{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+width:0%;
+background:linear-gradient(90deg,#3a7bfd,#a855f7);
+z-index:999;
 }
 
-/* Scroll Progress Bar */
-#scrollProgress {
-  position: fixed;
-  top:0;
-  left:0;
-  width:0%;
-  height:4px;
-  background:linear-gradient(90deg,#3a7bfd,#a855f7);
-  z-index:1001;
-}
-
-/* Background gradient animation */
 @keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
+
 </style>
 </head>
+
 <body>
 
-<header>
-  <div class="menu-icon" onclick="toggleMenu()">☰</div>
-  <div>LinkWave</div>
-  <div></div>
-  <div class="dropdown" id="dropdownMenu">
-    <a href="contact.html" target="_blank">Contact</a>
-    <a href="terms.html" target="_blank">Terms & Policy</a>
-    <a href="developer.html" target="_blank">Developer</a>
-    <a href="analytics.html" target="_blank">Live Analytics</a>
-  </div>
-</header>
-
-<!-- Battery / Activity Bar -->
-<div id="activityBattery">
-  <div id="batteryFill"></div>
-  <div id="batteryLabel">0%</div>
-</div>
-
-<!-- Scroll Progress -->
 <div id="scrollProgress"></div>
 
-<h1>Discover and Join the Best Communities</h1>
-<p>Find WhatsApp, Telegram, Facebook, TikTok groups shared by the community.</p>
-<a class="main-btn" href="submit.html" target="_blank">+ Submit Your Link</a>
+<header>
 
-<!-- Search + Category -->
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<div>LinkWave</div>
+
+<div class="dropdown" id="dropdownMenu">
+<a href="contact.html">Contact</a>
+<a href="terms.html">Terms</a>
+<a href="developer.html">Developer</a>
+<a href="analytics.html">Analytics</a>
+</div>
+
+</header>
+
+<h1>Discover and Join the Best Communities</h1>
+<p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
+
+<a class="main-btn" href="submit.html">+ Submit Your Link</a>
+
 <div class="search">
-  <input type="text" id="searchInput" placeholder="Search groups...">
-  <select id="filterSelect">
-    <option value="Newest">Newest First</option>
-    <option value="Popular">Popular</option>
-    <option value="WhatsApp">WhatsApp</option>
-    <option value="Telegram">Telegram</option>
-    <option value="Facebook">Facebook</option>
-    <option value="TikTok">TikTok</option>
-  </select>
+<input type="text" id="searchInput" placeholder="Search groups...">
 </div>
 
 <div id="categoryScroll">
-  <div>WhatsApp</div>
-  <div>Telegram</div>
-  <div>Facebook</div>
-  <div>TikTok</div>
-  <div>Twitter</div>
-  <div>Fun</div>
-  <div>Movies</div>
-  <div>Music</div>
-  <div>Gaming</div>
-  <div>News</div>
-  <div>Education</div>
-  <div>Tech</div>
-  <div>Sports</div>
-  <div>Business</div>
-  <div>Fashion</div>
-  <div>Travel</div>
-  <div>Health</div>
-  <div>Memes</div>
-  <div>Food</div>
+
+<div data-platform="All">All</div>
+<div data-platform="WhatsApp">WhatsApp</div>
+<div data-platform="Telegram">Telegram</div>
+<div data-platform="Facebook">Facebook</div>
+<div data-platform="TikTok">TikTok</div>
+
 </div>
 
 <div class="cards" id="cardsContainer"></div>
 
 <footer>
-  Made within Sri Lanka 🇱🇰 <br>
-  © 2026 LinkWave. All rights reserved. <br>
-  Designed & Developed by <a href="https://VIMA.LK/" target="_blank">Gavesh</a>
+
+Made within Sri Lanka 🇱🇰 <br>
+© 2026 LinkWave <br>
+Designed by <a href="https://VIMA.LK/">Gavesh</a>
+
 </footer>
 
 <script>
-// Hamburger menu toggle
+
+/* menu */
+
 function toggleMenu(){
-  const menu = document.getElementById('dropdownMenu');
-  menu.style.display = (menu.style.display==="block")?"none":"block";
-}
-window.onclick = function(e){
-  const menu = document.getElementById('dropdownMenu');
-  if(!e.target.matches('.menu-icon')){
-    if(menu.style.display==="block"){menu.style.display="none";}
-  }
+const menu=document.getElementById("dropdownMenu");
+menu.style.display=menu.style.display==="block"?"none":"block";
 }
 
-// Load links from localStorage
-function loadLinks(){
-  const container = document.getElementById('cardsContainer');
-  container.innerHTML = "";
-  const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-  links.reverse().forEach(link=>{
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      ${link.logo? `<img src="${link.logo}" alt="Group Logo">` : ''}
-      <h3>${link.name}</h3>
-      <p>${link.description}</p>
-      <a class="join" href="${link.url}" target="_blank">Join</a>
-    `;
-    container.appendChild(card);
-  });
+/* load links */
+
+function loadLinks(filter="All"){
+
+const container=document.getElementById("cardsContainer");
+
+container.innerHTML="";
+
+const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[];
+
+links.reverse().forEach(link=>{
+
+if(filter==="All"||link.platform===filter){
+
+const card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+${link.logo?`<img src="${link.logo}">`:''}
+<h3>${link.name}</h3>
+<p>${link.description}</p>
+<a class="join" href="${link.url}" target="_blank">Join</a>
+`;
+
+container.appendChild(card);
+
 }
 
-// Battery / activity indicator
-let totalClicks = 0;
-const maxClicks = 20; 
-function updateBattery() {
-  totalClicks = Math.min(totalClicks, maxClicks);
-  const percentage = Math.floor((totalClicks / maxClicks) * 100);
-  const fill = document.getElementById('batteryFill');
-  const label = document.getElementById('batteryLabel');
-  fill.style.width = percentage + '%';
-  label.innerText = percentage + '%';
-  if(percentage===100) fill.classList.add('full');
-  else fill.classList.remove('full');
-}
-
-// Track clicks/joins
-document.addEventListener('click', function(e){
-  if(e.target && e.target.classList.contains('join')){
-    totalClicks++;
-    updateBattery();
-    const name = e.target.closest('.card').querySelector('h3').textContent;
-    const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-    const link = links.find(l=>l.name===name);
-    if(link){
-      link.clicks = (link.clicks||0)+1;
-      link.joins = (link.joins||0)+1;
-      localStorage.setItem('linkwaveLinks', JSON.stringify(links));
-    }
-  }
 });
 
-// Scroll progress bar
-window.onscroll = function(){
-  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height)*100;
-  document.getElementById('scrollProgress').style.width = scrolled + "%";
+}
+
+/* category click */
+
+document.querySelectorAll("#categoryScroll div").forEach(btn=>{
+
+btn.onclick=function(){
+
+const platform=this.dataset.platform;
+
+loadLinks(platform);
+
+}
+
+});
+
+/* search */
+
+document.getElementById("searchInput").addEventListener("input",function(){
+
+const term=this.value.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+
+const text=card.querySelector("h3").textContent.toLowerCase();
+
+card.style.display=text.includes(term)?"block":"none";
+
+});
+
+});
+
+/* scroll progress */
+
+window.onscroll=function(){
+
+const winScroll=document.body.scrollTop||document.documentElement.scrollTop;
+
+const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+const scrolled=(winScroll/height)*100;
+
+document.getElementById("scrollProgress").style.width=scrolled+"%";
+
 };
 
-// Initial load
-window.onload = function(){
-  let totalVisitors = parseInt(localStorage.getItem('totalVisitors')||0);
-  totalVisitors++;
-  localStorage.setItem('totalVisitors', totalVisitors);
-  loadLinks();
-  updateBattery();
+/* start */
+
+window.onload=function(){
+
+loadLinks("All");
+
 };
+
 </script>
 
 </body>
