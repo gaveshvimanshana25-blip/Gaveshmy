@@ -3,92 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Developer - LinkWave</title>
+<title>Contact - LinkWave</title>
 <style>
+/* Body & Background */
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#000,#0a0a0f);
+  font-family:Arial, sans-serif;
+  background:linear-gradient(180deg,#050508,#000);
   color:white;
-  padding:20px;
-}
-h1,h2{color:#ff4d4d;}
-a{color:#ff6666;text-decoration:none;}
-a:hover{text-decoration:underline;}
-section{margin-bottom:30px;}
-footer{margin-top:50px;font-size:14px;color:#aaa;text-align:center;}
-
-/* Animated Icon */
-.icon {
-  display:inline-block;
-  margin-right:15px;
-  font-size:2rem;
-  color:#ff4d4d;
-  text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333;
-  animation: bounce 1.5s infinite alternate, glow 2s infinite alternate;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+/* Floating background */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#3a7bfd22,#000 70%);
+  animation:bgMove 20s linear infinite;
+  z-index:-1;
+}
+@keyframes bgMove{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20%, -20%)}
+  100%{transform:translate(0,0)}
 }
 
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
-  50% { text-shadow: 0 0 10px #ff9999, 0 0 20px #ff3333, 0 0 25px #ff0000; }
-  100% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
+/* Header */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:rgba(0,0,0,0.85);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.logo{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  box-shadow:0 0 15px #3a7bfd;
+  animation:logoGlow 3s infinite alternate;
+}
+@keyframes logoGlow{
+  0%{box-shadow:0 0 10px #3a7bfd}
+  100%{box-shadow:0 0 30px #a855f7}
+}
+.title{
+  font-size:28px;
+  font-weight:bold;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:waveText 3s infinite;
+}
+@keyframes waveText{
+  0%{letter-spacing:1px}
+  50%{letter-spacing:5px}
+  100%{letter-spacing:1px}
 }
 
-form{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  padding:30px;
-  border-radius:15px;
-  width:90%;
+/* Contact Hero */
+.contact-hero{
+  margin-top:40px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp 1s forwards;
+}
+@keyframes fadeUp{
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Form */
+.contact-form{
   max-width:500px;
-  margin:20px auto;
+  margin:30px auto;
+  text-align:left;
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
   border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
 }
-input, textarea{
+.contact-form label{
+  display:block;
+  margin-top:15px;
+  font-weight:bold;
+}
+.contact-form input, .contact-form textarea{
   width:100%;
-  padding:12px;
-  margin:10px 0;
+  padding:10px;
+  margin-top:5px;
   border-radius:10px;
   border:none;
   background:rgba(255,255,255,0.1);
   color:white;
 }
-input::placeholder, textarea::placeholder{color:#ccc;}
-button{
-  padding:14px 28px;
-  border-radius:30px;
+.contact-form textarea{
+  resize:none;
+  height:100px;
+}
+.contact-form button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
   background:linear-gradient(45deg,#3a7bfd,#a855f7);
   color:white;
-  border:none;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(120,80,255,0.7);
+  transition:0.3s;
+}
+.contact-form button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #a855f7;
+}
+
+/* Footer */
+footer{
+  margin-top:50px;
+  padding:20px;
+  background:#000;
+  color:#aaa;
+}
+footer a{
+  color:#3a7bfd;
+  text-decoration:none;
+}
+footer a:hover{
+  text-decoration:underline;
 }
 </style>
 </head>
 <body>
 
-<h1><span class="icon">📞</span>Contact Developer</h1>
+<header>
+  <div><img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png"></div>
+  <div class="title">LinkWave</div>
+</header>
 
-<section>
-<p>Feel free to reach out to the developer for support, feedback, or inquiries.</p>
-<form id="contactForm">
-  <input type="text" placeholder="Your Name" required>
-  <input type="email" placeholder="Your Email" required>
-  <textarea placeholder="Your Message" rows="5" required></textarea>
+<div class="contact-hero">
+  <h1>Contact Us</h1>
+  <p>Have questions or feedback? Drop us a message below!</p>
+</div>
+
+<form class="contact-form" id="contactForm">
+  <label for="name">Name</label>
+  <input type="text" id="name" required placeholder="Your Name">
+
+  <label for="email">Email</label>
+  <input type="email" id="email" required placeholder="you@example.com">
+
+  <label for="message">Message</label>
+  <textarea id="message" required placeholder="Type your message here..."></textarea>
+
   <button type="submit">Send Message</button>
 </form>
-</section>
 
 <footer>
-<p>Made within Sri Lanka 🇱🇰<br>© 2025 LinkWave. All rights reserved.<br>Designed & Developed by <a href="https://vmima.com/" target="_blank">Gawesh</a></p>
+  © 2026 LinkWave | Designed by Gavesh
 </footer>
+
+<script>
+// Logo and hero animations are CSS based
+
+// Form submission (simulate)
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("Thanks! Your message has been sent. ✨");
+  this.reset();
+});
+</script>
 
 </body>
 </html>
