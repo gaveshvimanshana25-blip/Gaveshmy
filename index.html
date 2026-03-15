@@ -5,15 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 
-<!-- Leaflet CSS (World Map) -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-/>
-
 <style>
-
-/* Body */
 body{
   margin:0;
   font-family:Arial;
@@ -34,9 +26,9 @@ body::before{
   z-index:-1;
 }
 @keyframes bgMove{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-20%,-20%)}
-  100%{transform:translate(0,0)}
+0%{transform:translate(0,0)}
+50%{transform:translate(-20%,-20%)}
+100%{transform:translate(0,0)}
 }
 
 /* Header */
@@ -61,7 +53,7 @@ header{
   z-index:101;
 }
 
-/* logo + title center */
+/* logo + title */
 .logo-center{
   display:flex;
   flex-direction:column;
@@ -76,8 +68,8 @@ header{
 }
 .logo:hover{transform:scale(1.1) rotate(360deg);}
 @keyframes logoGlow{
-  0%{box-shadow:0 0 10px #3a7bfd;}
-  100%{box-shadow:0 0 35px #a855f7;}
+0%{box-shadow:0 0 10px #3a7bfd;}
+100%{box-shadow:0 0 35px #a855f7;}
 }
 .title{
   font-size:32px;
@@ -89,7 +81,7 @@ header{
   animation:titleWave 3s infinite;
 }
 @keyframes titleWave{
-  0%{letter-spacing:1px}50%{letter-spacing:6px}100%{letter-spacing:1px}
+0%{letter-spacing:1px}50%{letter-spacing:6px}100%{letter-spacing:1px}
 }
 
 /* dropdown */
@@ -114,25 +106,10 @@ header{
 }
 .dropdown a:hover{background:#222;}
 
-/* Hero */
-.hero{margin-top:25px;}
-.hero h1{font-size:28px;}
-.hero p{color:#aaa;max-width:600px;margin:auto;}
-
-/* button */
-.main-btn{
-  display:inline-block;
+/* Search + categories */
+.search{
   margin-top:20px;
-  padding:12px 28px;
-  border-radius:30px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
 }
-
-/* Search */
-.search{margin-top:20px;}
 .search input{
   padding:10px;
   width:220px;
@@ -140,159 +117,109 @@ header{
   border:none;
 }
 
-/* Category scroll */
 #categoryScroll{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  overflow-x:auto;
-  padding:10px;
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:10px;
+overflow-x:auto;
+padding:10px;
 }
 #categoryScroll div{
-  padding:8px 18px;
-  background:#222;
-  border-radius:20px;
-  cursor:pointer;
+padding:8px 18px;
+background:#222;
+border-radius:20px;
+cursor:pointer;
 }
+
 #subCategoryScroll{
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  overflow-x:auto;
-  padding:5px;
+margin-top:10px;
+display:flex;
+justify-content:center;
+gap:8px;
+overflow-x:auto;
+padding:5px;
 }
 #subCategoryScroll div{
-  padding:6px 16px;
-  background:#333;
-  border-radius:20px;
-  cursor:pointer;
+padding:6px 16px;
+background:#333;
+border-radius:20px;
+cursor:pointer;
 }
 
-/* Cards */
+/* cards */
 .cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:15px;
-  margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:20px;
 }
 .card{
-  width:200px;
-  padding:15px;
-  border-radius:15px;
-  background:#111;
-  border:1px solid #333;
+width:200px;
+padding:15px;
+border-radius:15px;
+background:#111;
+border:1px solid #333;
 }
 .card img{
-  width:100%;
-  border-radius:10px;
+width:100%;
+border-radius:10px;
 }
 .join{
-  display:inline-block;
-  margin-top:5px;
-  padding:6px 14px;
-  border-radius:20px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  text-decoration:none;
+display:inline-block;
+margin-top:5px;
+padding:6px 14px;
+border-radius:20px;
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+color:white;
+text-decoration:none;
 }
 
-/* Live Analytics */
-.analytics{margin:40px auto;max-width:1000px;padding:20px;}
-.analytics h2{font-size:28px;margin-bottom:15px;}
-.stats-container{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:15px;
-  margin-bottom:20px;
-}
-.stat-card{
-  background:rgba(58,127,253,0.1);
-  padding:15px 25px;
-  border-radius:15px;
-  width:180px;
-  text-align:center;
-  box-shadow:0 0 15px #3a7bfd;
-  transition:0.3s;
-}
-.stat-card:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 30px #a855f7;
-}
-.stat-card h2{font-size:24px;}
-
-/* Map */
-#visitorMap{
-  height:400px;
-  width:90%;
-  max-width:1200px;
-  margin:0 auto;
-  border-radius:12px;
-  border:1px solid rgba(58,127,253,0.5);
-}
-
-/* Footer */
+/* footer */
 footer{
-  margin-top:30px;
-  padding:20px;
-  background:#000;
-  color:#aaa;
+margin-top:30px;
+padding:20px;
+background:#000;
+color:#aaa;
 }
 
 /* Snow */
 #snowContainer{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  pointer-events:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+pointer-events:none;
 }
 .snowflake{
-  position:absolute;top:-10px;
-  width:5px;height:5px;
-  background:white;border-radius:50%;
-  animation:fall linear infinite;
+position:absolute;top:-10px;
+width:5px;height:5px;
+background:white;border-radius:50%;
+animation:fall linear infinite;
 }
 @keyframes fall{
-  to{transform:translateY(100vh);opacity:0;}
+to{transform:translateY(100vh);opacity:0;}
 }
-
 </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
-
   <div class="logo-center">
     <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
     <div class="title">LinkWave</div>
   </div>
-
   <div class="dropdown" id="dropdownMenu">
-    <a href="#" onclick="scrollToSection('homeSection')">Home</a>
     <a href="submit.html">Submit Link</a>
     <a href="developer.html">Developer</a>
     <a href="terms.html">Terms & Policy</a>
     <a href="contact.html">Contact</a>
-    <a href="#" onclick="scrollToSection('analyticsSection')">Live Analytics</a>
+    <a href="analytics.html">Live Analytics</a>
   </div>
-
 </header>
 
-<!-- HOME -->
-<section id="homeSection">
-
-<div class="hero">
-  <h1>Discover and Join Communities</h1>
-  <p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
-  <a class="main-btn" href="submit.html">+ Submit Link</a>
-</div>
-
+<!-- Search + Categories -->
 <div class="search">
   <input type="text" id="searchInput" placeholder="Search groups...">
 </div>
@@ -303,24 +230,9 @@ footer{
   <div data-platform="Telegram">Telegram</div>
   <div data-platform="Facebook">Facebook</div>
 </div>
-
 <div id="subCategoryScroll"></div>
 <div class="cards" id="cardsContainer"></div>
 
-</section>
-
-<!-- LIVE ANALYTICS -->
-<section id="analyticsSection" class="analytics">
-  <h2>📊 Live Analytics</h2>
-  <div class="stats-container">
-    <div class="stat-card"><h2 id="visitorCount">4321</h2><p>Live Visitors</p></div>
-    <div class="stat-card"><h2 id="countriesCount">12</h2><p>Countries</p></div>
-    <div class="stat-card"><h2 id="activeSessions">58</h2><p>Active Sessions</p></div>
-  </div>
-  <div id="visitorMap"></div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   Made in Sri Lanka 🇱🇰 <br>
   © 2026 LinkWave
@@ -328,14 +240,10 @@ footer{
 
 <div id="snowContainer"></div>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-
 <script>
-
 /* Toggle Menu */
 function toggleMenu(){
-  const m = document.getElementById("dropdownMenu");
+  const m=document.getElementById("dropdownMenu");
   m.style.display = m.style.display==="block"?"none":"block";
 }
 window.onclick=function(e){
@@ -343,11 +251,6 @@ window.onclick=function(e){
     const m=document.getElementById("dropdownMenu");
     if(m.style.display==="block") m.style.display="none";
   }
-}
-
-/* Scroll to Sections */
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
 /* LINKS & CATEGORIES */
@@ -371,21 +274,25 @@ function loadLinks(){
     }
   });
 }
+
+/* Subcategories */
 function loadSubCategories(platform){
   const sub=document.getElementById("subCategoryScroll");
   sub.innerHTML="";
-  let cats=[]
-  if(platform==="WhatsApp") cats=["All","Movies","Fun","Gaming","Education","Tech"];
-  else if(platform==="Telegram") cats=["All","Movies","Crypto","Anime","Gaming"];
-  else if(platform==="Facebook") cats=["All","Movies","Fun","Business","News"];
-  else cats=["All"];
-  cats.forEach(cat=>{
+  let categories=[];
+  if(platform==="WhatsApp"){categories=["All","Movies","Fun","Gaming","Education","Tech"];}
+  else if(platform==="Telegram"){categories=["All","Movies","Crypto","Anime","Gaming"];}
+  else if(platform==="Facebook"){categories=["All","Movies","Fun","Business","News"];}
+  else{categories=["All"];}
+  categories.forEach(cat=>{
     const btn=document.createElement("div");
     btn.innerText=cat;
-    btn.onclick=function(){ currentCategory=cat; loadLinks(); }
+    btn.onclick=function(){currentCategory=cat; loadLinks();}
     sub.appendChild(btn);
   });
 }
+
+/* Category click */
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
   btn.onclick=function(){
     currentPlatform=this.dataset.platform;
@@ -399,39 +306,34 @@ document.querySelectorAll("#categoryScroll div").forEach(btn=>{
 document.getElementById("searchInput").addEventListener("input",function(){
   const term=this.value.toLowerCase();
   document.querySelectorAll(".card").forEach(card=>{
-    card.style.display=card.querySelector("h3").textContent.toLowerCase().includes(term)?'block':'none';
+    const text=card.querySelector("h3").textContent.toLowerCase();
+    card.style.display=text.includes(term)?"block":"none";
   });
 });
 
 /* Snow */
-function createSnowflakes(n){
+function createSnowflakes(count){
   const container=document.getElementById("snowContainer");
-  for(let i=0;i<n;i++){
+  for(let i=0;i<count;i++){
     const flake=document.createElement("div");
-    flake.className="snowflake";
+    flake.className='snowflake';
     flake.style.left=Math.random()*100+"vw";
     flake.style.animationDuration=(3+Math.random()*5)+"s";
     container.appendChild(flake);
-    flake.addEventListener("animationend",()=>{
-      flake.remove(); createSnowflakes(1);
-    });
+    flake.addEventListener("animationend",()=>{flake.remove(); createSnowflakes(1);});
   }
-}createSnowflakes(50);
+}
+createSnowflakes(50);
 
-/* Leaflet World Map */
-const map = L.map("visitorMap").setView([20,0],2);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
-  attribution:'&copy; <a href="https://openstreetmap.org/copyright">OSM</a>'
-}).addTo(map);
-const visitors=[
-  {coords:[6.9271,79.8612],country:"Sri Lanka"},
-  {coords:[28.6139,77.2090],country:"India"},
-  {coords:[37.0902,-95.7129],country:"USA"},
-  {coords:[51.5074,-0.1278],country:"UK"},
-  {coords:[48.8566,2.3522],country:"France"}
-];
-visitors.forEach(v=>{
-  L.circleMarker(v.coords,{radius:8,fillColor:"#3a7bfd",color:"#fff",weight:1,fillOpacity:0.8})
+/* Initial load */
+window.onload=function(){
+  loadSubCategories("All");
+  loadLinks();
+};
+</script>
+
+</body>
+</html>eight:1,fillOpacity:0.8})
    .bindPopup(v.country).addTo(map);
 });
 
