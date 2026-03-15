@@ -3,112 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms & Policy - LinkWave</title>
+<title>LinkWave - Terms of Service</title>
+
 <style>
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#000,#0a0a0f);
+  font-family:Arial;
+  background:linear-gradient(180deg,#050508,#000);
   color:white;
-  padding:20px;
-  line-height:1.6;
-}
-h1,h2,h3{color:#ff4d4d;} /* Changed header color to red */
-a{color:#ff6666;text-decoration:none;} /* Links red shade */
-a:hover{text-decoration:underline;}
-section{margin-bottom:30px;}
-footer{margin-top:50px;font-size:14px;color:#aaa;text-align:center;}
-
-/* Animated Icon for Headers with neon red glow */
-.icon {
-  display:inline-block;
-  margin-right:10px;
-  color:#ff4d4d;
-  text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333;
-  animation: bounce 1.5s infinite alternate, glow 2s infinite alternate;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+/* Header top logo + title */
+.header-top{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+}
+.header-top img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  animation:logoSpinGlow 4s infinite alternate;
+}
+@keyframes logoSpinGlow{
+  0%{transform:rotate(0deg); box-shadow:0 0 10px #3a7bfd;}
+  50%{transform:rotate(180deg); box-shadow:0 0 25px #a855f7;}
+  100%{transform:rotate(360deg); box-shadow:0 0 35px #3a7bfd;}
+}
+.header-top h1{
+  font-size:32px;
+  margin-top:15px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:textWave 3s infinite;
+}
+@keyframes textWave{
+  0%{letter-spacing:1px}
+  50%{letter-spacing:6px}
+  100%{letter-spacing:1px}
 }
 
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
-  50% { text-shadow: 0 0 10px #ff9999, 0 0 20px #ff3333, 0 0 25px #ff0000; }
-  100% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000, 0 0 15px #ff3333; }
+/* Hero fade-in */
+.hero{
+  margin-top:20px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeInUp 1s forwards;
+}
+@keyframes fadeInUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Terms content */
+.terms-content{
+  max-width:800px;
+  margin:30px auto;
+  text-align:left;
+  line-height:1.7;
+  padding:0 20px;
+  background:rgba(58,127,253,0.05);
+  border-radius:15px;
+  border:1px solid #3a7bfd22;
+}
+.terms-content h2{
+  color:#3a7bfd;
 }
 </style>
 </head>
+
 <body>
 
-<h1>LinkWave</h1>
-<p>
-<a href="index.html">Home</a> | 
-<a href="submit.html">Submit New Link</a> | 
-<a href="contact.html">Contact Developer</a> | 
-<a href="terms.html">Terms & Policy</a>
-</p>
-<p>Created By <a href="https://vmima.com/" target="_blank">Gawesh</a> | Made in Sri Lanka 🇱🇰</p>
+<div class="header-top">
+  <img src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png" alt="Logo">
+  <h1>Terms of Service</h1>
+</div>
 
-<section>
-<h2><span class="icon">📜</span>Terms of Service</h2>
-<p>Rules regarding submissions, removals, and content visibility. <strong>Last Updated:</strong> December 16, 2025</p>
-</section>
+<div class="hero">
+  <p>Welcome to LinkWave! Please read these terms carefully before using our services.</p>
+</div>
 
-<section>
-<h2><span class="icon">🌐</span>1. Public Visibility & Submissions</h2>
-<p>LinkWave is a <strong>public global directory</strong>. By submitting a link, you acknowledge that:</p>
-<ul>
-<li>Your link will be <strong>instantly visible</strong> to anyone on the internet.</li>
-<li>Search engines (Google, Bing) and AI bots may index your link.</li>
-<li><strong>IRREVERSIBILITY:</strong> Once submitted, you <strong>cannot delete</strong> or edit the link yourself. Please think twice before publishing.</li>
-</ul>
-</section>
+<div class="terms-content">
+  <h2>1. Introduction</h2>
+  <p>These Terms of Service govern your use of LinkWave's services...</p>
 
-<section>
-<h2><span class="icon">⚠️</span>2. Content & Categorization Rules</h2>
-<p>We allow a wide range of content, including mature themes, BUT strict categorization is mandatory:</p>
-<ul>
-<li>🔞 Adult / 18+ Content – If your link contains adult material, you <strong>MUST</strong> select the correct category (e.g., "18+" or "Adult"). Misleading categorization will result in an <strong>immediate IP Ban</strong>.</li>
-<li><strong>Strictly Prohibited:</strong> Child safety violations (CSAM), non-consensual content, terrorism, sales of illegal drugs, or malware. These will be reported to authorities.</li>
-</ul>
-</section>
+  <h2>2. User Responsibilities</h2>
+  <p>Users must ensure the content they submit is legal and safe...</p>
 
-<section>
-<h2><span class="icon">🛠️</span>3. Removal & Appeals</h2>
-<p>Users cannot manually delete links. To request removal:</p>
-<ol>
-<li>Go to the specific Link Card on our site.</li>
-<li>Click the <strong>Flag/Report Icon</strong>.</li>
-<li>Confirm the report action. This sends a "Removal Appeal" to our Admins. Removal is not guaranteed and is at the sole discretion of the Administration.</li>
-</ol>
-</section>
+  <h2>3. Privacy</h2>
+  <p>We respect your privacy and handle your data according to our Privacy Policy...</p>
 
-<section>
-<h2><span class="icon">👑</span>4. Administration Rights</h2>
-<ul>
-<li>The LinkWave Administration reserves the right to remove any link at any time without prior notice or reason.</li>
-<li>Ban users who spam or violate categorization rules.</li>
-<li>Modify descriptions or images if they violate our aesthetic or safety standards.</li>
-</ul>
-</section>
+  <h2>4. Termination</h2>
+  <p>We may suspend or terminate accounts violating these terms...</p>
 
-<section>
-<h2><span class="icon">⚖️</span>5. Liability Disclaimer</h2>
-<p>We do not own or manage the groups listed. We are a directory service only. We are not responsible for:</p>
-<ul>
-<li>Scams, fraud, or financial loss occurring within third-party groups.</li>
-<li>Content shared by users inside WhatsApp/Telegram groups.</li>
-<li>External websites linked via our "Visit Now" buttons.</li>
-</ul>
-<p>By using LinkWave, you acknowledge that you have read and agreed to these terms.</p>
-</section>
-
-<footer>
-<p>Made within Sri Lanka 🇱🇰<br>© 2025 LinkWave. All rights reserved.<br>Designed & Developed by <a href="https://vmima.com/" target="_blank">Gawesh</a></p>
-</footer>
+  <h2>5. Changes to Terms</h2>
+  <p>LinkWave may update these terms at any time, and your continued use constitutes acceptance.</p>
+</div>
 
 </body>
 </html>
