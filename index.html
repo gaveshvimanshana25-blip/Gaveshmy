@@ -1,348 +1,442 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinkWave</title>
-
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  color:white;
-  text-align:center;
-  background:linear-gradient(180deg,#050508,#000);
-  overflow-x:hidden;
-}
-
-/* floating background */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,#3a7bfd22,#000 70%);
-  animation:bgMove 20s linear infinite;
-  z-index:-1;
-}
-@keyframes bgMove{
-0%{transform:translate(0,0)}
-50%{transform:translate(-20%,-20%)}
-100%{transform:translate(0,0)}
-}
-
-/* Header */
-header{
-  position:sticky;
-  top:0;
-  background:rgba(0,0,0,0.85);
-  padding:20px;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* menu icon */
-.menu-icon{
-  position:absolute;
-  left:20px;
-  top:25px;
-  font-size:28px;
-  cursor:pointer;
-  z-index:101;
-}
-
-/* logo + title */
-.logo-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.logo{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  animation:logoGlow 3s infinite alternate;
-  transition:0.4s;
-}
-.logo:hover{transform:scale(1.1) rotate(360deg);}
-@keyframes logoGlow{
-0%{box-shadow:0 0 10px #3a7bfd;}
-100%{box-shadow:0 0 35px #a855f7;}
-}
-.title{
-  font-size:32px;
-  font-weight:bold;
-  margin-top:6px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:titleWave 3s infinite;
-}
-@keyframes titleWave{
-0%{letter-spacing:1px}50%{letter-spacing:6px}100%{letter-spacing:1px}
-}
-
-/* dropdown */
-.dropdown{
-  display:none;
-  position:absolute;
-  top:70px;
-  left:15px;
-  background:#000;
-  border-radius:10px;
-  padding:10px 0;
-  min-width:200px;
-  text-align:left;
-  z-index:102;
-}
-.dropdown a{
-  display:block;
-  color:white;
-  padding:10px 20px;
-  text-decoration:none;
-  font-size:16px;
-}
-.dropdown a:hover{background:#222;}
-
-/* Search + categories */
-.search{
-  margin-top:20px;
-}
-.search input{
-  padding:10px;
-  width:220px;
-  border-radius:10px;
-  border:none;
-}
-
-#categoryScroll{
-margin-top:20px;
-display:flex;
-justify-content:center;
-gap:10px;
-overflow-x:auto;
-padding:10px;
-}
-#categoryScroll div{
-padding:8px 18px;
-background:#222;
-border-radius:20px;
-cursor:pointer;
-}
-
-#subCategoryScroll{
-margin-top:10px;
-display:flex;
-justify-content:center;
-gap:8px;
-overflow-x:auto;
-padding:5px;
-}
-#subCategoryScroll div{
-padding:6px 16px;
-background:#333;
-border-radius:20px;
-cursor:pointer;
-}
-
-/* cards */
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-margin-top:20px;
-}
-.card{
-width:200px;
-padding:15px;
-border-radius:15px;
-background:#111;
-border:1px solid #333;
-}
-.card img{
-width:100%;
-border-radius:10px;
-}
-.join{
-display:inline-block;
-margin-top:5px;
-padding:6px 14px;
-border-radius:20px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-text-decoration:none;
-}
-
-/* footer */
-footer{
-margin-top:30px;
-padding:20px;
-background:#000;
-color:#aaa;
-}
-
-/* Snow */
-#snowContainer{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-pointer-events:none;
-}
-.snowflake{
-position:absolute;top:-10px;
-width:5px;height:5px;
-background:white;border-radius:50%;
-animation:fall linear infinite;
-}
-@keyframes fall{
-to{transform:translateY(100vh);opacity:0;}
-}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="menu-icon" onclick="toggleMenu()">☰</div>
-  <div class="logo-center">
-    <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-    <div class="title">LinkWave</div>
-  </div>
-  <div class="dropdown" id="dropdownMenu">
-    <a href="submit.html">Submit Link</a>
-    <a href="developer.html">Developer</a>
-    <a href="terms.html">Terms & Policy</a>
-    <a href="contact.html">Contact</a>
-    <a href="analytics.html">Live Analytics</a>
-  </div>
-</header>
-
-<!-- Search + Categories -->
-<div class="search">
-  <input type="text" id="searchInput" placeholder="Search groups...">
-</div>
-
-<div id="categoryScroll">
-  <div data-platform="All">All</div>
-  <div data-platform="WhatsApp">WhatsApp</div>
-  <div data-platform="Telegram">Telegram</div>
-  <div data-platform="Facebook">Facebook</div>
-</div>
-<div id="subCategoryScroll"></div>
-<div class="cards" id="cardsContainer"></div>
-
-<footer>
-  Made in Sri Lanka 🇱🇰 <br>
-  © 2026 LinkWave
-</footer>
-
-<div id="snowContainer"></div>
-
-<script>
-/* Toggle Menu */
-function toggleMenu(){
-  const m=document.getElementById("dropdownMenu");
-  m.style.display = m.style.display==="block"?"none":"block";
-}
-window.onclick=function(e){
-  if(!e.target.matches('.menu-icon')){
-    const m=document.getElementById("dropdownMenu");
-    if(m.style.display==="block") m.style.display="none";
-  }
-}
-
-/* LINKS & CATEGORIES */
-let currentPlatform="All", currentCategory="All";
-function loadLinks(){
-  const c=document.getElementById("cardsContainer");
-  c.innerHTML="";
-  const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[];
-  links.reverse().forEach(link=>{
-    if((currentPlatform==="All"||link.platform===currentPlatform) &&
-       (currentCategory==="All"||link.category===currentCategory)){
-      const card=document.createElement("div");
-      card.className="card";
-      card.innerHTML=`
-        ${link.logo?`<img src="${link.logo}">`:''}
-        <h3>${link.name}</h3>
-        <p>${link.description}</p>
-        <a class="join" href="${link.url}" target="_blank">Join</a>
-      `;
-      c.appendChild(card);
-    }
-  });
-}
-
-/* Subcategories */
-function loadSubCategories(platform){
-  const sub=document.getElementById("subCategoryScroll");
-  sub.innerHTML="";
-  let categories=[];
-  if(platform==="WhatsApp"){categories=["All","Movies","Fun","Gaming","Education","Tech"];}
-  else if(platform==="Telegram"){categories=["All","Movies","Crypto","Anime","Gaming"];}
-  else if(platform==="Facebook"){categories=["All","Movies","Fun","Business","News"];}
-  else{categories=["All"];}
-  categories.forEach(cat=>{
-    const btn=document.createElement("div");
-    btn.innerText=cat;
-    btn.onclick=function(){currentCategory=cat; loadLinks();}
-    sub.appendChild(btn);
-  });
-}
-
-/* Category click */
-document.querySelectorAll("#categoryScroll div").forEach(btn=>{
-  btn.onclick=function(){
-    currentPlatform=this.dataset.platform;
-    currentCategory="All";
-    loadSubCategories(currentPlatform);
-    loadLinks();
-  }
-});
-
-/* Search */
-document.getElementById("searchInput").addEventListener("input",function(){
-  const term=this.value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card=>{
-    const text=card.querySelector("h3").textContent.toLowerCase();
-    card.style.display=text.includes(term)?"block":"none";
-  });
-});
-
-/* Snow */
-function createSnowflakes(count){
-  const container=document.getElementById("snowContainer");
-  for(let i=0;i<count;i++){
-    const flake=document.createElement("div");
-    flake.className='snowflake';
-    flake.style.left=Math.random()*100+"vw";
-    flake.style.animationDuration=(3+Math.random()*5)+"s";
-    container.appendChild(flake);
-    flake.addEventListener("animationend",()=>{flake.remove(); createSnowflakes(1);});
-  }
-}
-createSnowflakes(50);
-
-/* Initial load */
-window.onload=function(){
-  loadSubCategories("All");
-  loadLinks();
-};
-</script>
-
-</body>
-</html>eight:1,fillOpacity:0.8})
-   .bindPopup(v.country).addTo(map);
-});
-
-/* init */
-window.onload=function(){
-  loadSubCategories("All"); loadLinks();
-}
-
-</script>
-
-</body>
-                        </html>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>LinkWave</title>  <style>  
+  
+/* BODY */  
+  
+body{  
+margin:0;  
+font-family:Arial;  
+color:white;  
+text-align:center;  
+background:linear-gradient(180deg,#050508,#000);  
+overflow-x:hidden;  
+}  
+  
+/* floating background */  
+  
+body::before{  
+content:"";  
+position:fixed;  
+width:200%;  
+height:200%;  
+background:radial-gradient(circle,#3a7bfd22,#000 70%);  
+animation:bgMove 20s linear infinite;  
+z-index:-1;  
+}  
+  
+@keyframes bgMove{  
+0%{transform:translate(0,0)}  
+50%{transform:translate(-20%,-20%)}  
+100%{transform:translate(0,0)}  
+}  
+  
+/* HEADER */  
+  
+header{  
+position:sticky;  
+top:0;  
+background:rgba(0,0,0,0.85);  
+padding:20px;  
+z-index:100;  
+}  
+  
+.menu-icon{  
+position:absolute;  
+left:20px;  
+top:25px;  
+font-size:28px;  
+cursor:pointer;  
+}  
+  
+/* logo center */  
+  
+.logo-center{  
+display:flex;  
+flex-direction:column;  
+align-items:center;  
+}  
+  
+.logo{  
+width:70px;  
+height:70px;  
+border-radius:50%;  
+animation:logoGlow 3s infinite alternate;  
+transition:0.4s;  
+}  
+  
+.logo:hover{  
+transform:scale(1.1) rotate(360deg);  
+}  
+  
+@keyframes logoGlow{  
+0%{box-shadow:0 0 10px #3a7bfd}  
+100%{box-shadow:0 0 35px #a855f7}  
+}  
+  
+.title{  
+font-size:32px;  
+font-weight:bold;  
+margin-top:6px;  
+background:linear-gradient(45deg,#3a7bfd,#a855f7);  
+-webkit-background-clip:text;  
+color:transparent;  
+animation:titleWave 3s infinite;  
+}  
+  
+@keyframes titleWave{  
+0%{letter-spacing:1px}  
+50%{letter-spacing:6px}  
+100%{letter-spacing:1px}  
+}  
+  
+/* dropdown */  
+  
+.dropdown{  
+display:none;  
+position:absolute;  
+top:70px;  
+left:15px;  
+background:#000;  
+border-radius:10px;  
+padding:10px 0;  
+min-width:180px;  
+text-align:left;  
+}  
+  
+.dropdown a{  
+display:block;  
+color:white;  
+padding:10px 20px;  
+text-decoration:none;  
+}  
+  
+.dropdown a:hover{  
+background:#222;  
+}  
+  
+/* hero */  
+  
+.hero{  
+margin-top:25px;  
+animation:fadeUp 1s forwards;  
+}  
+  
+@keyframes fadeUp{  
+from{opacity:0;transform:translateY(20px)}  
+to{opacity:1;transform:translateY(0)}  
+}  
+  
+/* button */  
+  
+.main-btn{  
+display:inline-block;  
+margin-top:20px;  
+padding:12px 28px;  
+border-radius:30px;  
+background:linear-gradient(45deg,#3a7bfd,#a855f7);  
+color:white;  
+text-decoration:none;  
+font-weight:bold;  
+}  
+  
+/* search */  
+  
+.search{  
+margin-top:20px;  
+}  
+  
+.search input{  
+padding:10px;  
+width:220px;  
+border-radius:10px;  
+border:none;  
+}  
+  
+/* category */  
+  
+#categoryScroll{  
+margin-top:20px;  
+display:flex;  
+justify-content:center;  
+gap:10px;  
+overflow-x:auto;  
+padding:10px;  
+}  
+  
+#categoryScroll div{  
+padding:8px 18px;  
+background:#222;  
+border-radius:20px;  
+cursor:pointer;  
+}  
+  
+#subCategoryScroll{  
+margin-top:10px;  
+display:flex;  
+justify-content:center;  
+gap:8px;  
+overflow-x:auto;  
+padding:5px;  
+}  
+  
+#subCategoryScroll div{  
+padding:6px 16px;  
+background:#333;  
+border-radius:20px;  
+cursor:pointer;  
+}  
+  
+/* cards */  
+  
+.cards{  
+display:flex;  
+flex-wrap:wrap;  
+justify-content:center;  
+gap:15px;  
+margin-top:20px;  
+}  
+  
+.card{  
+width:200px;  
+padding:15px;  
+border-radius:15px;  
+background:#111;  
+border:1px solid #333;  
+}  
+  
+.card img{  
+width:100%;  
+border-radius:10px;  
+}  
+  
+.join{  
+display:inline-block;  
+margin-top:5px;  
+padding:6px 14px;  
+border-radius:20px;  
+background:linear-gradient(45deg,#3a7bfd,#a855f7);  
+color:white;  
+text-decoration:none;  
+}  
+  
+/* footer */  
+  
+footer{  
+margin-top:30px;  
+padding:20px;  
+background:#000;  
+color:#aaa;  
+}  
+  
+/* snow */  
+  
+#snowContainer{  
+position:fixed;  
+top:0;  
+left:0;  
+width:100%;  
+height:100%;  
+pointer-events:none;  
+}  
+  
+.snowflake{  
+position:absolute;  
+top:-10px;  
+width:5px;  
+height:5px;  
+background:white;  
+border-radius:50%;  
+animation:fall linear infinite;  
+}  
+  
+@keyframes fall{  
+to{  
+transform:translateY(100vh);  
+opacity:0;  
+}  
+}  
+  
+</style>  </head>  <body>  <header>  <div class="menu-icon" onclick="toggleMenu()">☰</div>  <div class="logo-center">  
+<img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">  
+<div class="title">LinkWave</div>  
+</div>  <div class="dropdown" id="dropdownMenu">  
+<a href="#">Home</a>  
+<a href="submit.html">Submit Link</a>  
+<a href="#">Developer</a>  
+<a href="#">Contact</a>  
+</div>  </header>  <div class="hero">  
+<h1>Discover and Join Communities</h1>  
+<p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>  
+<a class="main-btn" href="submit.html">+ Submit Link</a>  
+</div>  <div class="search">  
+<input type="text" id="searchInput" placeholder="Search groups...">  
+</div>  <div id="categoryScroll">  
+<div data-platform="All">All</div>  
+<div data-platform="WhatsApp">WhatsApp</div>  
+<div data-platform="Telegram">Telegram</div>  
+<div data-platform="Facebook">Facebook</div>  
+</div>  <div id="subCategoryScroll"></div>  
+<div class="cards" id="cardsContainer"></div>  <footer>  
+Made in Sri Lanka 🇱🇰 <br>  
+© 2026 LinkWave  
+</footer>  <div id="snowContainer"></div>  <script>  
+  
+/* menu */  
+  
+function toggleMenu(){  
+const menu=document.getElementById("dropdownMenu")  
+menu.style.display=(menu.style.display==="block")?"none":"block"  
+}  
+  
+/* system */  
+  
+let currentPlatform="All"  
+let currentCategory="All"  
+  
+function loadLinks(){  
+  
+const container=document.getElementById("cardsContainer")  
+container.innerHTML=""  
+  
+const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]  
+  
+links.forEach(link=>{  
+  
+if(  
+(currentPlatform==="All"||link.platform===currentPlatform) &&  
+(currentCategory==="All"||link.category===currentCategory)  
+){  
+  
+const card=document.createElement("div")  
+  
+card.className="card"  
+  
+card.innerHTML=`  
+${link.logo?`<img src="${link.logo}">`:''}  
+<h3>${link.name}</h3>  
+<p>${link.description}</p>  
+<a class="join" href="${link.url}" target="_blank">Join</a>  
+`  
+  
+container.appendChild(card)  
+  
+}  
+  
+})  
+  
+}  
+  
+/* subcategory */  
+  
+function loadSubCategories(platform){  
+  
+const sub=document.getElementById("subCategoryScroll")  
+sub.innerHTML=""  
+  
+let categories=[]  
+  
+if(platform==="WhatsApp"){  
+categories=["All","Movies","Fun","Gaming","Education","Tech"]  
+}  
+  
+else if(platform==="Telegram"){  
+categories=["All","Movies","Crypto","Anime","Gaming"]  
+}  
+  
+else if(platform==="Facebook"){  
+categories=["All","Movies","Fun","Business","News"]  
+}  
+  
+else{  
+categories=["All"]  
+}  
+  
+categories.forEach(cat=>{  
+  
+const btn=document.createElement("div")  
+  
+btn.innerText=cat  
+  
+btn.onclick=function(){  
+currentCategory=cat  
+loadLinks()  
+}  
+  
+sub.appendChild(btn)  
+  
+})  
+  
+}  
+  
+/* category click */  
+  
+document.querySelectorAll("#categoryScroll div").forEach(btn=>{  
+  
+btn.onclick=function(){  
+  
+currentPlatform=this.dataset.platform  
+currentCategory="All"  
+  
+loadSubCategories(currentPlatform)  
+loadLinks()  
+  
+}  
+  
+})  
+  
+/* search */  
+  
+document.getElementById("searchInput").addEventListener("input",function(){  
+  
+const term=this.value.toLowerCase()  
+  
+document.querySelectorAll(".card").forEach(card=>{  
+  
+const text=card.querySelector("h3").textContent.toLowerCase()  
+  
+card.style.display=text.includes(term)?"block":"none"  
+  
+})  
+  
+})  
+  
+/* snow */  
+  
+function createSnowflakes(count){  
+  
+const container=document.getElementById("snowContainer")  
+  
+for(let i=0;i<count;i++){  
+  
+const flake=document.createElement("div")  
+  
+flake.className="snowflake"  
+  
+flake.style.left=Math.random()*100+"vw"  
+flake.style.animationDuration=(3+Math.random()*5)+"s"  
+  
+container.appendChild(flake)  
+  
+flake.addEventListener("animationend",()=>{  
+flake.remove()  
+createSnowflakes(1)  
+})  
+  
+}  
+  
+}  
+  
+createSnowflakes(50)  
+  
+window.onload=function(){  
+  
+loadSubCategories("All")  
+loadLinks()  
+  
+}  
+  
+</script>  </body>  
+</html>  
