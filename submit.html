@@ -4,246 +4,248 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Link - LinkWave</title>
-
 <style>
-
 body{
-margin:0;
-font-family:Arial;
-color:white;
-text-align:center;
-background:linear-gradient(180deg,#0a0a0f,#000);
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:white;
+  text-align:center;
+  background:linear-gradient(180deg,#050508,#000);
+  overflow-x:hidden;
 }
 
-/* animated background */
-
+/* floating background */
 body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:radial-gradient(circle,#3a7bfd22,#000 70%);
-animation:bgMove 20s linear infinite;
-z-index:-1;
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#3a7bfd22,#000 70%);
+  animation:bgMove 20s linear infinite;
+  z-index:-1;
 }
-
 @keyframes bgMove{
-0%{transform:translate(0,0)}
-50%{transform:translate(-20%,-20%)}
-100%{transform:translate(0,0)}
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20%,-20%)}
+  100%{transform:translate(0,0)}
 }
 
 /* header */
-
 header{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:15px;
-padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:rgba(0,0,0,0.85);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.menu-icon{
+  font-size:28px;
+  cursor:pointer;
+}
+.dropdown{
+  display:none;
+  position:absolute;
+  top:55px;
+  left:15px;
+  background:rgba(0,0,0,0.95);
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:1000;
+}
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+.dropdown a:hover{
+  background:rgba(58,127,253,0.2);
 }
 
+/* animated logo and title */
 .logo{
-width:55px;
-border-radius:50%;
-box-shadow:0 0 20px #3a7bfd;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  box-shadow:0 0 15px #3a7bfd;
+  animation:logoGlow 3s infinite alternate;
+}
+@keyframes logoGlow{
+  0%{box-shadow:0 0 10px #3a7bfd}
+  100%{box-shadow:0 0 30px #a855f7}
+}
+.title{
+  font-size:28px;
+  font-weight:bold;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:waveText 3s infinite;
+}
+@keyframes waveText{
+  0%{letter-spacing:1px}
+  50%{letter-spacing:5px}
+  100%{letter-spacing:1px}
 }
 
-.title{
-font-size:32px;
-font-weight:bold;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
--webkit-background-clip:text;
-color:transparent;
+/* hero */
+.hero{
+  margin-top:25px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp 1s forwards;
+}
+.hero p{
+  color:#aaa;
+  max-width:600px;
+  margin:auto;
+}
+@keyframes fadeUp{
+  to{opacity:1; transform:translateY(0);}
 }
 
 /* form */
-
-.form-box{
-width:320px;
-margin:40px auto;
-padding:30px;
-border-radius:15px;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-animation:fadeUp 1s;
+form{
+  margin-top:30px;
+  max-width:450px;
+  margin-left:auto;
+  margin-right:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp 1s forwards;
+  animation-delay:0.3s;
 }
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
+input, select, textarea{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-size:14px;
+  background:rgba(255,255,255,0.05);
+  color:white;
 }
-
-input,select,textarea{
-width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-border:none;
-}
-
-textarea{
-resize:none;
-}
-
-/* image preview */
-
-#preview{
-margin-top:10px;
-width:100%;
-border-radius:10px;
-display:none;
-}
-
-/* button */
-
+textarea{resize:none;}
 button{
-margin-top:15px;
-padding:12px;
-width:100%;
-border:none;
-border-radius:25px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-font-weight:bold;
-cursor:pointer;
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
-
 button:hover{
-transform:scale(1.05);
-box-shadow:0 0 20px #a855f7;
+  transform:scale(1.05);
+  box-shadow:0 0 25px #a855f7;
 }
 
-#success{
-margin-top:10px;
-color:#4ade80;
-display:none;
+/* Thank you message */
+#thankYou{
+  margin-top:20px;
+  color:#3a7bfd;
+  font-size:18px;
+  font-weight:bold;
+  opacity:0;
+  transform:translateY(-10px);
+  transition:all 0.5s ease;
 }
-
+#thankYou.show{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
-
 <body>
 
 <header>
-
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
-
-<div class="title">LinkWave</div>
-
+  <img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
+  <div class="title">LinkWave</div>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="dropdown" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="analytics.html">Analytics</a>
+  </div>
 </header>
 
-<div class="form-box">
-
-<h2>Submit Your Group</h2>
-
-<input id="name" placeholder="Group Name">
-
-<textarea id="description" placeholder="Description"></textarea>
-
-<input id="url" placeholder="Group Link">
-
-<!-- image upload -->
-
-<input type="file" id="logoInput" accept="image/*">
-
-<img id="preview">
-
-<select id="platform">
-
-<option>WhatsApp</option>
-<option>Telegram</option>
-<option>Facebook</option>
-<option>TikTok</option>
-
-</select>
-
-<select id="category">
-
-<option>Movies</option>
-<option>Fun</option>
-<option>Gaming</option>
-<option>Education</option>
-<option>Tech</option>
-<option>Business</option>
-
-</select>
-
-<button onclick="submitLink()">Submit</button>
-
-<div id="success">✔ Link Submitted!</div>
-
+<div class="hero">
+  <h1>Submit Your Group Link</h1>
+  <p>Share WhatsApp, Telegram, Facebook or TikTok communities with everyone.</p>
 </div>
 
+<form id="submitForm">
+  <input type="text" id="name" placeholder="Group Name" required>
+  <input type="url" id="url" placeholder="Group URL" required>
+  <select id="platform" required>
+    <option value="">Select Platform</option>
+    <option value="WhatsApp">WhatsApp</option>
+    <option value="Telegram">Telegram</option>
+    <option value="Facebook">Facebook</option>
+    <option value="TikTok">TikTok</option>
+  </select>
+  <select id="category" required>
+    <option value="">Select Category</option>
+    <option value="Movies">Movies</option>
+    <option value="Fun">Fun</option>
+    <option value="Gaming">Gaming</option>
+    <option value="Education">Education</option>
+    <option value="Tech">Tech</option>
+    <option value="News">News</option>
+  </select>
+  <textarea id="description" placeholder="Description" rows="4" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<div id="thankYou">✅ Thank you! Your link has been submitted.</div>
+
 <script>
-
-let logoData=""
-
-/* preview image */
-
-document.getElementById("logoInput").addEventListener("change",function(){
-
-const file=this.files[0]
-
-if(file){
-
-const reader=new FileReader()
-
-reader.onload=function(e){
-
-logoData=e.target.result
-
-const preview=document.getElementById("preview")
-
-preview.src=logoData
-preview.style.display="block"
-
+// Hamburger menu toggle
+function toggleMenu(){
+  const menu = document.getElementById('dropdownMenu');
+  menu.style.display = (menu.style.display==="block")?"none":"block";
+}
+window.onclick = function(e){
+  const menu = document.getElementById('dropdownMenu');
+  if(!e.target.matches('.menu-icon')){
+    if(menu.style.display==="block"){menu.style.display="none";}
+  }
 }
 
-reader.readAsDataURL(file)
+// Form submission
+document.getElementById('submitForm').addEventListener('submit', function(e){
+  e.preventDefault();
 
-}
+  const name = document.getElementById('name').value;
+  const url = document.getElementById('url').value;
+  const platform = document.getElementById('platform').value;
+  const category = document.getElementById('category').value;
+  const description = document.getElementById('description').value;
 
-})
+  if(!name || !url || !platform || !category || !description) return;
 
-function submitLink(){
+  const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
 
-const name=document.getElementById("name").value
-const description=document.getElementById("description").value
-const url=document.getElementById("url").value
-const platform=document.getElementById("platform").value
-const category=document.getElementById("category").value
+  links.push({name,url,platform,category,description,clicks:0,joins:0});
+  localStorage.setItem('linkwaveLinks',JSON.stringify(links));
 
-if(!name||!url){
+  // Show thank you message
+  const thankYou = document.getElementById('thankYou');
+  thankYou.classList.add('show');
 
-alert("Fill required fields")
+  // Reset form
+  this.reset();
 
-return
-
-}
-
-const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-
-links.push({
-
-name:name,
-description:description,
-url:url,
-logo:logoData,
-platform:platform,
-category:category
-
-})
-
-localStorage.setItem("linkwaveLinks",JSON.stringify(links))
-
-document.getElementById("success").style.display="block"
-
-document.querySelectorAll("input,textarea").forEach(el=>el.value="")
-document.getElementById("preview").style.display="none"
-
-}
-
+  // Hide message after 3s
+  setTimeout(()=>{thankYou.classList.remove('show');},3000);
+});
 </script>
 
 </body>
