@@ -14,7 +14,6 @@
 <style>
 
 /* BODY */
-
 body{
 margin:0;
 font-family:Arial;
@@ -25,7 +24,6 @@ overflow-x:hidden;
 }
 
 /* floating background */
-
 body::before{
 content:"";
 position:fixed;
@@ -43,13 +41,15 @@ z-index:-1;
 }
 
 /* HEADER */
-
 header{
 position:sticky;
 top:0;
 background:rgba(0,0,0,0.85);
 padding:20px;
 z-index:100;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .menu-icon{
@@ -58,10 +58,10 @@ left:20px;
 top:25px;
 font-size:28px;
 cursor:pointer;
+z-index:101;
 }
 
 /* logo center */
-
 .logo-center{
 display:flex;
 flex-direction:column;
@@ -101,8 +101,7 @@ animation:titleWave 3s infinite;
 100%{letter-spacing:1px}
 }
 
-/* dropdown */
-
+/* dropdown menu */
 .dropdown{
 display:none;
 position:absolute;
@@ -113,6 +112,7 @@ border-radius:10px;
 padding:10px 0;
 min-width:180px;
 text-align:left;
+z-index:102;
 }
 
 .dropdown a{
@@ -127,7 +127,6 @@ background:#222;
 }
 
 /* hero */
-
 .hero{
 margin-top:25px;
 animation:fadeUp 1s forwards;
@@ -139,7 +138,6 @@ to{opacity:1;transform:translateY(0)}
 }
 
 /* button */
-
 .main-btn{
 display:inline-block;
 margin-top:20px;
@@ -152,7 +150,6 @@ font-weight:bold;
 }
 
 /* search */
-
 .search{
 margin-top:20px;
 }
@@ -165,7 +162,6 @@ border:none;
 }
 
 /* category */
-
 #categoryScroll{
 margin-top:20px;
 display:flex;
@@ -199,7 +195,6 @@ cursor:pointer;
 }
 
 /* cards */
-
 .cards{
 display:flex;
 flex-wrap:wrap;
@@ -232,7 +227,6 @@ text-decoration:none;
 }
 
 /* live analytics */
-
 .analytics{
 margin:40px auto;
 max-width:1000px;
@@ -273,7 +267,6 @@ margin:5px 0;
 }
 
 /* Map */
-
 #visitorMap{
 height:400px;
 width:90%;
@@ -284,7 +277,6 @@ border:1px solid rgba(58,127,253,0.5);
 }
 
 /* footer */
-
 footer{
 margin-top:30px;
 padding:20px;
@@ -293,7 +285,6 @@ color:#aaa;
 }
 
 /* snow */
-
 #snowContainer{
 position:fixed;
 top:0;
@@ -326,7 +317,6 @@ opacity:0;
 <body>
 
 <header>
-
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
 <div class="logo-center">
@@ -364,10 +354,8 @@ opacity:0;
 <div class="cards" id="cardsContainer"></div>
 
 <!-- LIVE ANALYTICS -->
-
 <div class="analytics">
 <h2>📊 Live Analytics</h2>
-
 <div class="stats-container">
 <div class="stat-card">
 <h2 id="visitorCount">1234</h2>
@@ -382,7 +370,6 @@ opacity:0;
 <p>Active Sessions</p>
 </div>
 </div>
-
 <div id="visitorMap"></div>
 </div>
 
@@ -398,162 +385,93 @@ Made in Sri Lanka 🇱🇰 <br>
 
 <script>
 
-/* menu */
-
+/* Menu toggle */
 function toggleMenu(){
-const menu=document.getElementById("dropdownMenu")
-menu.style.display=(menu.style.display==="block")?"none":"block"
+  const menu=document.getElementById("dropdownMenu")
+  menu.style.display=(menu.style.display==="block")?"none":"block"
+}
+window.onclick=function(e){
+  if(!e.target.matches('.menu-icon')){
+    const menu=document.getElementById("dropdownMenu");
+    if(menu.style.display==="block") menu.style.display="none";
+  }
 }
 
-/* links */
-
-let currentPlatform="All"
-let currentCategory="All"
+/* links & categories */
+let currentPlatform="All";
+let currentCategory="All";
 
 function loadLinks(){
-
 const container=document.getElementById("cardsContainer")
 container.innerHTML=""
-
 const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-
 links.forEach(link=>{
-
-if(
-(currentPlatform==="All"||link.platform===currentPlatform) &&
-(currentCategory==="All"||link.category===currentCategory)
-){
-
+if((currentPlatform==="All"||link.platform===currentPlatform) &&
+(currentCategory==="All"||link.category===currentCategory)){
 const card=document.createElement("div")
-
 card.className="card"
-
 card.innerHTML=`
 ${link.logo?`<img src="${link.logo}">`:''}
 <h3>${link.name}</h3>
 <p>${link.description}</p>
 <a class="join" href="${link.url}" target="_blank">Join</a>
 `
-
 container.appendChild(card)
-
 }
-
 })
-
 }
-
-/* subcategory */
 
 function loadSubCategories(platform){
-
 const sub=document.getElementById("subCategoryScroll")
 sub.innerHTML=""
-
 let categories=[]
-
-if(platform==="WhatsApp"){
-categories=["All","Movies","Fun","Gaming","Education","Tech"]
-}
-
-else if(platform==="Telegram"){
-categories=["All","Movies","Crypto","Anime","Gaming"]
-}
-
-else if(platform==="Facebook"){
-categories=["All","Movies","Fun","Business","News"]
-}
-
-else{
-categories=["All"]
-}
-
+if(platform==="WhatsApp") categories=["All","Movies","Fun","Gaming","Education","Tech"]
+else if(platform==="Telegram") categories=["All","Movies","Crypto","Anime","Gaming"]
+else if(platform==="Facebook") categories=["All","Movies","Fun","Business","News"]
+else categories=["All"]
 categories.forEach(cat=>{
-
 const btn=document.createElement("div")
-
 btn.innerText=cat
-
-btn.onclick=function(){
-currentCategory=cat
-loadLinks()
-}
-
+btn.onclick=function(){ currentCategory=cat; loadLinks(); }
 sub.appendChild(btn)
-
 })
-
 }
-
-/* category click */
 
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
-
 btn.onclick=function(){
-
 currentPlatform=this.dataset.platform
 currentCategory="All"
-
 loadSubCategories(currentPlatform)
 loadLinks()
-
 }
-
 })
 
 /* search */
-
 document.getElementById("searchInput").addEventListener("input",function(){
-
 const term=this.value.toLowerCase()
-
 document.querySelectorAll(".card").forEach(card=>{
-
 const text=card.querySelector("h3").textContent.toLowerCase()
-
 card.style.display=text.includes(term)?"block":"none"
-
 })
-
 })
 
 /* snow */
-
 function createSnowflakes(count){
-
 const container=document.getElementById("snowContainer")
-
 for(let i=0;i<count;i++){
-
 const flake=document.createElement("div")
-
 flake.className="snowflake"
-
 flake.style.left=Math.random()*100+"vw"
 flake.style.animationDuration=(3+Math.random()*5)+"s"
-
 container.appendChild(flake)
-
-flake.addEventListener("animationend",()=>{
-flake.remove()
-createSnowflakes(1)
-})
-
+flake.addEventListener('animationend',()=>{ flake.remove(); createSnowflakes(1); })
 }
-
 }
-
 createSnowflakes(50)
 
 /* live map */
-
 const map = L.map("visitorMap").setView([20,0],2)
-
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
-attribution:'&copy; <a href="https://openstreetmap.org/copyright">OSM</a>'
-}).addTo(map)
-
-/* sample visitors */
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{ attribution:'&copy; <a href="https://openstreetmap.org/copyright">OSM</a>'}).addTo(map)
 const visitors=[
 {coords:[6.9271,79.8612],country:"Sri Lanka"},
 {coords:[28.6139,77.2090],country:"India"},
@@ -561,15 +479,8 @@ const visitors=[
 {coords:[51.5074,-0.1278],country:"UK"},
 {coords:[48.8566,2.3522],country:"France"},
 ]
-
 visitors.forEach(v=>{
-L.circleMarker(v.coords,{
-radius:8,
-fillColor:"#3a7bfd",
-color:"#fff",
-weight:1,
-fillOpacity:0.8
-}).bindPopup(v.country).addTo(map)
+L.circleMarker(v.coords,{radius:8,fillColor:"#3a7bfd",color:"#fff",weight:1,fillOpacity:0.8}).bindPopup(v.country).addTo(map)
 })
 
 window.onload=function(){
