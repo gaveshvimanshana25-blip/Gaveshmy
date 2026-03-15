@@ -8,7 +8,7 @@
 /* Body & Background */
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   color:white;
   text-align:center;
   background:linear-gradient(180deg,#050508,#000);
@@ -25,6 +25,7 @@ body::before{
   animation:bgMove 20s linear infinite;
   z-index:-1;
 }
+
 @keyframes bgMove{
   0%{transform:translate(0,0)}
   50%{transform:translate(-20%, -20%)}
@@ -69,17 +70,26 @@ header{
   background:rgba(58,127,253,0.2);
 }
 
-/* Logo */
+/* Logo with animation */
 .logo{
   width:50px;
   height:50px;
   border-radius:50%;
-  box-shadow:0 0 15px #3a7bfd;
-  animation:logoGlow 3s infinite alternate;
+  animation:logoPulse 3s infinite alternate;
 }
-@keyframes logoGlow{
-  0%{box-shadow:0 0 10px #3a7bfd}
-  100%{box-shadow:0 0 30px #a855f7}
+@keyframes logoPulse{
+  0%{
+    transform: scale(1) rotate(0deg);
+    box-shadow:0 0 10px #3a7bfd;
+  }
+  50%{
+    transform: scale(1.1) rotate(3deg);
+    box-shadow:0 0 25px #a855f7;
+  }
+  100%{
+    transform: scale(1) rotate(-3deg);
+    box-shadow:0 0 10px #3a7bfd;
+  }
 }
 
 /* Animated Title */
@@ -230,33 +240,6 @@ footer{
   color:#aaa;
 }
 
-/* Snow/Hail Effect */
-#snowContainer{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:50;
-}
-.snowflake{
-  position:absolute;
-  top:-10px;
-  width:5px;
-  height:5px;
-  background:white;
-  border-radius:50%;
-  opacity:0.8;
-  animation:fall linear infinite;
-}
-@keyframes fall{
-  to{
-    transform:translateY(100vh) translateX(var(--xMove));
-    opacity:0;
-  }
-}
 </style>
 </head>
 <body>
@@ -293,15 +276,13 @@ footer{
 </div>
 
 <div id="subCategoryScroll"></div>
+
 <div class="cards" id="cardsContainer"></div>
 
 <footer>
   Made in Sri Lanka 🇱🇰 <br>
   © 2026 LinkWave
 </footer>
-
-<!-- Snow Container -->
-<div id="snowContainer"></div>
 
 <script>
 // Menu toggle
@@ -375,32 +356,12 @@ document.getElementById("searchInput").addEventListener("input",function(){
   });
 });
 
-// Snow/Hail effect
-function createSnowflakes(count){
-  const container = document.getElementById('snowContainer');
-  for(let i=0;i<count;i++){
-    const flake = document.createElement('div');
-    flake.className='snowflake';
-    const size = Math.random()*6+4;
-    flake.style.width=size+'px';
-    flake.style.height=size+'px';
-    flake.style.left=Math.random()*100+'vw';
-    flake.style.animationDuration=(3+Math.random()*5)+'s';
-    flake.style.setProperty('--xMove',(Math.random()*30-15)+'px');
-    container.appendChild(flake);
-    flake.addEventListener('animationend',()=>{
-      flake.remove();
-      createSnowflakes(1);
-    });
-  }
-}
-createSnowflakes(50);
-
 // Initial load
 window.onload=function(){
   loadSubCategories("All");
   loadLinks();
 };
 </script>
+
 </body>
 </html>
