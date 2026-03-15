@@ -4,263 +4,267 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
-
 <style>
-
+/* Body & Background */
 body{
-margin:0;
-font-family:Arial;
-color:white;
-text-align:center;
-background:linear-gradient(180deg,#050508,#000);
-overflow-x:hidden;
+  margin:0;
+  font-family:Arial;
+  color:white;
+  text-align:center;
+  background:linear-gradient(180deg,#050508,#000);
+  overflow-x:hidden;
 }
 
-/* background animation */
-
+/* Floating background */
 body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:radial-gradient(circle,#3a7bfd22,#000 70%);
-animation:bgMove 20s linear infinite;
-z-index:-1;
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#3a7bfd22,#000 70%);
+  animation:bgMove 20s linear infinite;
+  z-index:-1;
 }
 
 @keyframes bgMove{
-0%{transform:translate(0,0)}
-50%{transform:translate(-20%,-20%)}
-100%{transform:translate(0,0)}
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20%, -20%)}
+  100%{transform:translate(0,0)}
 }
 
-/* header */
-
+/* Header */
 header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:rgba(0,0,0,0.85);
+  position:sticky;
+  top:0;
+  z-index:100;
 }
-
-/* menu icon */
-
 .menu-icon{
-font-size:28px;
-cursor:pointer;
+  font-size:28px;
+  cursor:pointer;
 }
-
-/* dropdown */
-
 .dropdown{
-display:none;
-position:absolute;
-top:70px;
-left:20px;
-background:#111;
-border-radius:10px;
-padding:10px 0;
-min-width:180px;
-box-shadow:0 0 20px rgba(0,0,0,0.5);
+  display:none;
+  position:absolute;
+  top:55px;
+  left:15px;
+  background:rgba(0,0,0,0.95);
+  border:1px solid #333;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+  z-index:1000;
 }
-
 .dropdown a{
-display:block;
-padding:10px 20px;
-color:white;
-text-decoration:none;
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
 }
-
 .dropdown a:hover{
-background:rgba(58,127,253,0.2);
+  background:rgba(58,127,253,0.2);
 }
 
-/* logo */
-
+/* Logo */
 .logo{
-width:60px;
-height:60px;
-border-radius:50%;
-box-shadow:0 0 15px #3a7bfd;
-animation:logoGlow 3s infinite alternate;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  box-shadow:0 0 15px #3a7bfd;
+  animation:logoGlow 3s infinite alternate;
 }
-
 @keyframes logoGlow{
-0%{box-shadow:0 0 10px #3a7bfd}
-100%{box-shadow:0 0 30px #a855f7}
+  0%{box-shadow:0 0 10px #3a7bfd}
+  100%{box-shadow:0 0 30px #a855f7}
 }
 
-/* title */
-
+/* Animated Title */
 .title{
-font-size:36px;
-font-weight:bold;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
--webkit-background-clip:text;
-color:transparent;
+  font-size:32px;
+  font-weight:bold;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:waveText 3s infinite;
+}
+@keyframes waveText{
+  0%{letter-spacing:1px}
+  50%{letter-spacing:5px}
+  100%{letter-spacing:1px}
 }
 
-/* hero */
-
+/* Hero */
 .hero{
-margin-top:40px;
+  margin-top:25px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeUp 1s forwards;
 }
-
 .hero p{
-color:#aaa;
-max-width:600px;
-margin:auto;
+  color:#aaa;
+  max-width:600px;
+  margin:auto;
+}
+@keyframes fadeUp{
+  to{opacity:1; transform:translateY(0);}
 }
 
-/* button */
-
+/* Submit button */
 .main-btn{
-display:inline-block;
-margin-top:25px;
-padding:14px 28px;
-border-radius:30px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-text-decoration:none;
-font-weight:bold;
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 0 20px #3a7bfd;
+  transition:0.3s;
+}
+.main-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px #a855f7;
 }
 
-/* search */
-
+/* Search */
 .search{
-margin-top:40px;
+  margin-top:20px;
 }
-
 .search input{
-padding:12px;
-width:240px;
-border-radius:10px;
-border:none;
+  padding:10px;
+  width:220px;
+  border-radius:10px;
+  border:none;
 }
 
-/* categories */
-
+/* Category Scroll */
 #categoryScroll{
-margin-top:25px;
-display:flex;
-justify-content:center;
-gap:10px;
-overflow-x:auto;
-padding:10px;
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px;
 }
-
 #categoryScroll div{
-padding:8px 20px;
-background:rgba(58,127,253,0.2);
-border-radius:20px;
-cursor:pointer;
+  padding:8px 18px;
+  background:rgba(58,127,253,0.2);
+  border-radius:20px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all 0.3s ease;
+}
+#categoryScroll div:hover{
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  transform:scale(1.1);
 }
 
-/* sub categories */
-
+/* Subcategory Scroll */
 #subCategoryScroll{
-margin-top:10px;
-display:flex;
-justify-content:center;
-gap:10px;
-overflow-x:auto;
-padding:10px;
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px;
 }
-
 #subCategoryScroll div{
-padding:8px 20px;
-background:rgba(168,85,247,0.2);
-border-radius:20px;
-cursor:pointer;
+  padding:6px 16px;
+  background:rgba(168,85,247,0.2);
+  border-radius:20px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+#subCategoryScroll div:hover{
+  transform:scale(1.05);
+  background:linear-gradient(45deg,#a855f7,#3a7bfd);
 }
 
-/* cards */
-
+/* Cards */
 .cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:40px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:20px;
 }
-
 .card{
-width:220px;
-padding:20px;
-border-radius:15px;
-background:rgba(255,255,255,0.05);
+  width:200px;
+  padding:15px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
 }
-
+.card:hover{
+  transform:translateY(-8px) scale(1.05);
+  box-shadow:0 10px 20px rgba(58,127,253,0.5);
+}
 .card img{
-width:100%;
-border-radius:10px;
+  width:100%;
+  border-radius:10px;
+  margin-bottom:5px;
 }
-
 .join{
-display:inline-block;
-margin-top:10px;
-padding:8px 16px;
-border-radius:20px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-text-decoration:none;
+  display:inline-block;
+  margin-top:5px;
+  padding:6px 14px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+  font-size:14px;
 }
 
-/* footer */
-
+/* Footer */
 footer{
-margin-top:50px;
-padding:20px;
-background:#000;
-color:#aaa;
+  margin-top:30px;
+  padding:20px;
+  background:#000;
+  color:#aaa;
 }
 
+/* Animations */
 </style>
 </head>
-
 <body>
 
 <header>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div><img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png"></div>
+  <div class="title">LinkWave</div>
 
-<div class="menu-icon" id="menuBtn">☰</div>
-
-<div style="display:flex;align-items:center;gap:10px;">
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
-<div class="title">LinkWave</div>
-</div>
-
-<div></div>
-
+  <div class="dropdown" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="submit.html">Submit Link</a>
+    <a href="analytics.html">Live Analytics</a>
+    <a href="developer.html">Developer</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </header>
 
-<div class="dropdown" id="menu">
-
-<a href="contact.html">Contact</a>
-<a href="terms.html">Terms & Policy</a>
-<a href="developer.html">Developer</a>
-<a href="analytics.html">Live Analytics</a>
-
-</div>
-
 <div class="hero">
-
-<h1>Discover and Join Communities</h1>
-
-<p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
-
-<a class="main-btn" href="submit.html">+ Submit Link</a>
-
+  <h1>Discover and Join Communities</h1>
+  <p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
+  <a class="main-btn" href="submit.html">+ Submit Link</a>
 </div>
 
 <div class="search">
-<input type="text" id="searchInput" placeholder="Search groups...">
+  <input type="text" id="searchInput" placeholder="Search groups...">
 </div>
 
 <div id="categoryScroll">
-<div data-platform="All">All</div>
-<div data-platform="WhatsApp">WhatsApp</div>
-<div data-platform="Telegram">Telegram</div>
-<div data-platform="Facebook">Facebook</div>
+  <div data-platform="All">All</div>
+  <div data-platform="WhatsApp">WhatsApp</div>
+  <div data-platform="Telegram">Telegram</div>
+  <div data-platform="Facebook">Facebook</div>
 </div>
 
 <div id="subCategoryScroll"></div>
@@ -268,126 +272,87 @@ color:#aaa;
 <div class="cards" id="cardsContainer"></div>
 
 <footer>
-Made in Sri Lanka 🇱🇰 <br>
-© 2026 LinkWave
+  Made in Sri Lanka 🇱🇰 <br>
+  © 2026 LinkWave
 </footer>
 
 <script>
-
-/* MENU FIX */
-
-const menuBtn = document.getElementById("menuBtn")
-const menu = document.getElementById("menu")
-
-menuBtn.addEventListener("click", function(e){
-e.stopPropagation()
-menu.style.display = menu.style.display === "block" ? "none" : "block"
-})
-
-document.addEventListener("click", function(e){
-if(!menu.contains(e.target)){
-menu.style.display="none"
+// Menu toggle
+function toggleMenu(){
+  const menu=document.getElementById("dropdownMenu");
+  menu.style.display=(menu.style.display==="block")?"none":"block";
 }
-})
+window.onclick=function(e){
+  if(!e.target.matches('.menu-icon')){
+    const menu=document.getElementById("dropdownMenu");
+    if(menu.style.display==="block") menu.style.display="none";
+  }
+}
 
-/* link system */
-
-let currentPlatform="All"
-let currentCategory="All"
+// Category / Subcategory
+let currentPlatform="All";
+let currentCategory="All";
 
 function loadLinks(){
-
-const container=document.getElementById("cardsContainer")
-container.innerHTML=""
-
-const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-
-links.reverse().forEach(link=>{
-
-if(
-(currentPlatform==="All"||link.platform===currentPlatform) &&
-(currentCategory==="All"||link.category===currentCategory)
-){
-
-const card=document.createElement("div")
-
-card.className="card"
-
-card.innerHTML=`
-${link.logo?`<img src="${link.logo}">`:''}
-<h3>${link.name}</h3>
-<p>${link.description}</p>
-<a class="join" href="${link.url}" target="_blank">Join</a>
-`
-
-container.appendChild(card)
-
-}
-
-})
-
+  const container=document.getElementById("cardsContainer");
+  container.innerHTML="";
+  const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[];
+  links.reverse().forEach(link=>{
+    if((currentPlatform==="All"||link.platform===currentPlatform) &&
+       (currentCategory==="All"||link.category===currentCategory)){
+      const card=document.createElement("div");
+      card.className="card";
+      card.innerHTML=`
+        ${link.logo?`<img src="${link.logo}">`:''}
+        <h3>${link.name}</h3>
+        <p>${link.description}</p>
+        <a class="join" href="${link.url}" target="_blank">Join</a>
+      `;
+      container.appendChild(card);
+    }
+  });
 }
 
 function loadSubCategories(platform){
-
-const sub=document.getElementById("subCategoryScroll")
-sub.innerHTML=""
-
-let categories=[]
-
-if(platform==="WhatsApp"){
-categories=["All","Movies","Fun","Gaming","Education","Tech"]
+  const sub=document.getElementById("subCategoryScroll");
+  sub.innerHTML="";
+  let categories=[];
+  if(platform==="WhatsApp") categories=["All","Movies","Fun","Gaming","Education","Tech"];
+  else if(platform==="Telegram") categories=["All","Movies","Crypto","Anime","Gaming"];
+  else if(platform==="Facebook") categories=["All","Movies","Fun","Business","News"];
+  else categories=["All"];
+  categories.forEach(cat=>{
+    const btn=document.createElement("div");
+    btn.innerText=cat;
+    btn.onclick=function(){ currentCategory=cat; loadLinks(); }
+    sub.appendChild(btn);
+  });
 }
 
-else if(platform==="Telegram"){
-categories=["All","Movies","Crypto","Anime","Gaming"]
-}
-
-else if(platform==="Facebook"){
-categories=["All","Movies","Fun","Business","News"]
-}
-
-else{
-categories=["All"]
-}
-
-categories.forEach(cat=>{
-
-const btn=document.createElement("div")
-btn.innerText=cat
-
-btn.onclick=function(){
-currentCategory=cat
-loadLinks()
-}
-
-sub.appendChild(btn)
-
-})
-
-}
-
+// Category click
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
+  btn.onclick=function(){
+    currentPlatform=this.dataset.platform;
+    currentCategory="All";
+    loadSubCategories(currentPlatform);
+    loadLinks();
+  }
+});
 
-btn.onclick=function(){
+// Search
+document.getElementById("searchInput").addEventListener("input",function(){
+  const term=this.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card=>{
+    const text=card.querySelector("h3").textContent.toLowerCase();
+    card.style.display=text.includes(term)?"block":"none";
+  });
+});
 
-currentPlatform=this.dataset.platform
-currentCategory="All"
-
-loadSubCategories(currentPlatform)
-loadLinks()
-
-}
-
-})
-
+// Initial load
 window.onload=function(){
-
-loadSubCategories("All")
-loadLinks()
-
-}
-
+  loadSubCategories("All");
+  loadLinks();
+};
 </script>
 
 </body>
