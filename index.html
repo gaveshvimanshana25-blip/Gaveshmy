@@ -7,7 +7,7 @@
 
 <style>
 
-/* Body */
+/* BODY */
 
 body{
 margin:0;
@@ -18,7 +18,7 @@ background:linear-gradient(180deg,#050508,#000);
 overflow-x:hidden;
 }
 
-/* Floating background */
+/* floating background */
 
 body::before{
 content:"";
@@ -32,7 +32,7 @@ z-index:-1;
 
 @keyframes bgMove{
 0%{transform:translate(0,0)}
-50%{transform:translate(-20%, -20%)}
+50%{transform:translate(-20%,-20%)}
 100%{transform:translate(0,0)}
 }
 
@@ -41,12 +41,10 @@ z-index:-1;
 header{
 position:sticky;
 top:0;
-padding:20px;
 background:rgba(0,0,0,0.85);
+padding:20px;
 z-index:100;
 }
-
-/* menu */
 
 .menu-icon{
 position:absolute;
@@ -56,16 +54,13 @@ font-size:28px;
 cursor:pointer;
 }
 
-/* center logo box */
+/* logo center */
 
 .logo-center{
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
 }
-
-/* logo */
 
 .logo{
 width:70px;
@@ -75,46 +70,29 @@ animation:logoGlow 3s infinite alternate;
 transition:0.4s;
 }
 
-/* hover rotate */
-
 .logo:hover{
 transform:scale(1.1) rotate(360deg);
 }
 
-/* glow */
-
 @keyframes logoGlow{
-
-0%{
-box-shadow:0 0 10px #3a7bfd;
+0%{box-shadow:0 0 10px #3a7bfd}
+100%{box-shadow:0 0 35px #a855f7}
 }
-
-100%{
-box-shadow:0 0 35px #a855f7;
-}
-
-}
-
-/* title */
 
 .title{
 font-size:32px;
 font-weight:bold;
 margin-top:6px;
-
 background:linear-gradient(45deg,#3a7bfd,#a855f7);
 -webkit-background-clip:text;
 color:transparent;
-
 animation:titleWave 3s infinite;
 }
 
 @keyframes titleWave{
-
 0%{letter-spacing:1px}
 50%{letter-spacing:6px}
 100%{letter-spacing:1px}
-
 }
 
 /* dropdown */
@@ -122,15 +100,13 @@ animation:titleWave 3s infinite;
 .dropdown{
 display:none;
 position:absolute;
-top:65px;
+top:70px;
 left:15px;
-background:rgba(0,0,0,0.95);
-border:1px solid #333;
+background:#000;
 border-radius:10px;
 padding:10px 0;
 min-width:180px;
 text-align:left;
-z-index:1000;
 }
 
 .dropdown a{
@@ -141,26 +117,19 @@ text-decoration:none;
 }
 
 .dropdown a:hover{
-background:rgba(58,127,253,0.2);
+background:#222;
 }
 
 /* hero */
 
 .hero{
 margin-top:25px;
-opacity:0;
-transform:translateY(20px);
 animation:fadeUp 1s forwards;
 }
 
-.hero p{
-color:#aaa;
-max-width:600px;
-margin:auto;
-}
-
 @keyframes fadeUp{
-to{opacity:1;transform:translateY(0);}
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
 }
 
 /* button */
@@ -174,13 +143,6 @@ background:linear-gradient(45deg,#3a7bfd,#a855f7);
 color:white;
 text-decoration:none;
 font-weight:bold;
-box-shadow:0 0 20px #3a7bfd;
-transition:0.3s;
-}
-
-.main-btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 35px #a855f7;
 }
 
 /* search */
@@ -196,7 +158,7 @@ border-radius:10px;
 border:none;
 }
 
-/* category scroll */
+/* category */
 
 #categoryScroll{
 margin-top:20px;
@@ -209,19 +171,10 @@ padding:10px;
 
 #categoryScroll div{
 padding:8px 18px;
-background:rgba(58,127,253,0.2);
+background:#222;
 border-radius:20px;
 cursor:pointer;
-white-space:nowrap;
-transition:0.3s;
 }
-
-#categoryScroll div:hover{
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-transform:scale(1.1);
-}
-
-/* subcategory */
 
 #subCategoryScroll{
 margin-top:10px;
@@ -234,14 +187,9 @@ padding:5px;
 
 #subCategoryScroll div{
 padding:6px 16px;
-background:rgba(168,85,247,0.2);
+background:#333;
 border-radius:20px;
 cursor:pointer;
-transition:0.3s;
-}
-
-#subCategoryScroll div:hover{
-background:linear-gradient(45deg,#a855f7,#3a7bfd);
 }
 
 /* cards */
@@ -258,20 +206,13 @@ margin-top:20px;
 width:200px;
 padding:15px;
 border-radius:15px;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-8px) scale(1.05);
-box-shadow:0 10px 20px rgba(58,127,253,0.5);
+background:#111;
+border:1px solid #333;
 }
 
 .card img{
 width:100%;
 border-radius:10px;
-margin-bottom:5px;
 }
 
 .join{
@@ -282,7 +223,6 @@ border-radius:20px;
 background:linear-gradient(45deg,#3a7bfd,#a855f7);
 color:white;
 text-decoration:none;
-font-size:14px;
 }
 
 /* footer */
@@ -303,8 +243,6 @@ left:0;
 width:100%;
 height:100%;
 pointer-events:none;
-overflow:hidden;
-z-index:50;
 }
 
 .snowflake{
@@ -314,7 +252,6 @@ width:5px;
 height:5px;
 background:white;
 border-radius:50%;
-opacity:0.8;
 animation:fall linear infinite;
 }
 
@@ -335,19 +272,15 @@ opacity:0;
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
 <div class="logo-center">
-
 <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-
 <div class="title">LinkWave</div>
-
 </div>
 
 <div class="dropdown" id="dropdownMenu">
-<a href="index.html">Home</a>
+<a href="#">Home</a>
 <a href="submit.html">Submit Link</a>
-<a href="analytics.html">Live Analytics</a>
-<a href="developer.html">Developer</a>
-<a href="contact.html">Contact</a>
+<a href="#">Developer</a>
+<a href="#">Contact</a>
 </div>
 
 </header>
@@ -388,7 +321,7 @@ const menu=document.getElementById("dropdownMenu")
 menu.style.display=(menu.style.display==="block")?"none":"block"
 }
 
-/* category system */
+/* system */
 
 let currentPlatform="All"
 let currentCategory="All"
@@ -396,15 +329,14 @@ let currentCategory="All"
 function loadLinks(){
 
 const container=document.getElementById("cardsContainer")
-
 container.innerHTML=""
 
 const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
 
-links.reverse().forEach(link=>{
+links.forEach(link=>{
 
 if(
-(currentPlatform==="All"||link.platform===currentPlatform)&&
+(currentPlatform==="All"||link.platform===currentPlatform) &&
 (currentCategory==="All"||link.category===currentCategory)
 ){
 
@@ -432,7 +364,6 @@ container.appendChild(card)
 function loadSubCategories(platform){
 
 const sub=document.getElementById("subCategoryScroll")
-
 sub.innerHTML=""
 
 let categories=[]
@@ -515,7 +446,6 @@ const flake=document.createElement("div")
 flake.className="snowflake"
 
 flake.style.left=Math.random()*100+"vw"
-
 flake.style.animationDuration=(3+Math.random()*5)+"s"
 
 container.appendChild(flake)
@@ -531,12 +461,9 @@ createSnowflakes(1)
 
 createSnowflakes(50)
 
-/* start */
-
 window.onload=function(){
 
 loadSubCategories("All")
-
 loadLinks()
 
 }
