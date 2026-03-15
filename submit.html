@@ -4,170 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Link - LinkWave</title>
+
 <style>
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#000,#0a0a0f);
-  color:white;
-  text-align:center;
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+background:linear-gradient(180deg,#0a0a0f,#000);
 }
-form{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  padding:30px;
-  border-radius:15px;
-  width:90%;
-  max-width:500px;
-  margin:50px auto;
-  border:1px solid rgba(255,255,255,0.1);
+
+/* animated background */
+
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle,#3a7bfd22,#000 70%);
+animation:bgMove 20s linear infinite;
+z-index:-1;
 }
-input, select, textarea{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:10px;
-  border:none;
-  background:rgba(255,255,255,0.1);
-  color:white;
+
+@keyframes bgMove{
+0%{transform:translate(0,0)}
+50%{transform:translate(-20%,-20%)}
+100%{transform:translate(0,0)}
 }
-input::placeholder, textarea::placeholder{color:#ccc;}
+
+/* header */
+
+header{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+padding:20px;
+}
+
+.logo{
+width:55px;
+border-radius:50%;
+box-shadow:0 0 20px #3a7bfd;
+}
+
+.title{
+font-size:32px;
+font-weight:bold;
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+/* form container */
+
+.form-box{
+width:320px;
+margin:40px auto;
+padding:30px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+animation:fadeUp 1s;
+}
+
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(30px)}
+to{opacity:1; transform:translateY(0)}
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:none;
+}
+
+textarea{
+resize:none;
+}
+
+/* submit button */
+
 button{
-  padding:14px 28px;
-  border-radius:30px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 20px rgba(120,80,255,0.7);
+margin-top:15px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:25px;
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
 }
-h1{margin-top:30px;font-size:32px;}
-#thankModal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #a855f7;
 }
-#thankModal .modal-content {
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  padding:30px;
-  border-radius:20px;
-  color:white;
-  font-size:18px;
-  text-align:center;
-  box-shadow:0 0 20px rgba(120,80,255,0.7);
-  animation: popupAnim 0.5s ease forwards;
+
+/* success message */
+
+#success{
+margin-top:10px;
+color:#4ade80;
+display:none;
 }
-@keyframes popupAnim {
-  0% {opacity:0; transform:scale(0.5);}
-  50% {opacity:1; transform:scale(1.05);}
-  100% {opacity:1; transform:scale(1);}
-}
-#thankModal .close-btn{
-  margin-top:20px;
-  padding:10px 20px;
-  border:none;
-  border-radius:15px;
-  background:#000;
-  color:white;
-  cursor:pointer;
-}
+
 </style>
 </head>
+
 <body>
 
-<h1>Submit Your Group Link</h1>
+<header>
 
-<form id="submitForm">
-  <input type="text" placeholder="Group Name" required id="groupName">
-  <input type="url" placeholder="Group Link" required id="groupURL">
+<img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
 
-  <!-- Platform -->
-  <select required id="groupPlatform">
-    <option value="">Select Platform</option>
-    <option value="WhatsApp">WhatsApp</option>
-    <option value="Telegram">Telegram</option>
-    <option value="Discord">Discord</option>
-    <option value="Facebook">Facebook</option>
-  </select>
+<div class="title">LinkWave</div>
 
-  <!-- Category -->
-  <select required id="groupCategory">
-    <option value="">Select Category</option>
-    <option value="Movie">Movie</option>
-    <option value="Funny">Funny</option>
-    <option value="18+ Adult">18+ Adult</option>
-    <option value="Music">Music</option>
-    <option value="Education">Education</option>
-    <option value="Gaming">Gaming</option>
-    <option value="Sports">Sports</option>
-    <option value="Technology">Technology</option>
-    <option value="News">News</option>
-    <option value="Lifestyle">Lifestyle</option>
-    <option value="Travel">Travel</option>
-    <option value="Food">Food</option>
-    <option value="Business">Business</option>
-    <option value="Health">Health</option>
-    <option value="Comedy">Comedy</option>
-    <option value="Art">Art</option>
-    <option value="Science">Science</option>
-    <option value="Photography">Photography</option>
-    <option value="Books">Books</option>
-    <option value="Fashion">Fashion</option>
-  </select>
+</header>
 
-  <textarea placeholder="Short Description" rows="4" required id="groupDesc"></textarea>
-  <input type="text" placeholder="Submitted by (Your Name)" required id="groupOwner">
-  <input type="file" id="groupLogo" accept="image/*" required>
-  <button type="submit">Submit Link</button>
-</form>
+<div class="form-box">
 
-<div id="thankModal">
-  <div class="modal-content">
-    Thank you! Your link has been submitted ✅
-    <br>
-    <button class="close-btn" onclick="closeModal()">Close</button>
-  </div>
+<h2>Submit Your Group</h2>
+
+<input id="name" placeholder="Group Name">
+
+<textarea id="description" placeholder="Description"></textarea>
+
+<input id="url" placeholder="Group Link">
+
+<input id="logo" placeholder="Logo Image URL (optional)">
+
+<select id="platform">
+
+<option>WhatsApp</option>
+<option>Telegram</option>
+<option>Facebook</option>
+<option>TikTok</option>
+
+</select>
+
+<select id="category">
+
+<option>Movies</option>
+<option>Fun</option>
+<option>Gaming</option>
+<option>Education</option>
+<option>Tech</option>
+<option>Business</option>
+
+</select>
+
+<button onclick="submitLink()">Submit</button>
+
+<div id="success">✔ Link Submitted!</div>
+
 </div>
 
 <script>
-const modal = document.getElementById('thankModal');
 
-document.getElementById('submitForm').addEventListener('submit', function(e){
-  e.preventDefault();
+function submitLink(){
 
-  const name = document.getElementById('groupName').value;
-  const url = document.getElementById('groupURL').value;
-  const platform = document.getElementById('groupPlatform').value;
-  const category = document.getElementById('groupCategory').value;
-  const desc = document.getElementById('groupDesc').value;
-  const owner = document.getElementById('groupOwner').value;
-  const logoInput = document.getElementById('groupLogo');
+const name=document.getElementById("name").value
+const description=document.getElementById("description").value
+const url=document.getElementById("url").value
+const logo=document.getElementById("logo").value
+const platform=document.getElementById("platform").value
+const category=document.getElementById("category").value
 
-  if(logoInput.files.length===0){ alert("Please select a logo image."); return; }
+if(!name||!url){
 
-  const reader = new FileReader();
-  reader.onload=function(){
-    const logoBase64 = reader.result;
-    const link = {name,url,platform,category,description:desc,logo:logoBase64,owner};
-    let links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
-    links.push(link);
-    localStorage.setItem('linkwaveLinks', JSON.stringify(links));
+alert("Please fill required fields")
 
-    modal.style.display = 'flex';
-    document.getElementById('submitForm').reset();
-  }
-  reader.readAsDataURL(logoInput.files[0]);
-});
+return
 
-function closeModal(){
-  modal.style.display = 'none';
 }
+
+const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
+
+links.push({
+name:name,
+description:description,
+url:url,
+logo:logo,
+platform:platform,
+category:category
+})
+
+localStorage.setItem("linkwaveLinks",JSON.stringify(links))
+
+document.getElementById("success").style.display="block"
+
+document.querySelectorAll("input,textarea").forEach(el=>el.value="")
+
+}
+
 </script>
 
 </body>
