@@ -7,14 +7,16 @@
 <style>
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial;
   color:white;
   text-align:center;
   background:linear-gradient(180deg,#050508,#000);
   overflow-x:hidden;
+  position:relative;
+  height:100vh;
 }
 
-/* floating background */
+/* Floating background */
 body::before{
   content:"";
   position:fixed;
@@ -30,7 +32,7 @@ body::before{
   100%{transform:translate(0,0)}
 }
 
-/* header */
+/* Header */
 header{
   display:flex;
   align-items:center;
@@ -41,76 +43,19 @@ header{
   top:0;
   z-index:100;
 }
-.menu-icon{
-  font-size:28px;
-  cursor:pointer;
-}
-.dropdown{
-  display:none;
-  position:absolute;
-  top:55px;
-  left:15px;
-  background:rgba(0,0,0,0.95);
-  border:1px solid #333;
-  border-radius:10px;
-  padding:10px 0;
-  min-width:180px;
-  text-align:left;
-  z-index:1000;
-}
-.dropdown a{
-  display:block;
-  color:white;
-  padding:10px 20px;
-  text-decoration:none;
-}
-.dropdown a:hover{
-  background:rgba(58,127,253,0.2);
-}
+.menu-icon{font-size:28px;cursor:pointer;}
+.dropdown{display:none;position:absolute;top:55px;left:15px;background:rgba(0,0,0,0.95);border:1px solid #333;border-radius:10px;padding:10px 0;min-width:180px;text-align:left;z-index:1000;}
+.dropdown a{display:block;color:white;padding:10px 20px;text-decoration:none;}
+.dropdown a:hover{background:rgba(58,127,253,0.2);}
+.logo{width:50px;height:50px;border-radius:50%;box-shadow:0 0 15px #3a7bfd;animation:logoGlow 3s infinite alternate;}
+@keyframes logoGlow{0%{box-shadow:0 0 10px #3a7bfd}100%{box-shadow:0 0 30px #a855f7}}
+.title{font-size:28px;font-weight:bold;background:linear-gradient(45deg,#3a7bfd,#a855f7);-webkit-background-clip:text;color:transparent;animation:waveText 3s infinite;}
+@keyframes waveText{0%{letter-spacing:1px}50%{letter-spacing:5px}100%{letter-spacing:1px}}
 
-/* animated logo and title */
-.logo{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  box-shadow:0 0 15px #3a7bfd;
-  animation:logoGlow 3s infinite alternate;
-}
-@keyframes logoGlow{
-  0%{box-shadow:0 0 10px #3a7bfd}
-  100%{box-shadow:0 0 30px #a855f7}
-}
-.title{
-  font-size:28px;
-  font-weight:bold;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:waveText 3s infinite;
-}
-@keyframes waveText{
-  0%{letter-spacing:1px}
-  50%{letter-spacing:5px}
-  100%{letter-spacing:1px}
-}
+.hero{margin-top:25px;opacity:0;transform:translateY(20px);animation:fadeUp 1s forwards;}
+.hero p{color:#aaa;max-width:600px;margin:auto;}
+@keyframes fadeUp{to{opacity:1; transform:translateY(0);}}
 
-/* hero */
-.hero{
-  margin-top:25px;
-  opacity:0;
-  transform:translateY(20px);
-  animation:fadeUp 1s forwards;
-}
-.hero p{
-  color:#aaa;
-  max-width:600px;
-  margin:auto;
-}
-@keyframes fadeUp{
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* form */
 form{
   margin-top:30px;
   max-width:450px;
@@ -124,43 +69,29 @@ form{
   animation:fadeUp 1s forwards;
   animation-delay:0.3s;
 }
-input, select, textarea{
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  font-size:14px;
-  background:rgba(255,255,255,0.05);
-  color:white;
-}
+input, select, textarea{padding:12px;border-radius:10px;border:none;font-size:14px;background:rgba(255,255,255,0.05);color:white;}
 textarea{resize:none;}
-button{
-  padding:12px;
-  border-radius:25px;
-  border:none;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 25px #a855f7;
-}
+button{padding:12px;border-radius:25px;border:none;background:linear-gradient(45deg,#3a7bfd,#a855f7);color:white;font-weight:bold;cursor:pointer;transition:0.3s;}
+button:hover{transform:scale(1.05);box-shadow:0 0 25px #a855f7;}
+#thankYou{margin-top:20px;color:#3a7bfd;font-size:18px;font-weight:bold;opacity:0;transform:translateY(-10px);transition:all 0.5s ease;}
+#thankYou.show{opacity:1;transform:translateY(0);}
 
-/* Thank you message */
-#thankYou{
-  margin-top:20px;
-  color:#3a7bfd;
-  font-size:18px;
-  font-weight:bold;
-  opacity:0;
-  transform:translateY(-10px);
-  transition:all 0.5s ease;
+/* Hail animation */
+.hail{
+  position:fixed;
+  top:-10px;
+  width:10px;
+  height:10px;
+  background:white;
+  border-radius:50%;
+  opacity:0.8;
+  pointer-events:none;
+  animation-name:fall;
+  animation-timing-function:linear;
 }
-#thankYou.show{
-  opacity:1;
-  transform:translateY(0);
+@keyframes fall{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
 }
 </style>
 </head>
@@ -201,51 +132,66 @@ button:hover{
     <option value="News">News</option>
   </select>
   <textarea id="description" placeholder="Description" rows="4" required></textarea>
+  <input type="file" id="logoInput" accept="image/*">
   <button type="submit">Submit</button>
 </form>
 
 <div id="thankYou">✅ Thank you! Your link has been submitted.</div>
 
 <script>
-// Hamburger menu toggle
 function toggleMenu(){
-  const menu = document.getElementById('dropdownMenu');
-  menu.style.display = (menu.style.display==="block")?"none":"block";
+  const menu=document.getElementById('dropdownMenu');
+  menu.style.display=(menu.style.display==="block")?"none":"block";
 }
-window.onclick = function(e){
-  const menu = document.getElementById('dropdownMenu');
+window.onclick=function(e){
+  const menu=document.getElementById('dropdownMenu');
   if(!e.target.matches('.menu-icon')){
     if(menu.style.display==="block"){menu.style.display="none";}
   }
 }
 
-// Form submission
+// Form submit with logo upload
 document.getElementById('submitForm').addEventListener('submit', function(e){
   e.preventDefault();
-
-  const name = document.getElementById('name').value;
-  const url = document.getElementById('url').value;
-  const platform = document.getElementById('platform').value;
-  const category = document.getElementById('category').value;
-  const description = document.getElementById('description').value;
+  const name=document.getElementById('name').value;
+  const url=document.getElementById('url').value;
+  const platform=document.getElementById('platform').value;
+  const category=document.getElementById('category').value;
+  const description=document.getElementById('description').value;
+  const logoFile=document.getElementById('logoInput').files[0];
 
   if(!name || !url || !platform || !category || !description) return;
 
-  const links = JSON.parse(localStorage.getItem('linkwaveLinks')) || [];
+  if(logoFile){
+    const reader=new FileReader();
+    reader.onload=function(){
+      saveLink(reader.result);
+    }
+    reader.readAsDataURL(logoFile);
+  } else { saveLink(null); }
 
-  links.push({name,url,platform,category,description,clicks:0,joins:0});
-  localStorage.setItem('linkwaveLinks',JSON.stringify(links));
-
-  // Show thank you message
-  const thankYou = document.getElementById('thankYou');
-  thankYou.classList.add('show');
-
-  // Reset form
-  this.reset();
-
-  // Hide message after 3s
-  setTimeout(()=>{thankYou.classList.remove('show');},3000);
+  function saveLink(logo){
+    const links=JSON.parse(localStorage.getItem('linkwaveLinks'))||[];
+    links.push({name,url,platform,category,description,logo,clicks:0,joins:0});
+    localStorage.setItem('linkwaveLinks',JSON.stringify(links));
+    document.getElementById('thankYou').classList.add('show');
+    document.getElementById('submitForm').reset();
+    setTimeout(()=>{document.getElementById('thankYou').classList.remove('show');},3000);
+  }
 });
+
+// Hail generator
+function createHail(){
+  const hail=document.createElement('div');
+  hail.classList.add('hail');
+  hail.style.left=Math.random()*window.innerWidth+'px';
+  hail.style.width=3+Math.random()*7+'px';
+  hail.style.height=3+Math.random()*7+'px';
+  hail.style.animationDuration=2+Math.random()*3+'s';
+  document.body.appendChild(hail);
+  setTimeout(()=>{hail.remove()},5000);
+}
+setInterval(createHail,100);
 </script>
 
 </body>
