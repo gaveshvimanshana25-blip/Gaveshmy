@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +16,7 @@ background:linear-gradient(180deg,#050508,#000);
 overflow-x:hidden;
 }
 
-/* background */
+/* floating background */
 
 body::before{
 content:"";
@@ -33,66 +32,6 @@ z-index:-1;
 0%{transform:translate(0,0)}
 50%{transform:translate(-20%, -20%)}
 100%{transform:translate(0,0)}
-}
-
-/* hamburger */
-
-.menu-btn{
-position:fixed;
-top:20px;
-left:20px;
-font-size:28px;
-cursor:pointer;
-z-index:1001;
-}
-
-/* sidebar */
-
-.sidebar{
-position:fixed;
-left:-260px;
-top:0;
-width:260px;
-height:100%;
-background:#0a0a0f;
-padding:20px;
-transition:0.4s;
-z-index:1000;
-text-align:left;
-}
-
-.sidebar.active{
-left:0;
-}
-
-.sidebar h2{
-margin-bottom:20px;
-}
-
-.sidebar a{
-display:block;
-color:#ccc;
-text-decoration:none;
-padding:12px;
-margin:6px 0;
-border-radius:8px;
-transition:0.3s;
-}
-
-.sidebar a:hover{
-background:#111;
-color:white;
-}
-
-.submit-side{
-display:block;
-margin-top:20px;
-padding:12px;
-border-radius:25px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-text-align:center;
-color:white;
-font-weight:bold;
 }
 
 /* header */
@@ -112,9 +51,15 @@ width:60px;
 height:60px;
 border-radius:50%;
 box-shadow:0 0 15px #3a7bfd;
+animation:logoGlow 3s infinite alternate;
 }
 
-/* title */
+@keyframes logoGlow{
+0%{box-shadow:0 0 10px #3a7bfd}
+100%{box-shadow:0 0 30px #a855f7}
+}
+
+/* animated title */
 
 .title{
 font-size:40px;
@@ -122,12 +67,22 @@ font-weight:bold;
 background:linear-gradient(45deg,#3a7bfd,#a855f7);
 -webkit-background-clip:text;
 color:transparent;
+animation:waveText 3s infinite;
+}
+
+@keyframes waveText{
+0%{letter-spacing:1px}
+50%{letter-spacing:5px}
+100%{letter-spacing:1px}
 }
 
 /* hero */
 
 .hero{
 margin-top:40px;
+opacity:0;
+transform:translateY(30px);
+animation:fadeUp 1s forwards;
 }
 
 .hero p{
@@ -136,7 +91,14 @@ max-width:600px;
 margin:auto;
 }
 
-/* button */
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* submit button */
 
 .main-btn{
 display:inline-block;
@@ -147,6 +109,13 @@ background:linear-gradient(45deg,#3a7bfd,#a855f7);
 color:white;
 text-decoration:none;
 font-weight:bold;
+box-shadow:0 0 20px #3a7bfd;
+transition:0.3s;
+}
+
+.main-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 35px #a855f7;
 }
 
 /* search */
@@ -178,6 +147,35 @@ padding:8px 20px;
 background:rgba(58,127,253,0.2);
 border-radius:20px;
 cursor:pointer;
+transition:0.3s;
+}
+
+#categoryScroll div:hover{
+transform:scale(1.15);
+background:linear-gradient(45deg,#3a7bfd,#a855f7);
+}
+
+/* sub category */
+
+#subCategoryScroll{
+margin-top:10px;
+display:flex;
+justify-content:center;
+gap:10px;
+overflow-x:auto;
+padding:10px;
+}
+
+#subCategoryScroll div{
+padding:8px 20px;
+background:rgba(168,85,247,0.2);
+border-radius:20px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#subCategoryScroll div:hover{
+transform:scale(1.1);
 }
 
 /* cards */
@@ -196,6 +194,12 @@ padding:20px;
 border-radius:15px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.1);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 10px 25px rgba(58,127,253,0.5);
 }
 
 .card img{
@@ -213,6 +217,8 @@ color:white;
 text-decoration:none;
 }
 
+/* footer */
+
 footer{
 margin-top:50px;
 padding:20px;
@@ -224,21 +230,6 @@ color:#aaa;
 </head>
 
 <body>
-
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<div class="sidebar" id="sidebar">
-
-<h2>LinkWave</h2>
-
-<a href="#">🏠 Home</a>
-<a href="#">📊 Live Analytics</a>
-<a href="#">✉ Contact Developer</a>
-<a href="#">🛡 Terms & Policy</a>
-
-<a class="submit-side" href="submit.html">➕ Submit New Link</a>
-
-</div>
 
 <header>
 
@@ -271,6 +262,8 @@ color:#aaa;
 
 </div>
 
+<div id="subCategoryScroll"></div>
+
 <div class="cards" id="cardsContainer"></div>
 
 <footer>
@@ -282,11 +275,8 @@ Made in Sri Lanka 🇱🇰 <br>
 
 <script>
 
-function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("active")
-}
-
 let currentPlatform="All"
+let currentCategory="All"
 
 function loadLinks(){
 
@@ -297,9 +287,13 @@ const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
 
 links.reverse().forEach(link=>{
 
-if(currentPlatform==="All"||link.platform===currentPlatform){
+if(
+(currentPlatform==="All"||link.platform===currentPlatform) &&
+(currentCategory==="All"||link.category===currentCategory)
+){
 
 const card=document.createElement("div")
+
 card.className="card"
 
 card.innerHTML=`
@@ -317,37 +311,68 @@ container.appendChild(card)
 
 }
 
+function loadSubCategories(platform){
+
+const sub=document.getElementById("subCategoryScroll")
+
+sub.innerHTML=""
+
+let categories=[]
+
+if(platform==="WhatsApp"){
+categories=["All","Movies","Fun","Gaming","Education","Tech"]
+}
+
+else if(platform==="Telegram"){
+categories=["All","Movies","Crypto","Anime","Gaming"]
+}
+
+else if(platform==="Facebook"){
+categories=["All","Movies","Fun","Business","News"]
+}
+
+else{
+categories=["All"]
+}
+
+categories.forEach(cat=>{
+
+const btn=document.createElement("div")
+btn.innerText=cat
+
+btn.onclick=function(){
+currentCategory=cat
+loadLinks()
+}
+
+sub.appendChild(btn)
+
+})
+
+}
+
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
 
 btn.onclick=function(){
 
 currentPlatform=this.dataset.platform
+currentCategory="All"
+
+loadSubCategories(currentPlatform)
 loadLinks()
 
 }
 
 })
 
-document.getElementById("searchInput").addEventListener("keyup",function(){
-
-const value=this.value.toLowerCase()
-
-document.querySelectorAll(".card").forEach(card=>{
-
-card.style.display=card.innerText.toLowerCase().includes(value)
-? "block"
-: "none"
-
-})
-
-})
-
 window.onload=function(){
+
+loadSubCategories("All")
 loadLinks()
+
 }
 
 </script>
 
 </body>
 </html>
-```
