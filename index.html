@@ -39,9 +39,39 @@ z-index:-1;
 header{
 display:flex;
 align-items:center;
-justify-content:center;
-gap:15px;
+justify-content:space-between;
 padding:20px;
+}
+
+/* menu */
+
+.menu-icon{
+font-size:28px;
+cursor:pointer;
+}
+
+.dropdown{
+display:none;
+position:absolute;
+top:70px;
+left:20px;
+background:rgba(0,0,0,0.95);
+border:1px solid #333;
+border-radius:10px;
+padding:10px 0;
+min-width:180px;
+text-align:left;
+}
+
+.dropdown a{
+display:block;
+color:white;
+padding:10px 20px;
+text-decoration:none;
+}
+
+.dropdown a:hover{
+background:rgba(58,127,253,0.2);
 }
 
 /* logo */
@@ -233,11 +263,25 @@ color:#aaa;
 
 <header>
 
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
 
+<div style="display:flex;align-items:center;gap:10px;">
+<img class="logo" src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
 <div class="title">LinkWave</div>
+</div>
+
+<div></div>
 
 </header>
+
+<div class="dropdown" id="dropdownMenu">
+
+<a href="contact.html">Contact</a>
+<a href="terms.html">Terms & Policy</a>
+<a href="developer.html">Developer</a>
+<a href="analytics.html">Live Analytics</a>
+
+</div>
 
 <div class="hero">
 
@@ -274,6 +318,34 @@ Made in Sri Lanka 🇱🇰 <br>
 </footer>
 
 <script>
+
+/* menu toggle */
+
+function toggleMenu(){
+
+const menu=document.getElementById("dropdownMenu")
+
+menu.style.display=(menu.style.display==="block")?"none":"block"
+
+}
+
+window.onclick=function(e){
+
+if(!e.target.matches('.menu-icon')){
+
+const menu=document.getElementById("dropdownMenu")
+
+if(menu.style.display==="block"){
+
+menu.style.display="none"
+
+}
+
+}
+
+}
+
+/* existing system */
 
 let currentPlatform="All"
 let currentCategory="All"
