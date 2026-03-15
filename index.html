@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 
-<!-- Leaflet CSS for Map -->
+<!-- Leaflet CSS (World Map) -->
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -13,302 +13,250 @@
 
 <style>
 
-/* BODY */
+/* Body */
 body{
-margin:0;
-font-family:Arial;
-color:white;
-text-align:center;
-background:linear-gradient(180deg,#050508,#000);
-overflow-x:hidden;
+  margin:0;
+  font-family:Arial;
+  color:white;
+  text-align:center;
+  background:linear-gradient(180deg,#050508,#000);
+  overflow-x:hidden;
 }
 
 /* floating background */
 body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:radial-gradient(circle,#3a7bfd22,#000 70%);
-animation:bgMove 20s linear infinite;
-z-index:-1;
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,#3a7bfd22,#000 70%);
+  animation:bgMove 20s linear infinite;
+  z-index:-1;
 }
-
 @keyframes bgMove{
-0%{transform:translate(0,0)}
-50%{transform:translate(-20%,-20%)}
-100%{transform:translate(0,0)}
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20%,-20%)}
+  100%{transform:translate(0,0)}
 }
 
-/* HEADER */
+/* Header */
 header{
-position:sticky;
-top:0;
-background:rgba(0,0,0,0.85);
-padding:20px;
-z-index:100;
-display:flex;
-align-items:center;
-justify-content:center;
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.85);
+  padding:20px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
+/* menu icon */
 .menu-icon{
-position:absolute;
-left:20px;
-top:25px;
-font-size:28px;
-cursor:pointer;
-z-index:101;
+  position:absolute;
+  left:20px;
+  top:25px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:101;
 }
 
-/* logo center */
+/* logo + title center */
 .logo-center{
-display:flex;
-flex-direction:column;
-align-items:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
-
 .logo{
-width:70px;
-height:70px;
-border-radius:50%;
-animation:logoGlow 3s infinite alternate;
-transition:0.4s;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  animation:logoGlow 3s infinite alternate;
+  transition:0.4s;
 }
-
-.logo:hover{
-transform:scale(1.1) rotate(360deg);
-}
-
+.logo:hover{transform:scale(1.1) rotate(360deg);}
 @keyframes logoGlow{
-0%{box-shadow:0 0 10px #3a7bfd}
-100%{box-shadow:0 0 35px #a855f7}
+  0%{box-shadow:0 0 10px #3a7bfd;}
+  100%{box-shadow:0 0 35px #a855f7;}
 }
-
 .title{
-font-size:32px;
-font-weight:bold;
-margin-top:6px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
--webkit-background-clip:text;
-color:transparent;
-animation:titleWave 3s infinite;
+  font-size:32px;
+  font-weight:bold;
+  margin-top:6px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:titleWave 3s infinite;
 }
-
 @keyframes titleWave{
-0%{letter-spacing:1px}
-50%{letter-spacing:6px}
-100%{letter-spacing:1px}
+  0%{letter-spacing:1px}50%{letter-spacing:6px}100%{letter-spacing:1px}
 }
 
-/* dropdown menu */
+/* dropdown */
 .dropdown{
-display:none;
-position:absolute;
-top:70px;
-left:15px;
-background:#000;
-border-radius:10px;
-padding:10px 0;
-min-width:180px;
-text-align:left;
-z-index:102;
+  display:none;
+  position:absolute;
+  top:70px;
+  left:15px;
+  background:#000;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:200px;
+  text-align:left;
+  z-index:102;
 }
-
 .dropdown a{
-display:block;
-color:white;
-padding:10px 20px;
-text-decoration:none;
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+  font-size:16px;
 }
+.dropdown a:hover{background:#222;}
 
-.dropdown a:hover{
-background:#222;
-}
-
-/* hero */
-.hero{
-margin-top:25px;
-animation:fadeUp 1s forwards;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
-}
+/* Hero */
+.hero{margin-top:25px;}
+.hero h1{font-size:28px;}
+.hero p{color:#aaa;max-width:600px;margin:auto;}
 
 /* button */
 .main-btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 28px;
-border-radius:30px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-text-decoration:none;
-font-weight:bold;
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-/* search */
-.search{
-margin-top:20px;
-}
-
+/* Search */
+.search{margin-top:20px;}
 .search input{
-padding:10px;
-width:220px;
-border-radius:10px;
-border:none;
+  padding:10px;
+  width:220px;
+  border-radius:10px;
+  border:none;
 }
 
-/* category */
+/* Category scroll */
 #categoryScroll{
-margin-top:20px;
-display:flex;
-justify-content:center;
-gap:10px;
-overflow-x:auto;
-padding:10px;
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px;
 }
-
 #categoryScroll div{
-padding:8px 18px;
-background:#222;
-border-radius:20px;
-cursor:pointer;
+  padding:8px 18px;
+  background:#222;
+  border-radius:20px;
+  cursor:pointer;
 }
-
 #subCategoryScroll{
-margin-top:10px;
-display:flex;
-justify-content:center;
-gap:8px;
-overflow-x:auto;
-padding:5px;
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px;
 }
-
 #subCategoryScroll div{
-padding:6px 16px;
-background:#333;
-border-radius:20px;
-cursor:pointer;
+  padding:6px 16px;
+  background:#333;
+  border-radius:20px;
+  cursor:pointer;
 }
 
-/* cards */
+/* Cards */
 .cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-margin-top:20px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:20px;
 }
-
 .card{
-width:200px;
-padding:15px;
-border-radius:15px;
-background:#111;
-border:1px solid #333;
+  width:200px;
+  padding:15px;
+  border-radius:15px;
+  background:#111;
+  border:1px solid #333;
 }
-
 .card img{
-width:100%;
-border-radius:10px;
+  width:100%;
+  border-radius:10px;
 }
-
 .join{
-display:inline-block;
-margin-top:5px;
-padding:6px 14px;
-border-radius:20px;
-background:linear-gradient(45deg,#3a7bfd,#a855f7);
-color:white;
-text-decoration:none;
+  display:inline-block;
+  margin-top:5px;
+  padding:6px 14px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
 }
 
-/* live analytics */
-.analytics{
-margin:40px auto;
-max-width:1000px;
-padding:20px;
-}
-
-.analytics h2{
-font-size:28px;
-margin-bottom:15px;
-}
-
+/* Live Analytics */
+.analytics{margin:40px auto;max-width:1000px;padding:20px;}
+.analytics h2{font-size:28px;margin-bottom:15px;}
 .stats-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:15px;
-margin-bottom:25px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-bottom:20px;
 }
-
 .stat-card{
-background:rgba(58,127,253,0.1);
-padding:15px 25px;
-border-radius:15px;
-width:180px;
-text-align:center;
-box-shadow:0 0 15px #3a7bfd;
-transition:0.3s;
+  background:rgba(58,127,253,0.1);
+  padding:15px 25px;
+  border-radius:15px;
+  width:180px;
+  text-align:center;
+  box-shadow:0 0 15px #3a7bfd;
+  transition:0.3s;
 }
-
 .stat-card:hover{
-transform:scale(1.05);
-box-shadow:0 0 30px #a855f7;
+  transform:scale(1.05);
+  box-shadow:0 0 30px #a855f7;
 }
-
-.stat-card h2{
-font-size:24px;
-margin:5px 0;
-}
+.stat-card h2{font-size:24px;}
 
 /* Map */
 #visitorMap{
-height:400px;
-width:90%;
-max-width:1200px;
-margin:0 auto;
-border-radius:12px;
-border:1px solid rgba(58,127,253,0.5);
+  height:400px;
+  width:90%;
+  max-width:1200px;
+  margin:0 auto;
+  border-radius:12px;
+  border:1px solid rgba(58,127,253,0.5);
 }
 
-/* footer */
+/* Footer */
 footer{
-margin-top:30px;
-padding:20px;
-background:#000;
-color:#aaa;
+  margin-top:30px;
+  padding:20px;
+  background:#000;
+  color:#aaa;
 }
 
-/* snow */
+/* Snow */
 #snowContainer{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:none;
 }
-
 .snowflake{
-position:absolute;
-top:-10px;
-width:5px;
-height:5px;
-background:white;
-border-radius:50%;
-animation:fall linear infinite;
+  position:absolute;top:-10px;
+  width:5px;height:5px;
+  background:white;border-radius:50%;
+  animation:fall linear infinite;
 }
-
 @keyframes fall{
-to{
-transform:translateY(100vh);
-opacity:0;
-}
+  to{transform:translateY(100vh);opacity:0;}
 }
 
 </style>
@@ -316,66 +264,66 @@ opacity:0;
 
 <body>
 
+<!-- HEADER -->
 <header>
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
-<div class="logo-center">
-<img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-<div class="title">LinkWave</div>
-</div>
+  <div class="logo-center">
+    <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
+    <div class="title">LinkWave</div>
+  </div>
 
-<div class="dropdown" id="dropdownMenu">
-<a href="#">Home</a>
-<a href="submit.html">Submit Link</a>
-<a href="#">Developer</a>
-<a href="#">Contact</a>
-</div>
+  <div class="dropdown" id="dropdownMenu">
+    <a href="#" onclick="scrollToSection('homeSection')">Home</a>
+    <a href="submit.html">Submit Link</a>
+    <a href="developer.html">Developer</a>
+    <a href="terms.html">Terms & Policy</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" onclick="scrollToSection('analyticsSection')">Live Analytics</a>
+  </div>
 
 </header>
 
+<!-- HOME -->
+<section id="homeSection">
+
 <div class="hero">
-<h1>Discover and Join Communities</h1>
-<p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
-<a class="main-btn" href="submit.html">+ Submit Link</a>
+  <h1>Discover and Join Communities</h1>
+  <p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
+  <a class="main-btn" href="submit.html">+ Submit Link</a>
 </div>
 
 <div class="search">
-<input type="text" id="searchInput" placeholder="Search groups...">
+  <input type="text" id="searchInput" placeholder="Search groups...">
 </div>
 
 <div id="categoryScroll">
-<div data-platform="All">All</div>
-<div data-platform="WhatsApp">WhatsApp</div>
-<div data-platform="Telegram">Telegram</div>
-<div data-platform="Facebook">Facebook</div>
+  <div data-platform="All">All</div>
+  <div data-platform="WhatsApp">WhatsApp</div>
+  <div data-platform="Telegram">Telegram</div>
+  <div data-platform="Facebook">Facebook</div>
 </div>
 
 <div id="subCategoryScroll"></div>
 <div class="cards" id="cardsContainer"></div>
 
-<!-- LIVE ANALYTICS -->
-<div class="analytics">
-<h2>📊 Live Analytics</h2>
-<div class="stats-container">
-<div class="stat-card">
-<h2 id="visitorCount">1234</h2>
-<p>Live Visitors</p>
-</div>
-<div class="stat-card">
-<h2 id="countriesCount">15</h2>
-<p>Countries</p>
-</div>
-<div class="stat-card">
-<h2 id="activeSessions">76</h2>
-<p>Active Sessions</p>
-</div>
-</div>
-<div id="visitorMap"></div>
-</div>
+</section>
 
+<!-- LIVE ANALYTICS -->
+<section id="analyticsSection" class="analytics">
+  <h2>📊 Live Analytics</h2>
+  <div class="stats-container">
+    <div class="stat-card"><h2 id="visitorCount">4321</h2><p>Live Visitors</p></div>
+    <div class="stat-card"><h2 id="countriesCount">12</h2><p>Countries</p></div>
+    <div class="stat-card"><h2 id="activeSessions">58</h2><p>Active Sessions</p></div>
+  </div>
+  <div id="visitorMap"></div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-Made in Sri Lanka 🇱🇰 <br>
-© 2026 LinkWave
+  Made in Sri Lanka 🇱🇰 <br>
+  © 2026 LinkWave
 </footer>
 
 <div id="snowContainer"></div>
@@ -385,110 +333,114 @@ Made in Sri Lanka 🇱🇰 <br>
 
 <script>
 
-/* Menu toggle */
+/* Toggle Menu */
 function toggleMenu(){
-  const menu=document.getElementById("dropdownMenu")
-  menu.style.display=(menu.style.display==="block")?"none":"block"
+  const m = document.getElementById("dropdownMenu");
+  m.style.display = m.style.display==="block"?"none":"block";
 }
 window.onclick=function(e){
   if(!e.target.matches('.menu-icon')){
-    const menu=document.getElementById("dropdownMenu");
-    if(menu.style.display==="block") menu.style.display="none";
+    const m=document.getElementById("dropdownMenu");
+    if(m.style.display==="block") m.style.display="none";
   }
 }
 
-/* links & categories */
-let currentPlatform="All";
-let currentCategory="All";
+/* Scroll to Sections */
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
 
+/* LINKS & CATEGORIES */
+let currentPlatform="All", currentCategory="All";
 function loadLinks(){
-const container=document.getElementById("cardsContainer")
-container.innerHTML=""
-const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-links.forEach(link=>{
-if((currentPlatform==="All"||link.platform===currentPlatform) &&
-(currentCategory==="All"||link.category===currentCategory)){
-const card=document.createElement("div")
-card.className="card"
-card.innerHTML=`
-${link.logo?`<img src="${link.logo}">`:''}
-<h3>${link.name}</h3>
-<p>${link.description}</p>
-<a class="join" href="${link.url}" target="_blank">Join</a>
-`
-container.appendChild(card)
+  const c=document.getElementById("cardsContainer");
+  c.innerHTML="";
+  const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[];
+  links.reverse().forEach(link=>{
+    if((currentPlatform==="All"||link.platform===currentPlatform) &&
+       (currentCategory==="All"||link.category===currentCategory)){
+      const card=document.createElement("div");
+      card.className="card";
+      card.innerHTML=`
+        ${link.logo?`<img src="${link.logo}">`:''}
+        <h3>${link.name}</h3>
+        <p>${link.description}</p>
+        <a class="join" href="${link.url}" target="_blank">Join</a>
+      `;
+      c.appendChild(card);
+    }
+  });
 }
-})
-}
-
 function loadSubCategories(platform){
-const sub=document.getElementById("subCategoryScroll")
-sub.innerHTML=""
-let categories=[]
-if(platform==="WhatsApp") categories=["All","Movies","Fun","Gaming","Education","Tech"]
-else if(platform==="Telegram") categories=["All","Movies","Crypto","Anime","Gaming"]
-else if(platform==="Facebook") categories=["All","Movies","Fun","Business","News"]
-else categories=["All"]
-categories.forEach(cat=>{
-const btn=document.createElement("div")
-btn.innerText=cat
-btn.onclick=function(){ currentCategory=cat; loadLinks(); }
-sub.appendChild(btn)
-})
+  const sub=document.getElementById("subCategoryScroll");
+  sub.innerHTML="";
+  let cats=[]
+  if(platform==="WhatsApp") cats=["All","Movies","Fun","Gaming","Education","Tech"];
+  else if(platform==="Telegram") cats=["All","Movies","Crypto","Anime","Gaming"];
+  else if(platform==="Facebook") cats=["All","Movies","Fun","Business","News"];
+  else cats=["All"];
+  cats.forEach(cat=>{
+    const btn=document.createElement("div");
+    btn.innerText=cat;
+    btn.onclick=function(){ currentCategory=cat; loadLinks(); }
+    sub.appendChild(btn);
+  });
 }
-
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
-btn.onclick=function(){
-currentPlatform=this.dataset.platform
-currentCategory="All"
-loadSubCategories(currentPlatform)
-loadLinks()
-}
-})
+  btn.onclick=function(){
+    currentPlatform=this.dataset.platform;
+    currentCategory="All";
+    loadSubCategories(currentPlatform);
+    loadLinks();
+  }
+});
 
-/* search */
+/* Search */
 document.getElementById("searchInput").addEventListener("input",function(){
-const term=this.value.toLowerCase()
-document.querySelectorAll(".card").forEach(card=>{
-const text=card.querySelector("h3").textContent.toLowerCase()
-card.style.display=text.includes(term)?"block":"none"
-})
-})
+  const term=this.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card=>{
+    card.style.display=card.querySelector("h3").textContent.toLowerCase().includes(term)?'block':'none';
+  });
+});
 
-/* snow */
-function createSnowflakes(count){
-const container=document.getElementById("snowContainer")
-for(let i=0;i<count;i++){
-const flake=document.createElement("div")
-flake.className="snowflake"
-flake.style.left=Math.random()*100+"vw"
-flake.style.animationDuration=(3+Math.random()*5)+"s"
-container.appendChild(flake)
-flake.addEventListener('animationend',()=>{ flake.remove(); createSnowflakes(1); })
-}
-}
-createSnowflakes(50)
+/* Snow */
+function createSnowflakes(n){
+  const container=document.getElementById("snowContainer");
+  for(let i=0;i<n;i++){
+    const flake=document.createElement("div");
+    flake.className="snowflake";
+    flake.style.left=Math.random()*100+"vw";
+    flake.style.animationDuration=(3+Math.random()*5)+"s";
+    container.appendChild(flake);
+    flake.addEventListener("animationend",()=>{
+      flake.remove(); createSnowflakes(1);
+    });
+  }
+}createSnowflakes(50);
 
-/* live map */
-const map = L.map("visitorMap").setView([20,0],2)
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{ attribution:'&copy; <a href="https://openstreetmap.org/copyright">OSM</a>'}).addTo(map)
+/* Leaflet World Map */
+const map = L.map("visitorMap").setView([20,0],2);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  attribution:'&copy; <a href="https://openstreetmap.org/copyright">OSM</a>'
+}).addTo(map);
 const visitors=[
-{coords:[6.9271,79.8612],country:"Sri Lanka"},
-{coords:[28.6139,77.2090],country:"India"},
-{coords:[37.0902,-95.7129],country:"USA"},
-{coords:[51.5074,-0.1278],country:"UK"},
-{coords:[48.8566,2.3522],country:"France"},
-]
+  {coords:[6.9271,79.8612],country:"Sri Lanka"},
+  {coords:[28.6139,77.2090],country:"India"},
+  {coords:[37.0902,-95.7129],country:"USA"},
+  {coords:[51.5074,-0.1278],country:"UK"},
+  {coords:[48.8566,2.3522],country:"France"}
+];
 visitors.forEach(v=>{
-L.circleMarker(v.coords,{radius:8,fillColor:"#3a7bfd",color:"#fff",weight:1,fillOpacity:0.8}).bindPopup(v.country).addTo(map)
-})
+  L.circleMarker(v.coords,{radius:8,fillColor:"#3a7bfd",color:"#fff",weight:1,fillOpacity:0.8})
+   .bindPopup(v.country).addTo(map);
+});
 
+/* init */
 window.onload=function(){
-loadSubCategories("All")
-loadLinks()
+  loadSubCategories("All"); loadLinks();
 }
 
 </script>
 
 </body>
-</html>
+                        </html>
