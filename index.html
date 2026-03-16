@@ -5,391 +5,134 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkWave</title>
 <style>
-/* BODY & BACKGROUND */
-body{
-  margin:0;
-  font-family:Arial;
-  color:white;
-  text-align:center;
-  background:linear-gradient(180deg,#050508,#000);
-  overflow-x:hidden;
-}
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,#3a7bfd22,#000 70%);
-  animation:bgMove 20s linear infinite;
-  z-index:-1;
-}
-@keyframes bgMove{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-20%,-20%)}
-  100%{transform:translate(0,0)}
-}
+body{margin:0;font-family:Arial;color:white;text-align:center;background:linear-gradient(180deg,#050508,#000);}
+.logo-center{display:flex;flex-direction:column;align-items:center;}
+.logo{width:70px;height:70px;border-radius:50%;animation:logoGlow 3s infinite alternate;}
+@keyframes logoGlow{0%{box-shadow:0 0 10px #3a7bfd}100%{box-shadow:0 0 35px #a855f7}}
+.title{font-size:32px;font-weight:bold;margin-top:6px;background:linear-gradient(45deg,#3a7bfd,#a855f7);-webkit-background-clip:text;color:transparent;}
 
-/* HEADER */
-header{
-  position:sticky;
-  top:0;
-  background:rgba(0,0,0,0.85);
-  padding:20px;
-  z-index:100;
-}
-.menu-icon{
-  position:absolute;
-  left:20px;
-  top:25px;
-  font-size:28px;
-  cursor:pointer;
-}
-.logo-center{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.logo{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  animation:logoGlow 3s infinite alternate;
-}
-@keyframes logoGlow{
-  0%{box-shadow:0 0 10px #3a7bfd}
-  100%{box-shadow:0 0 35px #a855f7}
-}
-.title{
-  font-size:32px;
-  font-weight:bold;
-  margin-top:6px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:titleWave 3s infinite;
-}
-@keyframes titleWave{
-  0%{letter-spacing:1px}
-  50%{letter-spacing:6px}
-  100%{letter-spacing:1px}
-}
-
-/* DROPDOWN */
-.dropdown{
-  display:none;
-  position:absolute;
-  top:70px;
-  left:15px;
-  background:#000;
-  border-radius:10px;
-  padding:10px 0;
-  min-width:180px;
-  text-align:left;
-}
-.dropdown a{
-  display:block;
-  color:white;
-  padding:10px 20px;
-  text-decoration:none;
-}
-.dropdown a:hover{
-  background:#222;
-}
-
-/* HERO */
-.hero{
-  margin-top:25px;
-}
-.main-btn{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 28px;
-  border-radius:30px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-/* SEARCH */
-.search{
-  margin-top:20px;
-}
-.search input{
-  padding:10px;
-  width:220px;
-  border-radius:10px;
-  border:none;
-}
-
-/* CATEGORY SCROLL */
-#categoryScroll{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  overflow-x:auto;
-  padding:10px;
-}
-#categoryScroll div{
-  padding:8px 18px;
-  background:#222;
-  border-radius:20px;
-  cursor:pointer;
-}
-#subCategoryScroll{
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  overflow-x:auto;
-  padding:5px;
-}
-#subCategoryScroll div{
-  padding:6px 16px;
-  background:#333;
-  border-radius:20px;
-  cursor:pointer;
-}
-
-/* CARDS */
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:15px;
-  margin-top:20px;
-}
-.card{
-  width:200px;
-  padding:15px;
-  border-radius:15px;
-  background:#111;
-  border:1px solid #333;
-}
-.card img{
-  width:100%;
-  border-radius:10px;
-}
-.join{
-  display:inline-block;
-  margin-top:5px;
-  padding:6px 14px;
-  border-radius:20px;
-  background:linear-gradient(45deg,#3a7bfd,#a855f7);
-  color:white;
-  text-decoration:none;
-}
-
-/* PAGINATION */
-#pagination{
-  margin-top:30px;
-}
-.page-btn{
-  margin:5px;
-  padding:8px 14px;
-  border:none;
-  border-radius:8px;
-  background:#222;
-  color:white;
-  cursor:pointer;
-}
-.page-btn.active{
-  background:#3a7bfd;
-}
-
-/* FOOTER */
-footer{
-  margin-top:30px;
-  padding:20px;
-  background:#000;
-  color:#aaa;
-}
-
-/* SNOW */
-#snowContainer{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-}
-.snowflake{
-  position:absolute;
-  top:-10px;
-  width:5px;
-  height:5px;
-  background:white;
-  border-radius:50%;
-  animation:fall linear infinite;
-}
-@keyframes fall{
-  to{transform:translateY(100vh);opacity:0;}
-}
+#categoryScroll{margin-top:20px;display:flex;justify-content:center;gap:10px;overflow-x:auto;padding:10px;}
+#subCategoryScroll{margin-top:10px;display:flex;justify-content:center;gap:8px;overflow-x:auto;padding:5px;}
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-top:20px;}
+.card{width:200px;padding:15px;border-radius:15px;background:#111;border:1px solid #333;}
+.card img{width:100%;border-radius:10px;}
+.join{display:inline-block;margin-top:5px;padding:6px 14px;border-radius:20px;background:linear-gradient(45deg,#3a7bfd,#a855f7);color:white;text-decoration:none;}
+#pagination{margin-top:30px;}
+.page-btn{margin:5px;padding:8px 14px;border:none;border-radius:8px;background:#222;color:white;cursor:pointer;}
+.page-btn.active{background:#3a7bfd;}
+footer{margin-top:30px;padding:20px;background:#000;color:#aaa;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="menu-icon" onclick="toggleMenu()">☰</div>
-  <div class="logo-center">
-    <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-    <div class="title">LinkWave</div>
-  </div>
-  <div class="dropdown" id="dropdownMenu">
-    <a href="#">Home</a>
-    <a href="submit.html">Submit Link</a>
-    <a href="developer.html">Developer</a>
-    <a href="contact.html">Contact</a>
-    <a href="terms.html">Terms of Service</a>
-  </div>
-</header>
-
-<div class="hero">
-  <h1>Discover and Join Communities</h1>
-  <p>Find WhatsApp, Telegram, Facebook groups shared by the community.</p>
-  <a class="main-btn" href="submit.html">+ Submit Link</a>
-</div>
-
-<div class="search">
-  <input type="text" id="searchInput" placeholder="Search groups...">
+<div class="logo-center">
+<img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
+<div class="title">LinkWave</div>
 </div>
 
 <div id="categoryScroll">
-  <div data-platform="All">All</div>
-  <div data-platform="WhatsApp">WhatsApp</div>
-  <div data-platform="Telegram">Telegram</div>
-  <div data-platform="Facebook">Facebook</div>
+<div data-platform="All">All</div>
+<div data-platform="WhatsApp">WhatsApp</div>
+<div data-platform="Telegram">Telegram</div>
+<div data-platform="Facebook">Facebook</div>
 </div>
 <div id="subCategoryScroll"></div>
 <div class="cards" id="cardsContainer"></div>
 <div id="pagination"></div>
 
-<footer>
-  Made in Sri Lanka 🇱🇰 <br>
-  © 2026 LinkWave
-</footer>
+<footer>Made in Sri Lanka 🇱🇰 &copy; 2026 LinkWave</footer>
 
-<div id="snowContainer"></div>
-
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 <script>
-/* TOGGLE MENU */
-function toggleMenu(){
-  const menu=document.getElementById("dropdownMenu")
-  menu.style.display=(menu.style.display==="block")?"none":"block"
-}
+// 🔹 Paste same Firebase config here too
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-/* SNOW EFFECT */
-function createSnowflakes(count){
-  const container=document.getElementById("snowContainer")
-  for(let i=0;i<count;i++){
-    const flake=document.createElement("div")
-    flake.className="snowflake"
-    flake.style.left=Math.random()*100+"vw"
-    flake.style.animationDuration=(3+Math.random()*5)+"s"
-    container.appendChild(flake)
-    flake.addEventListener("animationend",()=>{
-      flake.remove()
-      createSnowflakes(1)
-    })
-  }
-}
-createSnowflakes(50)
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-/* LINKS & CATEGORIES */
-let currentPlatform="All"
-let currentCategory="All"
-let currentPage=1
-const linksPerPage=13
+let allLinks = [];
+let currentPlatform="All";
+let currentCategory="All";
+let currentPage=1;
+const linksPerPage=12;
+
+function fetchLinks(){
+  db.ref("links").orderByChild("timestamp").on("value", snapshot => {
+    const data = snapshot.val() || {};
+    allLinks = Object.values(data).reverse(); // newest first
+    loadSubCategories("All");
+    loadLinks();
+  });
+}
 
 function loadLinks(){
-  const container=document.getElementById("cardsContainer")
-  container.innerHTML=""
-  const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-  const filteredLinks=links.filter(link=>
-    (currentPlatform==="All"||link.platform===currentPlatform)&&
-    (currentCategory==="All"||link.category===currentCategory)
-  )
-  const start=(currentPage-1)*linksPerPage
-  const end=start+linksPerPage
-  const paginatedLinks=filteredLinks.slice(start,end)
-  paginatedLinks.forEach(link=>{
-    const card=document.createElement("div")
-    card.className="card"
-    card.innerHTML=`
-      ${link.logo?`<img src="${link.logo}">`:''}
-      <h3>${link.name}</h3>
-      <p>${link.description}</p>
-      <a class="join" href="${link.url}" target="_blank">Join</a>
-    `
-    container.appendChild(card)
-  })
-  createPagination(filteredLinks.length)
+  const container=document.getElementById("cardsContainer");
+  container.innerHTML="";
+  const filtered = allLinks.filter(l=>
+    (currentPlatform==="All"||l.platform===currentPlatform)&&
+    (currentCategory==="All"||l.category===currentCategory)
+  );
+  const start=(currentPage-1)*linksPerPage;
+  const end=start+linksPerPage;
+  filtered.slice(start,end).forEach(l =>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`${l.logo?`<img src="${l.logo}">`:''}<h3>${l.name}</h3><p>${l.description}</p><a class="join" href="${l.url}" target="_blank">Join</a>`;
+    container.appendChild(card);
+  });
+  createPagination(filtered.length);
 }
 
 function createPagination(total){
-  const pagination=document.getElementById("pagination")
-  pagination.innerHTML=""
-  const pages=Math.ceil(total/linksPerPage)
+  const pages=Math.ceil(total/linksPerPage);
+  const pagination=document.getElementById("pagination");
+  pagination.innerHTML="";
   for(let i=1;i<=pages;i++){
-    const btn=document.createElement("button")
-    btn.innerText=i
-    btn.className="page-btn"
-    if(i===currentPage) btn.classList.add("active")
-    btn.onclick=function(){
-      currentPage=i
-      loadLinks()
-    }
-    pagination.appendChild(btn)
+    const btn=document.createElement("button");
+    btn.className="page-btn"+(i===currentPage?" active":"");
+    btn.innerText=i;
+    btn.onclick=function(){currentPage=i;loadLinks();}
+    pagination.appendChild(btn);
   }
 }
 
 function loadSubCategories(platform){
-  const sub=document.getElementById("subCategoryScroll")
-  sub.innerHTML=""
-  let categories=[]
-  if(platform==="WhatsApp") categories=["All","Movies","Fun","Gaming","Education","Tech"]
-  else if(platform==="Telegram") categories=["All","Movies","Crypto","Anime","Gaming"]
-  else if(platform==="Facebook") categories=["All","Movies","Fun","Business","News"]
-  else categories=["All"]
-  categories.forEach(cat=>{
-    const btn=document.createElement("div")
-    btn.innerText=cat
-    btn.onclick=function(){
-      currentCategory=cat
-      currentPage=1
-      loadLinks()
-    }
-    sub.appendChild(btn)
-  })
+  const sub=document.getElementById("subCategoryScroll");
+  sub.innerHTML="";
+  let cats=[];
+  if(platform==="WhatsApp") cats=["All","Movies","Fun","Gaming","Education","Tech"];
+  else if(platform==="Telegram") cats=["All","Movies","Crypto","Anime","Gaming"];
+  else if(platform==="Facebook") cats=["All","Movies","Fun","Business","News"];
+  else cats=["All"];
+  cats.forEach(c=>{
+    const d=document.createElement("div");
+    d.innerText=c;
+    d.onclick=function(){currentCategory=c;currentPage=1;loadLinks();}
+    sub.appendChild(d);
+  });
 }
 
 document.querySelectorAll("#categoryScroll div").forEach(btn=>{
   btn.onclick=function(){
-    currentPlatform=this.dataset.platform
-    currentCategory="All"
-    currentPage=1
-    loadSubCategories(currentPlatform)
-    loadLinks()
-  }
-})
+    currentPlatform=this.dataset.platform;
+    currentCategory="All";
+    currentPage=1;
+    loadSubCategories(currentPlatform);
+    loadLinks();
+  };
+});
 
-document.getElementById("searchInput").addEventListener("input",function(){
-  const term=this.value.toLowerCase()
-  document.querySelectorAll(".card").forEach(card=>{
-    const text=card.querySelector("h3").textContent.toLowerCase()
-    card.style.display=text.includes(term)?"block":"none"
-  })
-})
+fetchLinks();
 
-/* INIT PAGE */
-window.addEventListener("load",()=>{
-  loadSubCategories("All")
-  loadLinks()
-})
 </script>
-
 </body>
 </html>
