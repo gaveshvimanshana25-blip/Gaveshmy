@@ -144,11 +144,6 @@ header{
 /* HERO */
 .hero{
   margin-top:25px;
-  animation:fadeUp 1s forwards;
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
 }
 .main-btn{
   display:inline-block;
@@ -361,6 +356,7 @@ let currentPlatform="All"
 let currentCategory="All"
 let currentPage=1
 const linksPerPage=13
+
 function loadLinks(){
   const container=document.getElementById("cardsContainer")
   container.innerHTML=""
@@ -441,7 +437,7 @@ document.getElementById("searchInput").addEventListener("input",function(){
   })
 })
 
-/* LOADING SCREEN LOGIC FIXED */
+/* LOADING SCREEN LOGIC */
 window.addEventListener("load",()=>{
   loadSubCategories("All")
   loadLinks()
@@ -449,11 +445,22 @@ window.addEventListener("load",()=>{
   const progressBar=document.getElementById("progressBar")
   const loadingScreen=document.getElementById("loadingScreen")
   const interval=setInterval(()=>{
-    progress+=Math.floor(Math.random()*5)+1
+    progress += Math.floor(Math.random()*5)+1
     if(progress>100) progress=100
-    progressBar.style.width=progress+"%"
+    progressBar.style.width = progress + "%"
     if(progress>=100){
       clearInterval(interval)
+      loadingScreen.style.transition="opacity 0.5s"
+      loadingScreen.style.opacity="0"
+      setTimeout(()=>{
+        loadingScreen.style.display="none"
+      },500)
+    }
+  },100)
+})
+</script>
+</body>
+</html>val)
       loadingScreen.style.transition="opacity 0.5s"
       loadingScreen.style.opacity="0"
       setTimeout(()=>{
