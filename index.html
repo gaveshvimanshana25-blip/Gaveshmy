@@ -42,6 +42,8 @@ body::before{
   align-items:center;
   justify-content:center;
   z-index:9999;
+  opacity:1;
+  transition:opacity 0.5s ease;
 }
 #loadingScreen img {
   width:100px;
@@ -333,7 +335,6 @@ footer{
 <div id="snowContainer"></div>
 
 <script>
-/* TOGGLE MENU */
 function toggleMenu(){
   const menu=document.getElementById("dropdownMenu")
   menu.style.display=(menu.style.display==="block")?"none":"block"
@@ -356,7 +357,7 @@ function createSnowflakes(count){
 }
 createSnowflakes(50)
 
-/* LINKS & CATEGORIES */
+/* LINKS & PAGINATION */
 let currentPlatform="All"
 let currentCategory="All"
 let currentPage=1
@@ -366,14 +367,13 @@ function loadLinks(){
   const container=document.getElementById("cardsContainer")
   container.innerHTML=""
   const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
-  const filteredLinks=links.filter(link=>
+  const filtered=links.filter(link=>
     (currentPlatform==="All"||link.platform===currentPlatform)&&
     (currentCategory==="All"||link.category===currentCategory)
   )
   const start=(currentPage-1)*linksPerPage
-  const end=start+linksPerPage
-  const paginatedLinks=filteredLinks.slice(start,end)
-  paginatedLinks.forEach(link=>{
+  const paginated=filtered.slice(start,start+linksPerPage)
+  paginated.forEach(link=>{
     const card=document.createElement("div")
     card.className="card"
     card.innerHTML=`
@@ -384,7 +384,7 @@ function loadLinks(){
     `
     container.appendChild(card)
   })
-  createPagination(filteredLinks.length)
+  createPagination(filtered.length)
 }
 
 function createPagination(total){
@@ -455,7 +455,15 @@ window.addEventListener("load",()=>{
     progressBar.style.width=progress+"%"
     if(progress>=100){
       clearInterval(interval)
-      loadingScreen.style.transition="opacity 0.5s"
+      loadingScreen.style.opacity="0"
+      setTimeout(()=>{loadingScreen.style.display="none"},500)
+    }
+  },100)
+})
+</script>
+
+</body>
+</html>      loadingScreen.style.transition="opacity 0.5s"
       loadingScreen.style.opacity="0"
       setTimeout(()=>{loadingScreen.style.display="none"},500)
     }
