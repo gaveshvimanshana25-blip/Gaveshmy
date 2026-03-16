@@ -74,7 +74,7 @@ body::before{
   margin-top:10px;
 }
 
-/* EXISTING HEADER */
+/* HEADER */
 header{
   position:sticky;
   top:0;
@@ -119,7 +119,164 @@ header{
   100%{letter-spacing:1px}
 }
 
-/* ... Rest of your CSS (hero, search, category, cards, pagination, footer, snow) stays the same ... */
+/* DROPDOWN */
+.dropdown{
+  display:none;
+  position:absolute;
+  top:70px;
+  left:15px;
+  background:#000;
+  border-radius:10px;
+  padding:10px 0;
+  min-width:180px;
+  text-align:left;
+}
+.dropdown a{
+  display:block;
+  color:white;
+  padding:10px 20px;
+  text-decoration:none;
+}
+.dropdown a:hover{
+  background:#222;
+}
+
+/* HERO */
+.hero{
+  margin-top:25px;
+  animation:fadeUp 1s forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.main-btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 28px;
+  border-radius:30px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* SEARCH */
+.search{
+  margin-top:20px;
+}
+.search input{
+  padding:10px;
+  width:220px;
+  border-radius:10px;
+  border:none;
+}
+
+/* CATEGORY SCROLL */
+#categoryScroll{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px;
+}
+#categoryScroll div{
+  padding:8px 18px;
+  background:#222;
+  border-radius:20px;
+  cursor:pointer;
+}
+#subCategoryScroll{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:5px;
+}
+#subCategoryScroll div{
+  padding:6px 16px;
+  background:#333;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* CARDS */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:20px;
+}
+.card{
+  width:200px;
+  padding:15px;
+  border-radius:15px;
+  background:#111;
+  border:1px solid #333;
+}
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+.join{
+  display:inline-block;
+  margin-top:5px;
+  padding:6px 14px;
+  border-radius:20px;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  text-decoration:none;
+}
+
+/* PAGINATION */
+#pagination{
+  margin-top:30px;
+}
+.page-btn{
+  margin:5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  background:#222;
+  color:white;
+  cursor:pointer;
+}
+.page-btn.active{
+  background:#3a7bfd;
+}
+
+/* FOOTER */
+footer{
+  margin-top:30px;
+  padding:20px;
+  background:#000;
+  color:#aaa;
+}
+
+/* SNOW */
+#snowContainer{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+.snowflake{
+  position:absolute;
+  top:-10px;
+  width:5px;
+  height:5px;
+  background:white;
+  border-radius:50%;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(100vh);opacity:0;}
+}
 
 </style>
 </head>
@@ -134,7 +291,7 @@ header{
   <div id="welcomeText">Welcome</div>
 </div>
 
-<!-- EXISTING PAGE CONTENT STARTS HERE -->
+<!-- HEADER -->
 <header>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
   <div class="logo-center">
@@ -169,6 +326,7 @@ header{
 <div id="subCategoryScroll"></div>
 <div class="cards" id="cardsContainer"></div>
 <div id="pagination"></div>
+
 <footer>
   Made in Sri Lanka 🇱🇰 <br>
   © 2026 LinkWave
@@ -182,7 +340,24 @@ function toggleMenu(){
   menu.style.display=(menu.style.display==="block")?"none":"block"
 }
 
-/* SNOW EFFECT & LINKS LOADING (keep your existing JS) */
+/* SNOW EFFECT */
+function createSnowflakes(count){
+  const container=document.getElementById("snowContainer")
+  for(let i=0;i<count;i++){
+    const flake=document.createElement("div")
+    flake.className="snowflake"
+    flake.style.left=Math.random()*100+"vw"
+    flake.style.animationDuration=(3+Math.random()*5)+"s"
+    container.appendChild(flake)
+    flake.addEventListener("animationend",()=>{
+      flake.remove()
+      createSnowflakes(1)
+    })
+  }
+}
+createSnowflakes(50)
+
+/* LINKS & CATEGORIES */
 let currentPlatform="All"
 let currentCategory="All"
 let currentPage=1
@@ -267,23 +442,7 @@ document.getElementById("searchInput").addEventListener("input",function(){
   })
 })
 
-function createSnowflakes(count){
-  const container=document.getElementById("snowContainer")
-  for(let i=0;i<count;i++){
-    const flake=document.createElement("div")
-    flake.className="snowflake"
-    flake.style.left=Math.random()*100+"vw"
-    flake.style.animationDuration=(3+Math.random()*5)+"s"
-    container.appendChild(flake)
-    flake.addEventListener("animationend",()=>{
-      flake.remove()
-      createSnowflakes(1)
-    })
-  }
-}
-createSnowflakes(50)
-
-/* LOADING ANIMATION LOGIC */
+/* LOADING SCREEN LOGIC */
 window.addEventListener("load",()=>{
   loadSubCategories("All")
   loadLinks()
