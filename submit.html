@@ -3,62 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit Link - LinkWave</title>
+<title>LinkWave - Submit Link</title>
 <style>
-body{margin:0;font-family:Arial;color:white;text-align:center;background:linear-gradient(180deg,#050508,#000);overflow-x:hidden;}
-header{position:sticky;top:0;background:rgba(0,0,0,0.85);padding:20px;z-index:100;}
-.logo-center{display:flex;flex-direction:column;align-items:center;}
-.logo{width:70px;height:70px;border-radius:50%;}
-input, textarea{width:80%;padding:10px;margin:8px 0;border-radius:10px;border:none;}
-button{padding:10px 20px;border:none;border-radius:20px;background:linear-gradient(45deg,#3a7bfd,#a855f7);color:white;font-weight:bold;cursor:pointer;}
+body{
+  margin:0;
+  font-family:Arial;
+  color:white;
+  background:linear-gradient(180deg,#050508,#000);
+  text-align:center;
+}
+header{
+  padding:20px;
+  background:rgba(0,0,0,0.85);
+}
+.logo{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  margin-bottom:10px;
+  transition:0.3s;
+}
+.logo:hover{
+  transform:scale(1.1);
+}
+form{
+  margin:30px auto;
+  padding:20px;
+  background:#111;
+  border-radius:15px;
+  max-width:400px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+input, select, textarea{
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background:#222;
+  color:white;
+}
+button{
+  padding:12px;
+  border-radius:30px;
+  border:none;
+  background:linear-gradient(45deg,#3a7bfd,#a855f7);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.05);
+}
+#logoPreview{
+  width:80px;
+  height:80px;
+  margin:auto;
+  border-radius:50%;
+  border:2px solid #3a7bfd;
+  display:block;
+  object-fit:cover;
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="logo-center">
-<img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-<div class="title">LinkWave Submit</div>
-</div>
+  <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png" alt="LinkWave">
+  <h2>Submit Your Group</h2>
 </header>
 
-<h2>Submit Your Group</h2>
-
 <form id="submitForm">
-<input type="text" id="groupName" placeholder="Group Name" required><br>
-<input type="text" id="groupUrl" placeholder="Group URL" required><br>
-<input type="text" id="groupLogo" placeholder="Logo URL (optional)"><br>
-<textarea id="groupDesc" placeholder="Description"></textarea><br>
-<button type="submit">Submit</button>
+  <label>Group Name</label>
+  <input type="text" id="groupName" placeholder="Enter group name" required>
+
+  <label>Group URL</label>
+  <input type="url" id="groupURL" placeholder="https://..." required>
+
+  <label>Platform</label>
+  <select id="platformSelect" required>
+    <option value="">Select platform</option>
+    <option value="WhatsApp">WhatsApp</option>
+    <option value="Telegram">Telegram</option>
+    <option value="Facebook">Facebook</option>
+  </select>
+
+  <label>Category</label>
+  <select id="categorySelect" required>
+    <option value="">Select category</option>
+  </select>
+
+  <label>Logo (optional)</label>
+  <input type="file" id="logoInput" accept="image/*">
+  <img id="logoPreview" src="" alt="Logo Preview">
+
+  <label>Description</label>
+  <textarea id="groupDesc" placeholder="Write description..." rows="3"></textarea>
+
+  <button type="submit">Submit Link</button>
 </form>
 
 <script>
-// Ensure user has unique ID
-let userId = localStorage.getItem("linkwaveUserId");
-if(!userId){
-    userId = "user_" + Date.now() + Math.floor(Math.random()*1000);
-    localStorage.setItem("linkwaveUserId", userId);
-}
+const platformSelect = document.getElementById("platformSelect");
+const categorySelect = document.getElementById("categorySelect");
+const logoInput = document.getElementById("logoInput");
+const logoPreview = document.getElementById("logoPreview");
 
-// Form submit handler
-document.getElementById("submitForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const name = document.getElementById("groupName").value;
-    const url = document.getElementById("groupUrl").value;
-    const logo = document.getElementById("groupLogo").value;
-    const desc = document.getElementById("groupDesc").value;
+const categories = {
+  "WhatsApp":["Movies","Fun","Gaming","Education","Tech"],
+  "Telegram":["Movies","Crypto","Anime","Gaming"],
+  "Facebook":["Movies","Fun","Business","News"]
+};
 
-    const links = JSON.parse(localStorage.getItem("linkwaveLinks"))||[];
-    links.push({
-        userId: userId,
-        name: name,
-        url: url,
-        logo: logo,
-        description: desc
+// Dynamic category update
+platformSelect.addEventListener("change", ()=>{
+  const plat = platformSelect.value;
+  categorySelect.innerHTML='<option value="">Select category</option>';
+  if(categories[plat]){
+    categories[plat].forEach(cat=>{
+      const opt = document.createElement("option");
+      opt.value=cat;
+      opt.innerText=cat;
+      categorySelect.appendChild(opt);
     });
-    localStorage.setItem("linkwaveLinks", JSON.stringify(links));
-    alert("Your group has been submitted!");
-    this.reset();
+  }
+});
+
+// Logo preview
+logoInput.addEventListener("change",()=>{
+  const file = logoInput.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = e=>{
+      logoPreview.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+  } else {
+    logoPreview.src="";
+  }
+});
+
+// Form submission
+document.getElementById("submitForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const links = JSON.parse(localStorage.getItem("linkwaveLinks")) || [];
+  const newLink = {
+    name: document.getElementById("groupName").value,
+    url: document.getElementById("groupURL").value,
+    platform: platformSelect.value,
+    category: categorySelect.value,
+    description: document.getElementById("groupDesc").value,
+    logo: logoPreview.src || ""
+  };
+  links.push(newLink);
+  localStorage.setItem("linkwaveLinks", JSON.stringify(links));
+  alert("Link submitted successfully!");
+  e.target.reset();
+  logoPreview.src="";
 });
 </script>
 
