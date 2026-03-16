@@ -1,72 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit Link - LinkWave</title>
-<style>
-body {margin:0;font-family:Arial;background:#000;color:#fff;text-align:center;}
-form{margin-top:30px; display:flex; flex-direction:column; gap:15px; align-items:center;}
-input,select,textarea{padding:10px; width:260px; border-radius:8px; border:none;}
-button{padding:12px 25px; border:none; border-radius:25px; background:linear-gradient(45deg,#3a7bfd,#a855f7); color:white;cursor:pointer;}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Submit Your Group Link</h2>
-<form id="linkForm">
-  <input type="text" id="name" placeholder="Group Name" required>
-  <input type="url" id="url" placeholder="Group URL" required>
-  <input type="url" id="logo" placeholder="Logo URL (optional)">
-  <select id="platform" required>
-    <option value="">Select Platform</option>
-    <option>WhatsApp</option>
-    <option>Telegram</option>
-    <option>Facebook</option>
-  </select>
-  <select id="category" required>
-    <option value="">Select Category</option>
-    <option>Movies</option><option>Fun</option><option>Gaming</option><option>Education</option>
-    <option>Crypto</option><option>Anime</option><option>Business</option><option>News</option><option>Tech</option>
-  </select>
-  <textarea id="description" placeholder="Description" rows="3"></textarea>
-  <button type="submit">Submit Link</button>
+<header>
+  <div class="logo-center">
+    <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
+    <div class="title">LinkWave</div>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Submit Your Link</h1>
+  <p>Share WhatsApp, Telegram, Facebook groups with the community.</p>
+</div>
+
+<form id="submitForm">
+  <input type="text" id="name" placeholder="Group Name" required><br><br>
+  <input type="text" id="url" placeholder="Group URL" required><br><br>
+  <input type="text" id="platform" placeholder="Platform (WhatsApp/Telegram/Facebook)" required><br><br>
+  <input type="text" id="category" placeholder="Category (Movies/Gaming/Fun...)" required><br><br>
+  <input type="text" id="logo" placeholder="Logo URL (optional)"><br><br>
+  <button type="submit">Submit</button>
 </form>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-<script>
-// 🔹 Paste your Firebase config here
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+<div id="successMessage" style="display:none;color:lime;margin-top:15px;">Link submitted successfully!</div>
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-document.getElementById("linkForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  const url = document.getElementById("url").value.trim();
-  const logo = document.getElementById("logo").value.trim();
-  const platform = document.getElementById("platform").value;
-  const category = document.getElementById("category").value;
-  const description = document.getElementById("description").value.trim();
-
-  const newLink = {name, url, logo, platform, category, description, timestamp: Date.now()};
-  db.ref("links").push(newLink).then(()=>{
-    alert("Link submitted successfully!");
-    document.getElementById("linkForm").reset();
-  });
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
