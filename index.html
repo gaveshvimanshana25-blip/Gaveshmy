@@ -29,51 +29,6 @@ body::before{
   100%{transform:translate(0,0)}
 }
 
-/* LOADING SCREEN */
-#loadingScreen {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:#000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-#loadingScreen img {
-  width:100px;
-  border-radius:50%;
-  margin-bottom:20px;
-  animation:logoBounce 1.5s infinite;
-}
-@keyframes logoBounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-15px);}
-}
-#progressContainer{
-  width:250px;
-  height:10px;
-  border:2px solid #3a7bfd;
-  border-radius:5px;
-  overflow:hidden;
-  margin-bottom:10px;
-}
-#progressBar{
-  width:0%;
-  height:100%;
-  background:#3a7bfd;
-  transition:width 0.2s;
-}
-#welcomeText{
-  font-family:Arial;
-  font-size:20px;
-  color:white;
-  margin-top:10px;
-}
-
 /* HEADER */
 header{
   position:sticky;
@@ -276,15 +231,6 @@ footer{
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loadingScreen">
-  <img src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png" alt="Logo">
-  <div id="progressContainer">
-    <div id="progressBar"></div>
-  </div>
-  <div id="welcomeText">Welcome</div>
-</div>
-
 <!-- HEADER -->
 <header>
   <div class="menu-icon" onclick="toggleMenu()">☰</div>
@@ -437,23 +383,15 @@ document.getElementById("searchInput").addEventListener("input",function(){
   })
 })
 
-/* LOADING SCREEN LOGIC */
+/* INIT */
 window.addEventListener("load",()=>{
   loadSubCategories("All")
   loadLinks()
-  let progress=0
-  const progressBar=document.getElementById("progressBar")
-  const loadingScreen=document.getElementById("loadingScreen")
-  const interval=setInterval(()=>{
-    progress += Math.floor(Math.random()*5)+1
-    if(progress>100) progress=100
-    progressBar.style.width = progress + "%"
-    if(progress>=100){
-      clearInterval(interval)
-      loadingScreen.style.transition="opacity 0.5s"
-      loadingScreen.style.opacity="0"
-      setTimeout(()=>{
-        loadingScreen.style.display="none"
+})
+</script>
+
+</body>
+</html>en.style.display="none"
       },500)
     }
   },100)
