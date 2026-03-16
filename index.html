@@ -1,46 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinkWave</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePulse</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>CinePulse 🎬</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">Series</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
 
-<header>
-  <div class="logo-center">
-    <img class="logo" src="https://raw.githubusercontent.com/gaveshvimanshana25-blip/Gaveshmy/refs/heads/main/file_00000000fc0c72088645a465db760c82.png">
-    <div class="title">LinkWave</div>
-  </div>
-</header>
+    <main>
+        <section id="featured">
+            <h2>Featured Movies & Series</h2>
+            <div id="cards-container">
+                <!-- Movie cards will be inserted here by JS -->
+            </div>
+        </section>
+    </main>
 
-<div class="hero">
-  <h1>Discover & Join Communities</h1>
-  <p>Find WhatsApp, Telegram, Facebook groups submitted by the community.</p>
-  <a class="main-btn" href="submit.html">+ Submit Link</a>
-</div>
+    <footer>
+        <p>&copy; 2026 CinePulse. All Rights Reserved.</p>
+    </footer>
 
-<div class="search">
-  <input type="text" id="searchInput" placeholder="Search groups...">
-</div>
-
-<div id="categoryScroll">
-  <div data-platform="All">All</div>
-  <div data-platform="WhatsApp">WhatsApp</div>
-  <div data-platform="Telegram">Telegram</div>
-  <div data-platform="Facebook">Facebook</div>
-</div>
-
-<div id="subCategoryScroll"></div>
-<div class="cards" id="cardsContainer"></div>
-<div id="pagination"></div>
-
-<footer>
-  Made in Sri Lanka 🇱🇰 <br>
-  © 2026 LinkWave
-</footer>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
