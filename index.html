@@ -29,7 +29,7 @@ z-index:-1;
 100%{transform:translate(0,0)}
 }
 
-/* Header */
+/* header */
 
 header{
 position:sticky;
@@ -72,9 +72,16 @@ margin-top:6px;
 background:linear-gradient(45deg,#3a7bfd,#a855f7);
 -webkit-background-clip:text;
 color:transparent;
+animation:titleWave 3s infinite;
 }
 
-/* Dropdown */
+@keyframes titleWave{
+0%{letter-spacing:1px}
+50%{letter-spacing:6px}
+100%{letter-spacing:1px}
+}
+
+/* dropdown */
 
 .dropdown{
 display:none;
@@ -99,10 +106,16 @@ text-decoration:none;
 background:#222;
 }
 
-/* Hero */
+/* hero */
 
 .hero{
 margin-top:25px;
+animation:fadeUp 1s forwards;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
 }
 
 .main-btn{
@@ -116,7 +129,7 @@ text-decoration:none;
 font-weight:bold;
 }
 
-/* Search */
+/* search */
 
 .search{
 margin-top:20px;
@@ -129,7 +142,7 @@ border-radius:10px;
 border:none;
 }
 
-/* Categories */
+/* category */
 
 #categoryScroll{
 margin-top:20px;
@@ -163,7 +176,7 @@ border-radius:20px;
 cursor:pointer;
 }
 
-/* Cards */
+/* cards */
 
 .cards{
 display:flex;
@@ -196,18 +209,27 @@ color:white;
 text-decoration:none;
 }
 
-.delete-btn{
-display:inline-block;
-margin-top:6px;
-padding:6px 14px;
-border-radius:20px;
-background:red;
-color:white;
+/* pagination */
+
+#pagination{
+margin-top:30px;
+}
+
+.page-btn{
+margin:5px;
+padding:8px 14px;
 border:none;
+border-radius:8px;
+background:#222;
+color:white;
 cursor:pointer;
 }
 
-/* Footer */
+.page-btn.active{
+background:#3a7bfd;
+}
+
+/* footer */
 
 footer{
 margin-top:30px;
@@ -216,7 +238,7 @@ background:#000;
 color:#aaa;
 }
 
-/* Snow */
+/* snow */
 
 #snowContainer{
 position:fixed;
@@ -261,11 +283,46 @@ to{transform:translateY(100vh);opacity:0;}
 <div data-platform="WhatsApp">WhatsApp</div>
 <div data-platform="Telegram">Telegram</div>
 <div data-platform="Facebook">Facebook</div>
-</div><div id="subCategoryScroll"></div><div class="cards" id="cardsContainer"></div><footer>
+</div><div id="subCategoryScroll"></div><div class="cards" id="cardsContainer"></div><div id="pagination"></div><footer>
 Made in Sri Lanka 🇱🇰 <br>
 © 2026 LinkWave
 </footer><div id="snowContainer"></div><script>
+  
+<!-- Loading Screen (Place this at the very top of <body>) -->
+<div id="loadingScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;">
+  <img src="https://i.ibb.co/0J1Y6Gp/logo.png" alt="LinkWave Logo" style="width:150px;margin-bottom:20px;animation:logoBounce 1.5s infinite;">
+  <div style="width:300px;height:10px;border:2px solid #f39c12;border-radius:5px;overflow:hidden;margin-bottom:10px;">
+    <div id="progressBar" style="width:0%;height:100%;background:#f39c12;transition:width 0.2s;"></div>
+  </div>
+  <div style="font-family:Arial;font-size:20px;color:#333;margin-top:10px;">Welcome</div>
+</div>
 
+<style>
+  @keyframes logoBounce {
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+  }
+</style>
+
+<script>
+  // Progress bar animation
+  let progress = 0;
+  let progressBar = document.getElementById('progressBar');
+  let loadingScreen = document.getElementById('loadingScreen');
+
+  let interval = setInterval(() => {
+    progress += Math.floor(Math.random()*5)+1;
+    if(progress>100) progress=100;
+    progressBar.style.width = progress+'%';
+
+    if(progress>=100){
+      clearInterval(interval);
+      loadingScreen.style.transition='opacity 0.5s';
+      loadingScreen.style.opacity='0';
+      setTimeout(()=>{loadingScreen.style.display='none';},500);
+    }
+  },100);
+</script>
 function toggleMenu(){
 const menu=document.getElementById("dropdownMenu")
 menu.style.display=(menu.style.display==="block")?"none":"block"
@@ -273,6 +330,8 @@ menu.style.display=(menu.style.display==="block")?"none":"block"
 
 let currentPlatform="All"
 let currentCategory="All"
+let currentPage=1
+const linksPerPage=13
 
 function loadLinks(){
 
@@ -281,10 +340,16 @@ container.innerHTML=""
 
 const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
 
-links.forEach((link,index)=>{
+const filteredLinks=links.filter(link=>
+(currentPlatform==="All"||link.platform===currentPlatform)&&
+(currentCategory==="All"||link.category===currentCategory)
+)
 
-if((currentPlatform==="All"||link.platform===currentPlatform)&&
-(currentCategory==="All"||link.category===currentCategory)){
+const start=(currentPage-1)*linksPerPage
+const end=start+linksPerPage
+const paginatedLinks=filteredLinks.slice(start,end)
+
+paginatedLinks.forEach(link=>{
 
 const card=document.createElement("div")
 
@@ -294,38 +359,47 @@ card.innerHTML=`
 ${link.logo?`<img src="${link.logo}">`:''}
 <h3>${link.name}</h3>
 <p>${link.description}</p>
-
 <a class="join" href="${link.url}" target="_blank">Join</a>
-
-<button class="delete-btn" onclick="deleteLink(${index})">
-Delete
-</button>
 `
 
 container.appendChild(card)
 
-}
-
 })
 
+createPagination(filteredLinks.length)
+
 }
 
-function deleteLink(index){
+function createPagination(total){
 
-let links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
+const pagination=document.getElementById("pagination")
+pagination.innerHTML=""
 
-links.splice(index,1)
+const pages=Math.ceil(total/linksPerPage)
 
-localStorage.setItem("linkwaveLinks",JSON.stringify(links))
+for(let i=1;i<=pages;i++){
 
+const btn=document.createElement("button")
+
+btn.innerText=i
+btn.className="page-btn"
+
+if(i===currentPage) btn.classList.add("active")
+
+btn.onclick=function(){
+currentPage=i
 loadLinks()
+}
+
+pagination.appendChild(btn)
+
+}
 
 }
 
 function loadSubCategories(platform){
 
 const sub=document.getElementById("subCategoryScroll")
-
 sub.innerHTML=""
 
 let categories=[]
@@ -343,6 +417,7 @@ btn.innerText=cat
 
 btn.onclick=function(){
 currentCategory=cat
+currentPage=1
 loadLinks()
 }
 
@@ -357,11 +432,10 @@ document.querySelectorAll("#categoryScroll div").forEach(btn=>{
 btn.onclick=function(){
 
 currentPlatform=this.dataset.platform
-
 currentCategory="All"
+currentPage=1
 
 loadSubCategories(currentPlatform)
-
 loadLinks()
 
 }
@@ -399,11 +473,8 @@ flake.style.animationDuration=(3+Math.random()*5)+"s"
 container.appendChild(flake)
 
 flake.addEventListener("animationend",()=>{
-
 flake.remove()
-
 createSnowflakes(1)
-
 })
 
 }
@@ -413,11 +484,8 @@ createSnowflakes(1)
 createSnowflakes(50)
 
 window.onload=function(){
-
 loadSubCategories("All")
-
 loadLinks()
-
 }
 
 </script></body>
