@@ -29,7 +29,7 @@ z-index:-1;
 100%{transform:translate(0,0)}
 }
 
-/* header */
+/* Header */
 
 header{
 position:sticky;
@@ -72,16 +72,9 @@ margin-top:6px;
 background:linear-gradient(45deg,#3a7bfd,#a855f7);
 -webkit-background-clip:text;
 color:transparent;
-animation:titleWave 3s infinite;
 }
 
-@keyframes titleWave{
-0%{letter-spacing:1px}
-50%{letter-spacing:6px}
-100%{letter-spacing:1px}
-}
-
-/* dropdown */
+/* Dropdown */
 
 .dropdown{
 display:none;
@@ -106,16 +99,10 @@ text-decoration:none;
 background:#222;
 }
 
-/* hero */
+/* Hero */
 
 .hero{
 margin-top:25px;
-animation:fadeUp 1s forwards;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
 }
 
 .main-btn{
@@ -129,7 +116,7 @@ text-decoration:none;
 font-weight:bold;
 }
 
-/* search */
+/* Search */
 
 .search{
 margin-top:20px;
@@ -142,7 +129,7 @@ border-radius:10px;
 border:none;
 }
 
-/* category */
+/* Categories */
 
 #categoryScroll{
 margin-top:20px;
@@ -176,7 +163,7 @@ border-radius:20px;
 cursor:pointer;
 }
 
-/* cards */
+/* Cards */
 
 .cards{
 display:flex;
@@ -209,27 +196,18 @@ color:white;
 text-decoration:none;
 }
 
-/* pagination */
-
-#pagination{
-margin-top:30px;
-}
-
-.page-btn{
-margin:5px;
-padding:8px 14px;
-border:none;
-border-radius:8px;
-background:#222;
+.delete-btn{
+display:inline-block;
+margin-top:6px;
+padding:6px 14px;
+border-radius:20px;
+background:red;
 color:white;
+border:none;
 cursor:pointer;
 }
 
-.page-btn.active{
-background:#3a7bfd;
-}
-
-/* footer */
+/* Footer */
 
 footer{
 margin-top:30px;
@@ -238,7 +216,7 @@ background:#000;
 color:#aaa;
 }
 
-/* snow */
+/* Snow */
 
 #snowContainer{
 position:fixed;
@@ -283,7 +261,7 @@ to{transform:translateY(100vh);opacity:0;}
 <div data-platform="WhatsApp">WhatsApp</div>
 <div data-platform="Telegram">Telegram</div>
 <div data-platform="Facebook">Facebook</div>
-</div><div id="subCategoryScroll"></div><div class="cards" id="cardsContainer"></div><div id="pagination"></div><footer>
+</div><div id="subCategoryScroll"></div><div class="cards" id="cardsContainer"></div><footer>
 Made in Sri Lanka 🇱🇰 <br>
 © 2026 LinkWave
 </footer><div id="snowContainer"></div><script>
@@ -295,8 +273,6 @@ menu.style.display=(menu.style.display==="block")?"none":"block"
 
 let currentPlatform="All"
 let currentCategory="All"
-let currentPage=1
-const linksPerPage=13
 
 function loadLinks(){
 
@@ -305,16 +281,10 @@ container.innerHTML=""
 
 const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
 
-const filteredLinks=links.filter(link=>
-(currentPlatform==="All"||link.platform===currentPlatform)&&
-(currentCategory==="All"||link.category===currentCategory)
-)
+links.forEach((link,index)=>{
 
-const start=(currentPage-1)*linksPerPage
-const end=start+linksPerPage
-const paginatedLinks=filteredLinks.slice(start,end)
-
-paginatedLinks.forEach(link=>{
+if((currentPlatform==="All"||link.platform===currentPlatform)&&
+(currentCategory==="All"||link.category===currentCategory)){
 
 const card=document.createElement("div")
 
@@ -324,47 +294,38 @@ card.innerHTML=`
 ${link.logo?`<img src="${link.logo}">`:''}
 <h3>${link.name}</h3>
 <p>${link.description}</p>
+
 <a class="join" href="${link.url}" target="_blank">Join</a>
+
+<button class="delete-btn" onclick="deleteLink(${index})">
+Delete
+</button>
 `
 
 container.appendChild(card)
 
+}
+
 })
 
-createPagination(filteredLinks.length)
-
 }
 
-function createPagination(total){
+function deleteLink(index){
 
-const pagination=document.getElementById("pagination")
-pagination.innerHTML=""
+let links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
 
-const pages=Math.ceil(total/linksPerPage)
+links.splice(index,1)
 
-for(let i=1;i<=pages;i++){
+localStorage.setItem("linkwaveLinks",JSON.stringify(links))
 
-const btn=document.createElement("button")
-
-btn.innerText=i
-btn.className="page-btn"
-
-if(i===currentPage) btn.classList.add("active")
-
-btn.onclick=function(){
-currentPage=i
 loadLinks()
-}
-
-pagination.appendChild(btn)
-
-}
 
 }
 
 function loadSubCategories(platform){
 
 const sub=document.getElementById("subCategoryScroll")
+
 sub.innerHTML=""
 
 let categories=[]
@@ -382,7 +343,6 @@ btn.innerText=cat
 
 btn.onclick=function(){
 currentCategory=cat
-currentPage=1
 loadLinks()
 }
 
@@ -397,10 +357,11 @@ document.querySelectorAll("#categoryScroll div").forEach(btn=>{
 btn.onclick=function(){
 
 currentPlatform=this.dataset.platform
+
 currentCategory="All"
-currentPage=1
 
 loadSubCategories(currentPlatform)
+
 loadLinks()
 
 }
@@ -438,8 +399,11 @@ flake.style.animationDuration=(3+Math.random()*5)+"s"
 container.appendChild(flake)
 
 flake.addEventListener("animationend",()=>{
+
 flake.remove()
+
 createSnowflakes(1)
+
 })
 
 }
@@ -449,8 +413,11 @@ createSnowflakes(1)
 createSnowflakes(50)
 
 window.onload=function(){
+
 loadSubCategories("All")
+
 loadLinks()
+
 }
 
 </script></body>
