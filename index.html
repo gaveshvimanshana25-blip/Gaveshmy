@@ -287,7 +287,7 @@ footer{
   <div id="progressContainer">
     <div id="progressBar"></div>
   </div>
-  <div id="welcomeText">Welcome to LinkWave</div>
+  <div id="welcomeText">Welcome</div>
 </div>
 
 <!-- HEADER -->
@@ -330,7 +330,6 @@ footer{
   Made in Sri Lanka 🇱🇰 <br>
   © 2026 LinkWave
 </footer>
-
 <div id="snowContainer"></div>
 
 <script>
@@ -362,11 +361,10 @@ let currentPlatform="All"
 let currentCategory="All"
 let currentPage=1
 const linksPerPage=13
-
 function loadLinks(){
   const container=document.getElementById("cardsContainer")
   container.innerHTML=""
-  const links=JSON.parse(localStorage.getItem("linkwaveLinks") || "[]") // FIXED
+  const links=JSON.parse(localStorage.getItem("linkwaveLinks"))||[]
   const filteredLinks=links.filter(link=>
     (currentPlatform==="All"||link.platform===currentPlatform)&&
     (currentCategory==="All"||link.category===currentCategory)
@@ -443,7 +441,7 @@ document.getElementById("searchInput").addEventListener("input",function(){
   })
 })
 
-/* LOADING SCREEN LOGIC */
+/* LOADING SCREEN LOGIC FIXED */
 window.addEventListener("load",()=>{
   loadSubCategories("All")
   loadLinks()
@@ -456,6 +454,18 @@ window.addEventListener("load",()=>{
     progressBar.style.width=progress+"%"
     if(progress>=100){
       clearInterval(interval)
+      loadingScreen.style.transition="opacity 0.5s"
+      loadingScreen.style.opacity="0"
+      setTimeout(()=>{
+        loadingScreen.style.display="none"
+      },500)
+    }
+  },100)
+})
+</script>
+
+</body>
+</html>  clearInterval(interval)
       loadingScreen.style.transition="opacity 0.5s"
       loadingScreen.style.opacity="0"
       setTimeout(()=>{loadingScreen.style.display="none"},500)
